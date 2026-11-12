@@ -1,0 +1,382 @@
+﻿diff --git a/logs/ingest_log.md b/logs/ingest_log.md
+new file mode 100644
+index 0000000..d4e780b
+--- /dev/null
++++ b/logs/ingest_log.md
+@@ -0,0 +1,168 @@
++# Ingest Log
++
++This log records source ingestion and knowledge-base maintenance events. It is append-only: new work should add entries rather than rewriting old history.
++
++## 2026-07-09 - S01 - Retrieval-Augmented Generation
++
++- Source ID: S01.
++- Files read: `raw/source_manifest.md`, `schema/AGENTS.md`, `schema/page_template.md`, `wiki/index.md`, `raw/S01.pdf`, `logs/ingest_log.md`.
++- Relevant existing wiki pages read: `wiki/index.md`; no substantive topic pages existed in `wiki/` at ingest time.
++- Actions: created a new concept page for retrieval-augmented generation, repaired the malformed index, linked the new page from the index, and saved S01 verification notes.
++- Created files: `wiki/retrieval-augmented-generation.md`, `evidence/2026-07-09_ingest_S01_excerpts.md`.
++- Modified files: `wiki/index.md`, `logs/ingest_log.md`.
++- Verification: confirmed S01 manifest metadata and quality label; extracted S01 PDF text with `pdfplumber`; checked reported page count, architecture, benchmark numbers, parameter/index numbers, knowledge-update result, and limitations against the extracted source text; checked wikilinks and source IDs with `rg`.
++- Conflicts: none detected because no pre-existing substantive wiki page made comparable RAG claims.
++- Exceptions: `pdftotext` was unavailable, so bundled Python with `pdfplumber` was used; a direct console extraction hit a PowerShell/GBK encoding issue and was rerun with UTF-8-safe output.
++- Unresolved issues: the final open question about choosing among RAG variants and newer retrieval architectures remains `source-needed` until more sources are ingested.
++- Evidence saved: `evidence/2026-07-09_ingest_S01_excerpts.md`.
++- Diff saved: `evidence/diffs/2026-07-09_ingest_S01_rag.diff`.
++
++## 2026-07-09 - S02 - ReAct Reasoning and Acting
++
++- Source ID: S02.
++- Files read: `raw/source_manifest.md`, `schema/AGENTS.md`, `schema/page_template.md`, `wiki/index.md`, `raw/S02.pdf`, `wiki/retrieval-augmented-generation.md`, `logs/ingest_log.md`.
++- Relevant existing wiki pages read: `wiki/index.md`, `wiki/retrieval-augmented-generation.md`.
++- Actions: created a new concept page for ReAct reasoning/action loops, linked it from the index, and added a synthesis cross-link from the RAG page distinguishing S01's retrieval-augmented seq2seq architecture from S02's ReAct prompting/action-loop paradigm.
++- Created files: `wiki/react-reasoning-and-acting.md`, `evidence/2026-07-09_ingest_S02_excerpts.md`.
++- Modified files: `wiki/index.md`, `wiki/retrieval-augmented-generation.md`, `logs/ingest_log.md`.
++- Verification: confirmed S02 manifest metadata and quality label; extracted S02 PDF text with `pdfplumber`; checked reported page count, method definition, action space, benchmark results, failure-mode numbers, fine-tuning note, reproducibility note, and ethics boundary against the extracted source text; checked wikilinks and source IDs with `rg`.
++- Conflicts: none detected; S02 adds a distinct prompting/action-loop concept and does not revise S01's RAG architecture or benchmark claims.
++- Exceptions: PDF text extraction contains noisy figure glyphs on some pages, so numeric claims were checked against table text and surrounding extracted prose rather than figure rendering.
++- Unresolved issues: production exposure of reasoning traces and real-system permissioning remain `source-needed`; transfer to newer models beyond PaLM-540B and GPT-3 `text-davinci-002` remains uncertain.
++- Evidence saved: `evidence/2026-07-09_ingest_S02_excerpts.md`.
++- Diff saved: `evidence/diffs/2026-07-09_ingest_S02_react.diff`.
++
++## 2026-07-09 - S03 - Toolformer Self-Supervised Tool Use
++
++- Source ID: S03.
++- Files read: `raw/source_manifest.md`, `schema/AGENTS.md`, `schema/page_template.md`, `wiki/index.md`, `raw/S03.pdf`, `wiki/react-reasoning-and-acting.md`, `wiki/retrieval-augmented-generation.md`, `logs/ingest_log.md`.
++- Relevant existing wiki pages read: `wiki/index.md`, `wiki/react-reasoning-and-acting.md`, `wiki/retrieval-augmented-generation.md`.
++- Actions: created a new concept page for Toolformer self-supervised tool use, linked it from the index, and added a synthesis cross-link from the ReAct page distinguishing prompted interactive reasoning/action trajectories from Toolformer's self-supervised API-call fine-tuning.
++- Created files: `wiki/toolformer-self-supervised-tool-use.md`, `evidence/2026-07-09_ingest_S03_excerpts.md`.
++- Modified files: `wiki/index.md`, `wiki/react-reasoning-and-acting.md`, `logs/ingest_log.md`.
++- Verification: confirmed S03 manifest metadata and quality label; extracted S03 PDF text with `pdfplumber`; checked reported page count, method definition, tool inventory, filtering thresholds and example counts, training setup, benchmark numbers, language-modeling perplexity, scaling claim, and limitations against extracted source text; checked wikilinks and source IDs with `rg`.
++- Conflicts: none detected; S03 adds a distinct self-supervised API-call learning mechanism and does not supersede S01 RAG or S02 ReAct claims.
++- Exceptions: PDF extraction included some multi-column/table ordering noise, so benchmark and count claims were checked against separately extracted table text.
++- Unresolved issues: tool-call cost/risk pricing, combining Toolformer with ReAct-style multi-step tool refinement, and learning from sensitive enterprise tool logs remain open; the sensitive-log safeguard question remains `source-needed`.
++- Evidence saved: `evidence/2026-07-09_ingest_S03_excerpts.md`.
++- Diff saved: `evidence/diffs/2026-07-09_ingest_S03_toolformer.diff`.
++
++## 2026-07-09 - S04 - API-Bank Tool-Augmented LLM Benchmark
++
++- Source ID: S04.
++- Files read: `raw/source_manifest.md`, `schema/AGENTS.md`, `schema/page_template.md`, `wiki/index.md`, `raw/S04.pdf`, `wiki/react-reasoning-and-acting.md`, `wiki/toolformer-self-supervised-tool-use.md`, `logs/ingest_log.md`.
++- Relevant existing wiki pages read: `wiki/index.md`, `wiki/react-reasoning-and-acting.md`, `wiki/toolformer-self-supervised-tool-use.md`.
++- Actions: created a new concept page for API-Bank, linked it from the index, and added synthesis cross-links from ReAct and Toolformer distinguishing API-Bank's benchmark/evaluation role from S02's prompting method and S03's self-supervised API-call training method.
++- Created files: `wiki/api-bank-tool-augmented-llm-benchmark.md`, `evidence/2026-07-09_ingest_S04_excerpts.md`.
++- Modified files: `wiki/index.md`, `wiki/react-reasoning-and-acting.md`, `wiki/toolformer-self-supervised-tool-use.md`, `logs/ingest_log.md`.
++- Verification: confirmed S04 manifest metadata and quality label; extracted S04 PDF text with `pdfplumber`; checked page count, ability grading, evaluation-system counts, training/evaluation set statistics, main benchmark results, error distributions, limitations, and ethics/annotation boundaries against extracted source text; checked wikilinks and source IDs with `rg`.
++- Conflicts: none detected; S04 adds a benchmark and evaluation framework for tool-augmented LLMs and does not supersede S02 ReAct or S03 Toolformer claims.
++- Exceptions: PDF extraction contained multi-column ordering noise in appendix/example pages, so core numeric claims were checked against table text and nearby prose.
++- Unresolved issues: applying executable API evaluation to permissioned enterprise tools, comparing API-Bank scores with later benchmarks, and reducing API hallucination remain open; two benchmark-transfer questions remain `source-needed`.
++- Evidence saved: `evidence/2026-07-09_ingest_S04_excerpts.md`.
++- Diff saved: `evidence/diffs/2026-07-09_ingest_S04_api-bank.diff`.
++
++## 2026-07-09 - S05 - Tau-Bench Agent Consistency Benchmark
++
++- Source ID: S05.
++- Files read: `raw/source_manifest.md`, `schema/AGENTS.md`, `schema/page_template.md`, `wiki/index.md`, `raw/S05.pdf`, `wiki/api-bank-tool-augmented-llm-benchmark.md`, `wiki/react-reasoning-and-acting.md`, `logs/ingest_log.md`.
++- Relevant existing wiki pages read: `wiki/index.md`, `wiki/api-bank-tool-augmented-llm-benchmark.md`, `wiki/react-reasoning-and-acting.md`.
++- Actions: created a new concept page for tau-bench agent consistency evaluation, linked it from the index, added synthesis cross-links from API-Bank and ReAct, and saved S05 extraction notes.
++- Created files: `wiki/tau-bench-agent-consistency-benchmark.md`, `evidence/2026-07-09_ingest_S05_tau-bench_excerpts.md`.
++- Modified files: `wiki/index.md`, `wiki/api-bank-tool-augmented-llm-benchmark.md`, `wiki/react-reasoning-and-acting.md`, `logs/ingest_log.md`.
++- Verification: confirmed S05 manifest metadata and quality label; extracted S05 PDF text with `pdfplumber`; checked page count, metric definition, domain statistics, experiment settings, model benchmark results, consistency result, failure-analysis counts, policy-ablation numbers, and limitations against extracted source text; checked wikilinks and source IDs with `rg`.
++- Conflicts: none detected; S05 adds a later agent-reliability benchmark and does not supersede S02 ReAct or S04 API-Bank claims.
++- Exceptions: PDF extraction contained figure/table layout noise, so numeric claims were checked against table text and nearby prose rather than relying on visual order alone.
++- Unresolved issues: production thresholds for `pass^k`, applying final-state evaluation to real enterprise write tools, and transfer of S05's model-method conclusions to later models or agent scaffolds remain open; two production-transfer questions remain `source-needed`.
++- Evidence saved: `evidence/2026-07-09_ingest_S05_tau-bench_excerpts.md`.
++- Diff saved: `evidence/diffs/2026-07-09_ingest_S05_tau-bench.diff`.
++
++## 2026-07-09 - S06 - ToolSandbox Stateful Tool-Use Benchmark
++
++- Source ID: S06.
++- Files read: `raw/source_manifest.md`, `schema/AGENTS.md`, `schema/page_template.md`, `wiki/index.md`, `raw/S06.pdf`, `wiki/api-bank-tool-augmented-llm-benchmark.md`, `wiki/tau-bench-agent-consistency-benchmark.md`, `wiki/react-reasoning-and-acting.md`, `logs/ingest_log.md`.
++- Relevant existing wiki pages read: `wiki/index.md`, `wiki/api-bank-tool-augmented-llm-benchmark.md`, `wiki/tau-bench-agent-consistency-benchmark.md`, `wiki/react-reasoning-and-acting.md`.
++- Actions: created a new concept page for ToolSandbox, created a contradiction register because S06's tau-bench comparison conflicts with S05's own evaluation description, linked both pages from the index, added synthesis cross-links from API-Bank, tau-bench, and ReAct, and saved S06 extraction notes.
++- Created files: `wiki/toolsandbox-stateful-tool-use-benchmark.md`, `wiki/contradiction-register.md`, `evidence/2026-07-09_ingest_S06_toolsandbox_excerpts.md`.
++- Modified files: `wiki/index.md`, `wiki/api-bank-tool-augmented-llm-benchmark.md`, `wiki/tau-bench-agent-consistency-benchmark.md`, `wiki/react-reasoning-and-acting.md`, `logs/ingest_log.md`.
++- Verification: confirmed S06 manifest metadata and quality label; extracted S06 PDF text with `pdfplumber`; checked page count, stateful-tool definition, user-simulator results, benchmark statistics, scenario counts, model benchmark results, ReAct appendix results, limitations, frontmatter, source tags, and wikilinks against extracted source text and wiki state.
++- Conflicts: recorded an open contradiction between S05's final database-state evaluation description for tau-bench and S06's characterization that tau-bench requires matching a single predetermined action sequence.
++- Exceptions: PDF extraction contained table and figure ordering noise, so benchmark numbers were checked against targeted page/table extractions and nearby prose.
++- Unresolved issues: scaling Milestone/Minefield authoring, modeling confirmation/authentication boundaries, and stabilizing external-service-backed tools remain open; two enterprise-transfer questions remain `source-needed`.
++- Evidence saved: `evidence/2026-07-09_ingest_S06_toolsandbox_excerpts.md`.
++- Diff saved: `evidence/diffs/2026-07-09_ingest_S06_toolsandbox.diff`.
++
++## 2026-07-09 - S07 - AutoGen Multi-Agent Conversation Framework
++
++- Source ID: S07.
++- Files read: `raw/source_manifest.md`, `schema/AGENTS.md`, `schema/page_template.md`, `wiki/index.md`, `raw/S07.pdf`, `wiki/react-reasoning-and-acting.md`, `wiki/toolsandbox-stateful-tool-use-benchmark.md`, `wiki/toolformer-self-supervised-tool-use.md`, `wiki/retrieval-augmented-generation.md`, `wiki/contradiction-register.md`, `logs/ingest_log.md`.
++- Relevant existing wiki pages read: `wiki/index.md`, `wiki/react-reasoning-and-acting.md`, `wiki/toolsandbox-stateful-tool-use-benchmark.md`, `wiki/toolformer-self-supervised-tool-use.md`, `wiki/retrieval-augmented-generation.md`, `wiki/contradiction-register.md`.
++- Actions: created a new concept page for AutoGen multi-agent conversation programming, linked it from the index, added synthesis cross-links from ReAct, RAG, and ToolSandbox, and saved S07 extraction notes.
++- Created files: `wiki/autogen-multi-agent-conversation-framework.md`, `evidence/2026-07-09_ingest_S07_autogen_excerpts.md`.
++- Modified files: `wiki/index.md`, `wiki/react-reasoning-and-acting.md`, `wiki/retrieval-augmented-generation.md`, `wiki/toolsandbox-stateful-tool-use-benchmark.md`, `logs/ingest_log.md`.
++- Verification: confirmed S07 manifest metadata and medium quality label; extracted S07 PDF text with `pdfplumber`; checked page count, agent abstractions, conversation programming interfaces, human/tool participation, application list, MATH results, ALFWorld results, OptiGuide results, dynamic group chat results, MiniWobChat result, limitations, frontmatter, source tags, and wikilinks against extracted source text and wiki state.
++- Conflicts: none detected; S07 adds a multi-agent orchestration framework and does not supersede existing ReAct, RAG, or ToolSandbox claims.
++- Exceptions: PDF extraction contained figure/table layout noise, so numeric claims were checked against targeted page/table extractions and nearby prose.
++- Unresolved issues: enterprise reliability of AutoGen conversation patterns, choosing single-agent versus multi-agent topologies, and test harnesses for code execution or external function calls remain open; two workflow-selection questions remain `source-needed`.
++- Evidence saved: `evidence/2026-07-09_ingest_S07_autogen_excerpts.md`.
++- Diff saved: `evidence/diffs/2026-07-09_ingest_S07_autogen.diff`.
++
++## 2026-07-09 - S08 - Multiagent Debate for Factuality and Reasoning
++
++- Source ID: S08.
++- Files read: `raw/source_manifest.md`, `schema/AGENTS.md`, `schema/page_template.md`, `wiki/index.md`, `raw/S08.pdf`, `wiki/autogen-multi-agent-conversation-framework.md`, `wiki/contradiction-register.md`, `logs/ingest_log.md`.
++- Relevant existing wiki pages read: `wiki/index.md`, `wiki/autogen-multi-agent-conversation-framework.md`, `wiki/contradiction-register.md`.
++- Actions: created a new concept page for multiagent debate, linked it from the index, added a synthesis cross-link from AutoGen, and saved S08 extraction notes.
++- Created files: `wiki/multiagent-debate-for-factuality-and-reasoning.md`, `evidence/2026-07-09_ingest_S08_multiagent-debate_excerpts.md`.
++- Modified files: `wiki/index.md`, `wiki/autogen-multi-agent-conversation-framework.md`, `logs/ingest_log.md`.
++- Verification: confirmed S08 manifest metadata and medium quality label; extracted S08 PDF text with `pdfplumber`; checked page count, debate protocol, model setup, task set, Table 1 reasoning results, Table 2 factuality results, appendix dataset sizes, mixed-model result, limitations, frontmatter, source tags, and wikilinks against extracted text and wiki state.
++- Conflicts: none detected yet; S08 is positive evidence for debate and the manifest identifies S09 as a future counterpoint not yet ingested.
++- Exceptions: PDF extraction contained figure/table ordering noise, so numerical claims were checked against targeted page/table extractions and surrounding prose.
++- Unresolved issues: which failures come from shared model bias versus debate design, cost comparison with other methods, and reconciliation with S09 remain open; three debate-transfer questions remain `source-needed`.
++- Evidence saved: `evidence/2026-07-09_ingest_S08_multiagent-debate_excerpts.md`.
++- Diff saved: `evidence/diffs/2026-07-09_ingest_S08_multiagent-debate.diff`.
++
++## 2026-07-09 - S09 - Multiagent Debate Limits and Majority Pressure
++
++- Source ID: S09.
++- Files read: `raw/source_manifest.md`, `schema/AGENTS.md`, `schema/page_template.md`, `wiki/index.md`, `raw/S09.pdf`, `wiki/multiagent-debate-for-factuality-and-reasoning.md`, `wiki/autogen-multi-agent-conversation-framework.md`, `wiki/contradiction-register.md`, `logs/ingest_log.md`.
++- Relevant existing wiki pages read: `wiki/index.md`, `wiki/multiagent-debate-for-factuality-and-reasoning.md`, `wiki/autogen-multi-agent-conversation-framework.md`, `wiki/contradiction-register.md`.
++- Actions: updated the existing multiagent debate page with S09's controlled logic-puzzle evidence and limitations, updated the index source list, added a contradiction-register entry preserving S08's positive claim and S09's qualifying counterpoint, and saved S09 extraction notes.
++- Created files: `evidence/2026-07-09_ingest_S09_multiagent-debate-limits_excerpts.md`.
++- Modified files: `wiki/index.md`, `wiki/multiagent-debate-for-factuality-and-reasoning.md`, `wiki/contradiction-register.md`, `logs/ingest_log.md`.
++- Verification: confirmed S09 manifest metadata and medium quality label; extracted S09 PDF text with `pdfplumber`; checked page count, title metadata, debate protocol, controlled factors, anchor configuration, puzzle counts, Table 3 accuracy results, Table 4 regression numbers, majority-pressure examples, rational-behavior correction-rate bounds, limitations, frontmatter, source tags, and wikilinks against extracted text and wiki state.
++- Conflicts: recorded an open contradiction/qualification between S08's broad positive debate results and S09's later finding that debate gains are strongly bounded by reasoning strength, team diversity, and resistance to incorrect majority pressure.
++- Exceptions: PDF extraction contained figure/table encoding and ordering noise, so numerical claims were checked against targeted page/table extractions and surrounding prose rather than raw table extraction alone.
++- Unresolved issues: transfer from S09's Knight-Knave-Spy setting to S08's factuality, math, chess, and MMLU settings remains open; two deployment-cost and failure-cause questions remain `source-needed`.
++- Evidence saved: `evidence/2026-07-09_ingest_S09_multiagent-debate-limits_excerpts.md`.
++- Diff saved: `evidence/diffs/2026-07-09_ingest_S09_multiagent-debate-limits.diff`.
++
++## 2026-07-09 - S10 - LLM Wiki
++
++- Source ID: S10.
++- Files read: `raw/source_manifest.md`, `schema/AGENTS.md`, `schema/page_template.md`, `wiki/index.md`, `raw/S10_llm_wiki.source.md`, `wiki/retrieval-augmented-generation.md`, `logs/ingest_log.md`.
++- Relevant existing wiki pages read: `wiki/index.md`, `wiki/retrieval-augmented-generation.md`.
++- Actions: created a new concept page for LLM Wiki, linked it from the index, added a synthesis link from RAG distinguishing LLM Wiki from model-level retrieval-augmented generation, and saved S10 extraction notes.
++- Created files: `wiki/llm-wiki.md`, `evidence/2026-07-09_ingest_S10_llm-wiki_excerpts.md`.
++- Modified files: `wiki/index.md`, `wiki/retrieval-augmented-generation.md`, `logs/ingest_log.md`.
++- Verification: confirmed S10 manifest metadata and medium quality label; checked the raw source capture metadata, date, access date, shareability, project-use claims, raw/wiki/schema distinction, ingest/query/lint workflow claims, medium-sized source-set claim, evidentiary boundary, frontmatter, source tags, index entry, and wikilinks against the captured source and wiki state.
++- Conflicts: none detected; S10 defines an LLM Wiki design pattern and does not supersede RAG or other existing pages.
++- Exceptions: S10 is a sparse source capture of an original design proposal rather than a controlled empirical evaluation, so the new page treats it as architecture vocabulary and not as reliability evidence.
++- Unresolved issues: lint criteria, raw-source retrieval strategy, and scaling beyond a medium-sized source set remain open; three LLM Wiki operations questions remain `source-needed`.
++- Evidence saved: `evidence/2026-07-09_ingest_S10_llm-wiki_excerpts.md`.
++- Diff saved: `evidence/diffs/2026-07-09_ingest_S10_llm-wiki.diff`.
++
++## 2026-07-09 - S11 - MCP Architecture Overview
++
++- Source ID: S11.
++- Files read: `raw/source_manifest.md`, `schema/AGENTS.md`, `schema/page_template.md`, `wiki/index.md`, `raw/S11_mcp_architecture.source.md`, `wiki/react-reasoning-and-acting.md`, `wiki/toolformer-self-supervised-tool-use.md`, `wiki/api-bank-tool-augmented-llm-benchmark.md`, `logs/ingest_log.md`.
++- Relevant existing wiki pages read: `wiki/index.md`, `wiki/react-reasoning-and-acting.md`, `wiki/toolformer-self-supervised-tool-use.md`, `wiki/api-bank-tool-augmented-llm-benchmark.md`.
++- Actions: created a new MCP architecture concept page, linked it from the index, added a ReAct synthesis distinguishing model action loops from the MCP tool/context exchange layer, and saved S11 extraction notes.
++- Created files: `wiki/model-context-protocol-architecture.md`, `evidence/2026-07-09_ingest_S11_mcp-architecture_excerpts.md`.
++- Modified files: `wiki/index.md`, `wiki/react-reasoning-and-acting.md`, `logs/ingest_log.md`.
++- Verification: confirmed S11 manifest metadata and high quality label; checked the raw source capture metadata, continuous-update status, access date, shareability, host/client/server architecture claim, tools/resources/prompts primitives, capability negotiation claim, authorization/security boundary, frontmatter, source tags, index entry, and wikilinks against the captured source and wiki state.
++- Conflicts: none detected; S11 defines the MCP architecture baseline and explicitly defers production authorization and security claims to S12 and S13.
++- Exceptions: S11 is a compact official documentation capture, so the page records the architecture vocabulary and boundaries present in the capture without adding protocol details not present in the source.
++- Unresolved issues: capability-negotiation detail placement, least-privilege exposure, and host/client/server audit events remain open; three MCP operations questions remain `source-needed`.
++- Evidence saved: `evidence/2026-07-09_ingest_S11_mcp-architecture_excerpts.md`.
++- Diff saved: `evidence/diffs/2026-07-09_ingest_S11_mcp-architecture.diff`.
+diff --git a/wiki/index.md b/wiki/index.md
+new file mode 100644
+index 0000000..587e60b
+--- /dev/null
++++ b/wiki/index.md
+@@ -0,0 +1,35 @@
++---
++title: Knowledge Base Index
++page_type: overview
++status: draft
++updated: 2026-07-09
++sources: [S01, S02, S03, S04, S05, S06, S07, S08, S09, S10, S11]
++confidence: high
++---
++
++# Knowledge Base Index
++
++This index lists derived wiki pages. It currently includes coverage of retrieval-augmented generation, LLM Wiki knowledge-base maintenance, Model Context Protocol architecture, reasoning-action prompting, self-supervised tool-use learning, API-planning evaluation, repeated-trial agent reliability, stateful interactive tool-use benchmarks, multi-agent orchestration frameworks, and multiagent debate benefits and limits for knowledge-intensive and tool-using language-model systems [S01] [S02] [S03] [S04] [S05] [S06] [S07] [S08] [S09] [S10] [S11].
++
++## Retrieval and Knowledge Updating
++
++- [[retrieval-augmented-generation|Retrieval-Augmented Generation]]
++- [[llm-wiki|LLM Wiki]]
++
++## Agent Reasoning and Tool Use
++
++- [[react-reasoning-and-acting|ReAct Reasoning and Acting]]
++- [[toolformer-self-supervised-tool-use|Toolformer Self-Supervised Tool Use]]
++- [[api-bank-tool-augmented-llm-benchmark|API-Bank Tool-Augmented LLM Benchmark]]
++- [[tau-bench-agent-consistency-benchmark|Tau-Bench Agent Consistency Benchmark]]
++- [[toolsandbox-stateful-tool-use-benchmark|ToolSandbox Stateful Tool-Use Benchmark]]
++- [[autogen-multi-agent-conversation-framework|AutoGen Multi-Agent Conversation Framework]]
++- [[multiagent-debate-for-factuality-and-reasoning|Multiagent Debate for Factuality and Reasoning]]
++
++## Model Context Protocol
++
++- [[model-context-protocol-architecture|Model Context Protocol Architecture]]
++
++## Registers
++
++- [[contradiction-register|Contradiction Register]]
+
+# MCP architecture page snapshot
+
+diff --git "a/wiki\\model-context-protocol-architecture.md" "b/wiki\\model-context-protocol-architecture.md"
+new file mode 100644
+index 0000000..5cbd74f
+--- /dev/null
++++ "b/wiki\\model-context-protocol-architecture.md"
+@@ -0,0 +1,51 @@
++---
++title: Model Context Protocol Architecture
++page_type: concept
++status: draft
++updated: 2026-07-09
++sources: [S11]
++confidence: high
++---
++
++# Model Context Protocol Architecture
++
++## Core Definition
++
++The Model Context Protocol architecture overview is official technical documentation that defines MCP's basic architecture for host, client, server, tools, resources, prompts, and capability negotiation [S11].
++
++S11 is used in this project as the baseline for what MCP provides at the tool/context exchange layer [S11].
++
++## Key Claims
++
++- S11 defines the MCP architecture roles of host, client, and server [S11].
++- S11 defines MCP primitives for tools, resources, and prompts [S11].
++- S11 includes capability negotiation as part of the MCP architecture overview [S11].
++- S11 supports distinguishing the MCP architecture layer from production authorization and security details covered by later sources S12 and S13 [S11].
++- S11 is an official technical documentation capture, public, high quality, accessed on 2026-07-06, and listed in the manifest as continuously updated [S11].
++
++## Evidence and Sources
++
++The captured S11 source says the official MCP architecture overview defines the basic architecture used throughout the project, including host, client, server, tools, resources, prompts, and capability negotiation [S11].
++
++The captured S11 source says its project use is defining what MCP provides at the tool/context exchange layer and distinguishing architecture from authorization and security details [S11].
++
++Synthesis: MCP architecture is a protocol and integration boundary for exposing context and capabilities, while [[react-reasoning-and-acting|ReAct]] is a prompting pattern for how a model chooses and reasons through actions in an environment [S02] [S11].
++
++## Limitations and Counter-Evidence
++
++S11 should not be used alone for production authorization or security claims, because its capture explicitly says to pair the architecture overview with S12 and S13 for those topics [S11].
++
++S11 is continuously updated official documentation, so concrete architecture claims should be tied to the captured access date of 2026-07-06 unless later ingests update the page [S11].
++
++S11 is an overview source rather than a full security or authorization specification, so normative deployment claims should wait for the dedicated authorization and security sources [S11].
++
++## Links to Other Pages
++
++- [[index|Knowledge Base Index]]
++- [[react-reasoning-and-acting|ReAct Reasoning and Acting]]
++
++## Open Questions
++
++- Which MCP capability-negotiation details belong on this architecture page versus a later protocol-version page source-needed?
++- How should MCP hosts expose tool, resource, and prompt capabilities to agents while preserving least privilege source-needed?
++- What audit events should be recorded at host, client, and server boundaries when MCP tools are invoked source-needed?
+
+# ReAct page snapshot with S11 update
+
+diff --git "a/wiki\\react-reasoning-and-acting.md" "b/wiki\\react-reasoning-and-acting.md"
+new file mode 100644
+index 0000000..f0f3b99
+--- /dev/null
++++ "b/wiki\\react-reasoning-and-acting.md"
+@@ -0,0 +1,81 @@
++---
++title: ReAct Reasoning and Acting
++page_type: concept
++status: draft
++updated: 2026-07-09
++sources: [S02, S03, S04, S05, S06, S07, S11]
++confidence: high
++---
++
++# ReAct Reasoning and Acting
++
++## Core Definition
++
++ReAct is a prompting paradigm in which a language model generates verbal reasoning traces and task-specific actions in an interleaved trajectory, so thoughts can guide actions and observations from tools or environments can update later reasoning [S02].
++
++In Yao et al.'s ICLR 2023 paper, ReAct augments an agent's action space with free-form language thoughts that do not directly change the external environment but do update the model's context for later reasoning or acting [S02].
++
++## Key Claims
++
++- ReAct is designed to combine two previously separated capabilities: chain-of-thought style reasoning and action generation for interaction with external sources such as Wikipedia APIs, web environments, or text-game environments [S02].
++- For HotpotQA and FEVER, S02 uses a simple Wikipedia API with `search[entity]`, `lookup[string]`, and `finish[answer]` actions, and the authors explicitly state that this API is weaker than state-of-the-art lexical or neural retrievers [S02].
++- The main prompting experiments use a frozen PaLM-540B model with few-shot in-context examples; the paper reports additional GPT-3 `text-davinci-002` experiments in an appendix [S02].
++- For HotpotQA and FEVER prompts, the authors manually compose ReAct-format trajectories from 6 HotpotQA training cases and 3 FEVER training cases, and report that adding more examples did not improve performance [S02].
++- On PaLM-540B prompting, ReAct scores 27.4 exact match on HotpotQA and 60.9 accuracy on FEVER, compared with Act-only scores of 25.7 and 58.9 and chain-of-thought scores of 29.4 and 56.3 [S02].
++- Combining ReAct with chain-of-thought self-consistency gives the best reported prompting numbers in Table 1: ReAct to CoT-SC reaches 35.1 exact match on HotpotQA, while CoT-SC to ReAct reaches 64.6 accuracy on FEVER [S02].
++- In a manual HotpotQA error analysis, S02 reports that successful ReAct trajectories had a 6% false-positive rate versus 14% for chain-of-thought, while failed ReAct trajectories were attributed to 47% reasoning error, 23% search-result error, and 29% label ambiguity [S02].
++- In the same analysis, failed chain-of-thought trajectories were attributed to 56% hallucination, 16% reasoning error, and 28% label ambiguity, which the authors use to argue that ReAct is more grounded but less flexible than pure chain-of-thought [S02].
++- On ALFWorld, the best ReAct trial reaches a 71% overall success rate, compared with 45% for the best Act-only trial, 37% for BUTLER, and 53% for the best ReAct-IM ablation [S02].
++- On WebShop, ReAct reports a score of 66.6 and a 40.0% success rate, compared with Act-only at 62.3 and 30.1%, imitation learning at 59.9 and 29.1%, imitation learning plus reinforcement learning at 62.4 and 28.7%, and expert humans at 82.1 and 59.6% [S02].
++- S02 reports that ReAct outperforms imitation or reinforcement learning baselines on ALFWorld and WebShop by absolute success-rate gains of 34% and 10% while using only one or two in-context examples for those decision-making tasks [S02].
++
++## Evidence and Sources
++
++S02 is a high-quality public paper/PDF in the manifest, dated 2022-10-06 there and published as an ICLR 2023 conference paper in the PDF text [S02].
++
++The paper evaluates ReAct on four main benchmarks: HotpotQA for multi-hop question answering, FEVER for fact verification, ALFWorld for text-based household tasks, and WebShop for webpage navigation and shopping tasks [S02].
++
++S02 reports initial fine-tuning experiments on HotpotQA using 3,000 ReAct-generated correct-answer trajectories to fine-tune PaLM-8B and PaLM-62B models, and it states that fine-tuned ReAct becomes the best of Standard, CoT, Act, and ReAct among those four methods [S02].
++
++The reproducibility statement says the main experiments use PaLM, which was not openly accessible at the time of the paper, and points readers to included prompts, additional GPT-3 experiments, and associated GPT-3 ReAct prompting code [S02].
++
++## Limitations and Counter-Evidence
++
++ReAct prompting is not uniformly better than chain-of-thought: on PaLM-540B HotpotQA, ReAct at 27.4 exact match trails chain-of-thought at 29.4 and CoT-SC at 33.4 before combination with CoT-SC [S02].
++
++The paper reports that ReAct's interleaved thought-action-observation structure can reduce reasoning flexibility, with one common failure mode in which the model repeats previous thoughts and actions instead of recovering [S02].
++
++For ReAct on knowledge-intensive tasks, informative search is critical; S02 attributes 23% of sampled ReAct HotpotQA failures to search results that are empty or do not contain useful information [S02].
++
++The paper states that complex tasks with large action spaces may require more demonstrations than fit comfortably in in-context learning input limits, motivating fine-tuning and higher-quality human annotations as future work [S02].
++
++The ethics statement warns that connecting language models to external action spaces can create risks such as looking up inappropriate or private information or taking harmful actions, and the paper reduces that risk by limiting experiments to constrained Wikipedia, WebShop, and benchmark environments without dangerous actions [S02].
++
++Synthesis: ReAct and Toolformer both address tool use by language models, but ReAct uses prompted interleaving of thoughts, actions, and observations in an environment, while Toolformer fine-tunes a model on self-supervised API-call annotations so it can decide when and how to call tools during generation [S02] [S03].
++
++Synthesis: API-Bank evaluates related tool-use skills at benchmark level by separating API Call, Retrieve+Call, and Plan+Retrieve+Call abilities, whereas ReAct is a prompting paradigm for generating thought-action-observation trajectories [S02] [S04].
++
++Synthesis: Tau-bench evaluates ReAct-style text agents as one method variant in longer tool-agent-user customer-service interactions, and S05 reports that natively supported function calling consistently outperforms text-formatted ReAct and Act-only baselines for the tested state-of-the-art models [S02] [S05].
++
++Synthesis: ToolSandbox's appendix reports that adding ReAct prompting to its default interactive tool-use setup gives small or minimal score changes for four tested models, which S06 attributes to the baseline setup already providing reasoning signals through user and execution-environment interaction [S02] [S06].
++
++Synthesis: AutoGen can embed ReAct-style prompting inside a multi-agent workflow; in S07's ALFWorld application, a two-agent AutoGen system integrates ReAct prompting and matches ReAct at 54% average success, while adding a grounding agent raises average success to 69% [S02] [S07].
++
++Synthesis: ReAct describes a model behavior pattern for interleaving thoughts, actions, and observations, while [[model-context-protocol-architecture|MCP Architecture]] defines an application protocol layer for exchanging tool and context capabilities among hosts, clients, and servers [S02] [S11].
++
++## Links to Other Pages
++
++- [[index|Knowledge Base Index]]
++- [[retrieval-augmented-generation|Retrieval-Augmented Generation]]
++- [[toolformer-self-supervised-tool-use|Toolformer Self-Supervised Tool Use]]
++- [[api-bank-tool-augmented-llm-benchmark|API-Bank Tool-Augmented LLM Benchmark]]
++- [[tau-bench-agent-consistency-benchmark|Tau-Bench Agent Consistency Benchmark]]
++- [[toolsandbox-stateful-tool-use-benchmark|ToolSandbox Stateful Tool-Use Benchmark]]
++- [[autogen-multi-agent-conversation-framework|AutoGen Multi-Agent Conversation Framework]]
++- [[model-context-protocol-architecture|Model Context Protocol Architecture]]
++
++## Open Questions
++
++- How should production agents decide when to expose ReAct-style reasoning traces to users, logs, or auditors without leaking sensitive intermediate content source-needed?
++- What tool permissioning and sandboxing controls are required before ReAct-style action loops interact with real enterprise systems rather than constrained benchmarks source-needed?
++- How well do S02's few-shot ReAct results transfer to smaller, newer, or instruction-tuned models outside PaLM-540B and GPT-3 `text-davinci-002` [S02]?
+
+# Evidence note snapshot
+
+diff --git "a/evidence\\2026-07-09_ingest_S11_mcp-architecture_excerpts.md" "b/evidence\\2026-07-09_ingest_S11_mcp-architecture_excerpts.md"
+new file mode 100644
+index 0000000..58b199e
+--- /dev/null
++++ "b/evidence\\2026-07-09_ingest_S11_mcp-architecture_excerpts.md"
+@@ -0,0 +1,8 @@
++# S11 MCP Architecture Extraction Notes
++
++- Source metadata checked in `raw/source_manifest.md`: S11 is `MCP Architecture Overview - Model Context Protocol`, continuously updated, public, official docs capture, high quality, with intended use for host/client/server architecture and protocol boundaries.
++- Raw capture checked in `raw/S11_mcp_architecture.source.md`: source ID S11, type `official-technical-documentation`, accessed 2026-07-06, shareability public, quality high.
++- Core architecture claims checked: S11 defines the basic MCP architecture used in the project, including host, client, server, tools, resources, prompts, and capability negotiation.
++- Project-use claims checked: S11 defines what MCP provides at the tool/context exchange layer.
++- Boundary claims checked: S11 provides a baseline for distinguishing MCP architecture from authorization and security details in S12 and S13.
++- Evidentiary boundary checked: S11 should not be used alone for production authorization or security claims; it should be paired with S12 and S13 for those topics.

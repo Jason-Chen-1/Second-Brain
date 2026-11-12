@@ -1,0 +1,202 @@
+﻿diff --git a/logs/ingest_log.md b/logs/ingest_log.md
+new file mode 100644
+index 0000000..e980d45
+--- /dev/null
++++ b/logs/ingest_log.md
+@@ -0,0 +1,63 @@
++# Ingest Log
++
++This log records source ingestion and knowledge-base maintenance events. It is append-only: new work should add entries rather than rewriting old history.
++
++## 2026-07-09 - S01 - Retrieval-Augmented Generation
++
++- Source ID: S01.
++- Files read: `raw/source_manifest.md`, `schema/AGENTS.md`, `schema/page_template.md`, `wiki/index.md`, `raw/S01.pdf`, `logs/ingest_log.md`.
++- Relevant existing wiki pages read: `wiki/index.md`; no substantive topic pages existed in `wiki/` at ingest time.
++- Actions: created a new concept page for retrieval-augmented generation, repaired the malformed index, linked the new page from the index, and saved S01 verification notes.
++- Created files: `wiki/retrieval-augmented-generation.md`, `evidence/2026-07-09_ingest_S01_excerpts.md`.
++- Modified files: `wiki/index.md`, `logs/ingest_log.md`.
++- Verification: confirmed S01 manifest metadata and quality label; extracted S01 PDF text with `pdfplumber`; checked reported page count, architecture, benchmark numbers, parameter/index numbers, knowledge-update result, and limitations against the extracted source text; checked wikilinks and source IDs with `rg`.
++- Conflicts: none detected because no pre-existing substantive wiki page made comparable RAG claims.
++- Exceptions: `pdftotext` was unavailable, so bundled Python with `pdfplumber` was used; a direct console extraction hit a PowerShell/GBK encoding issue and was rerun with UTF-8-safe output.
++- Unresolved issues: the final open question about choosing among RAG variants and newer retrieval architectures remains `source-needed` until more sources are ingested.
++- Evidence saved: `evidence/2026-07-09_ingest_S01_excerpts.md`.
++- Diff saved: `evidence/diffs/2026-07-09_ingest_S01_rag.diff`.
++
++## 2026-07-09 - S02 - ReAct Reasoning and Acting
++
++- Source ID: S02.
++- Files read: `raw/source_manifest.md`, `schema/AGENTS.md`, `schema/page_template.md`, `wiki/index.md`, `raw/S02.pdf`, `wiki/retrieval-augmented-generation.md`, `logs/ingest_log.md`.
++- Relevant existing wiki pages read: `wiki/index.md`, `wiki/retrieval-augmented-generation.md`.
++- Actions: created a new concept page for ReAct reasoning/action loops, linked it from the index, and added a synthesis cross-link from the RAG page distinguishing S01's retrieval-augmented seq2seq architecture from S02's ReAct prompting/action-loop paradigm.
++- Created files: `wiki/react-reasoning-and-acting.md`, `evidence/2026-07-09_ingest_S02_excerpts.md`.
++- Modified files: `wiki/index.md`, `wiki/retrieval-augmented-generation.md`, `logs/ingest_log.md`.
++- Verification: confirmed S02 manifest metadata and quality label; extracted S02 PDF text with `pdfplumber`; checked reported page count, method definition, action space, benchmark results, failure-mode numbers, fine-tuning note, reproducibility note, and ethics boundary against the extracted source text; checked wikilinks and source IDs with `rg`.
++- Conflicts: none detected; S02 adds a distinct prompting/action-loop concept and does not revise S01's RAG architecture or benchmark claims.
++- Exceptions: PDF text extraction contains noisy figure glyphs on some pages, so numeric claims were checked against table text and surrounding extracted prose rather than figure rendering.
++- Unresolved issues: production exposure of reasoning traces and real-system permissioning remain `source-needed`; transfer to newer models beyond PaLM-540B and GPT-3 `text-davinci-002` remains uncertain.
++- Evidence saved: `evidence/2026-07-09_ingest_S02_excerpts.md`.
++- Diff saved: `evidence/diffs/2026-07-09_ingest_S02_react.diff`.
++
++## 2026-07-09 - S03 - Toolformer Self-Supervised Tool Use
++
++- Source ID: S03.
++- Files read: `raw/source_manifest.md`, `schema/AGENTS.md`, `schema/page_template.md`, `wiki/index.md`, `raw/S03.pdf`, `wiki/react-reasoning-and-acting.md`, `wiki/retrieval-augmented-generation.md`, `logs/ingest_log.md`.
++- Relevant existing wiki pages read: `wiki/index.md`, `wiki/react-reasoning-and-acting.md`, `wiki/retrieval-augmented-generation.md`.
++- Actions: created a new concept page for Toolformer self-supervised tool use, linked it from the index, and added a synthesis cross-link from the ReAct page distinguishing prompted interactive reasoning/action trajectories from Toolformer's self-supervised API-call fine-tuning.
++- Created files: `wiki/toolformer-self-supervised-tool-use.md`, `evidence/2026-07-09_ingest_S03_excerpts.md`.
++- Modified files: `wiki/index.md`, `wiki/react-reasoning-and-acting.md`, `logs/ingest_log.md`.
++- Verification: confirmed S03 manifest metadata and quality label; extracted S03 PDF text with `pdfplumber`; checked reported page count, method definition, tool inventory, filtering thresholds and example counts, training setup, benchmark numbers, language-modeling perplexity, scaling claim, and limitations against extracted source text; checked wikilinks and source IDs with `rg`.
++- Conflicts: none detected; S03 adds a distinct self-supervised API-call learning mechanism and does not supersede S01 RAG or S02 ReAct claims.
++- Exceptions: PDF extraction included some multi-column/table ordering noise, so benchmark and count claims were checked against separately extracted table text.
++- Unresolved issues: tool-call cost/risk pricing, combining Toolformer with ReAct-style multi-step tool refinement, and learning from sensitive enterprise tool logs remain open; the sensitive-log safeguard question remains `source-needed`.
++- Evidence saved: `evidence/2026-07-09_ingest_S03_excerpts.md`.
++- Diff saved: `evidence/diffs/2026-07-09_ingest_S03_toolformer.diff`.
++
++## 2026-07-09 - S04 - API-Bank Tool-Augmented LLM Benchmark
++
++- Source ID: S04.
++- Files read: `raw/source_manifest.md`, `schema/AGENTS.md`, `schema/page_template.md`, `wiki/index.md`, `raw/S04.pdf`, `wiki/react-reasoning-and-acting.md`, `wiki/toolformer-self-supervised-tool-use.md`, `logs/ingest_log.md`.
++- Relevant existing wiki pages read: `wiki/index.md`, `wiki/react-reasoning-and-acting.md`, `wiki/toolformer-self-supervised-tool-use.md`.
++- Actions: created a new concept page for API-Bank, linked it from the index, and added synthesis cross-links from ReAct and Toolformer distinguishing API-Bank's benchmark/evaluation role from S02's prompting method and S03's self-supervised API-call training method.
++- Created files: `wiki/api-bank-tool-augmented-llm-benchmark.md`, `evidence/2026-07-09_ingest_S04_excerpts.md`.
++- Modified files: `wiki/index.md`, `wiki/react-reasoning-and-acting.md`, `wiki/toolformer-self-supervised-tool-use.md`, `logs/ingest_log.md`.
++- Verification: confirmed S04 manifest metadata and quality label; extracted S04 PDF text with `pdfplumber`; checked page count, ability grading, evaluation-system counts, training/evaluation set statistics, main benchmark results, error distributions, limitations, and ethics/annotation boundaries against extracted source text; checked wikilinks and source IDs with `rg`.
++- Conflicts: none detected; S04 adds a benchmark and evaluation framework for tool-augmented LLMs and does not supersede S02 ReAct or S03 Toolformer claims.
++- Exceptions: PDF extraction contained multi-column ordering noise in appendix/example pages, so core numeric claims were checked against table text and nearby prose.
++- Unresolved issues: applying executable API evaluation to permissioned enterprise tools, comparing API-Bank scores with later benchmarks, and reducing API hallucination remain open; two benchmark-transfer questions remain `source-needed`.
++- Evidence saved: `evidence/2026-07-09_ingest_S04_excerpts.md`.
++- Diff saved: `evidence/diffs/2026-07-09_ingest_S04_api-bank.diff`.
+diff --git a/wiki/index.md b/wiki/index.md
+new file mode 100644
+index 0000000..73b74c0
+--- /dev/null
++++ b/wiki/index.md
+@@ -0,0 +1,26 @@
++---
++title: Knowledge Base Index
++page_type: overview
++status: draft
++updated: 2026-07-09
++sources: [S01, S02, S03, S04]
++confidence: high
++---
++
++# Knowledge Base Index
++
++This index lists derived wiki pages. It currently includes coverage of retrieval-augmented generation, reasoning-action prompting, self-supervised tool-use learning, and API-planning evaluation for knowledge-intensive and tool-using language-model systems [S01] [S02] [S03] [S04].
++
++## Retrieval and Knowledge Updating
++
++- [[retrieval-augmented-generation|Retrieval-Augmented Generation]]
++
++## Agent Reasoning and Tool Use
++
++- [[react-reasoning-and-acting|ReAct Reasoning and Acting]]
++- [[toolformer-self-supervised-tool-use|Toolformer Self-Supervised Tool Use]]
++- [[api-bank-tool-augmented-llm-benchmark|API-Bank Tool-Augmented LLM Benchmark]]
++
++## Registers
++
++- Contradictions: source-needed
+
+# Untracked wiki page diff
+
+diff --git "a/wiki\\api-bank-tool-augmented-llm-benchmark.md" "b/wiki\\api-bank-tool-augmented-llm-benchmark.md"
+new file mode 100644
+index 0000000..9d60ecf
+--- /dev/null
++++ "b/wiki\\api-bank-tool-augmented-llm-benchmark.md"
+@@ -0,0 +1,65 @@
++---
++title: API-Bank Tool-Augmented LLM Benchmark
++page_type: concept
++status: draft
++updated: 2026-07-09
++sources: [S04]
++confidence: high
++---
++
++# API-Bank Tool-Augmented LLM Benchmark
++
++## Core Definition
++
++API-Bank is a benchmark and training resource for evaluating and improving tool-augmented large language models across API calling, API retrieval, and multi-step API planning [S04].
++
++Li et al.'s API-Bank paper defines three tool-use abilities: Call, where APIs are known and the model must call the right one; Retrieve+Call, where APIs are unknown and the model must retrieve then call one API; and Plan+Retrieve+Call, where the model must repeatedly plan, retrieve, and call multiple APIs when APIs are unknown [S04].
++
++## Key Claims
++
++- API-Bank's design principles were derived from interviews with over 500 users interested in adding tools to LLMs, and the authors identify two user-requirement dimensions: few versus many APIs in a pool, and single versus several API calls per turn [S04].
++- The benchmark construction standards emphasize domain diversity, API authenticity, API diversity, and evaluation authenticity through a functional system that executes model-proposed API calls and evaluates their effect [S04].
++- The evaluation system implements 73 APIs, including daily-use APIs such as weather forecast and APIs that access other AI models such as text-to-image generation [S04].
++- API-Bank's manually annotated evaluation set retains 314 dialogues with 753 API calls after discarding 21.5% of 400 annotated dialogues because of annotation issues [S04].
++- The paper reports an average manual annotation cost of $8 per dialogue and says the 73 APIs required 98 person-days of senior research and development engineering time to implement [S04].
++- For Retrieval+Call and Plan+Retrieval+Call, API-Bank provides a special `APISearch` tool that retrieves potentially relevant API metadata by comparing sentence embeddings from query keywords and API meta-information [S04].
++- API-call correctness is evaluated with accuracy based on consistency between predicted and annotated API calls, including whether the same database queries or modifications are performed and whether returned results match; response quality is evaluated with ROUGE-L [S04].
++- The training set is generated by a Multi-agent method with five LLM agents that generate domains, APIs, user queries, API calls and responses, and quality checks; the paper reports this reduces cost by 98% compared with manual annotation [S04].
++- API-Bank's training set has 1,000 domains, 2,138 APIs, 1,888 dialogues, 5,221 turns, 3,147 single-call instances, and 493 multiple-call instances [S04].
++- API-Bank's evaluation set has 8 domains, 73 APIs, 314 dialogues, 914 turns, 363 single-call instances, and 122 multiple-call instances [S04].
++- In the API-Bank evaluation, GPT-4 reports 60.24% total API-call correctness and 0.3910 ROUGE-L, while GPT-3.5-turbo reports 47.16% correctness and 0.4267 ROUGE-L [S04].
++- Lynx-7B, fine-tuned from Alpaca-7B on API-Bank's training set, reports 39.58% total correctness and 0.3794 ROUGE-L, compared with Alpaca-7B at 15.19% correctness and 0.0318 ROUGE-L [S04].
++- The paper reports that GPT-4 excels in the Plan+Retrieve+Call setting with 70.00% correctness, compared with 22.00% for GPT-3.5-turbo and 20.00% for Lynx-7B [S04].
++- Error analysis reports that Alpaca's largest error category is `No API Call` at 36.77%, Lynx's largest error category is `API Hallucination` at 61.38%, and GPT-4's largest error category is `Failed API Retrieval` at 67.86% [S04].
++
++## Evidence and Sources
++
++S04 is a high-quality public paper/PDF in the manifest, dated 2023-12, and published in the EMNLP 2023 proceedings pages 3102-3116 according to the PDF text [S04].
++
++The paper compares API-Bank with DATESET, APIBench, ToolAlpaca, ToolBench variants, and ToolQA, and claims API-Bank is broader because it includes multi-turn and multi-call dialogues, API-call and response evaluation, and all three abilities: Call, Retrieve, and Plan [S04].
++
++The authors fine-tune Lynx from LLaMA-7B via Alpaca-7B initialization for three epochs with batch size 256 and learning rate `2e-5` [S04].
++
++## Limitations and Counter-Evidence
++
++API-Bank focuses only on English, and the authors state that data construction and model evaluation for other languages are future work [S04].
++
++The paper only reports fine-tuning Lynx-7B on API-Bank and does not explore larger-scale open models in the reported experiments [S04].
++
++The authors state that they trained a larger commercial tool-augmented LLM internally but cannot report or analyze its results for anonymity reasons [S04].
++
++The reported evaluation uses a zero-shot API-call prompt format, and the paper attributes some false API-call-format errors to models relying only on instruction-based guidance for the required API-call format [S04].
++
++The paper's error analysis indicates that both fine-tuned and frontier models still face major tool-use failures: Lynx often hallucinates API names, while GPT-4 often fails API retrieval [S04].
++
++## Links to Other Pages
++
++- [[index|Knowledge Base Index]]
++- [[react-reasoning-and-acting|ReAct Reasoning and Acting]]
++- [[toolformer-self-supervised-tool-use|Toolformer Self-Supervised Tool Use]]
++
++## Open Questions
++
++- How should API-Bank-style executable evaluation be extended to permissioned enterprise tools where failed calls can have business side effects source-needed?
++- How comparable are API-Bank scores to later tool-use benchmarks when API pools, retrieval mechanisms, and exact API-call formats differ source-needed?
++- Can the high `API Hallucination` rate for Lynx be reduced by constrained decoding, schema validation, or retrieval-grounded API-name generation [S04]?
+
+# Untracked evidence file diff
+
+diff --git "a/evidence\\2026-07-09_ingest_S04_excerpts.md" "b/evidence\\2026-07-09_ingest_S04_excerpts.md"
+new file mode 100644
+index 0000000..addec68
+--- /dev/null
++++ "b/evidence\\2026-07-09_ingest_S04_excerpts.md"
+@@ -0,0 +1,18 @@
++# S04 Ingest Evidence Notes
++
++Source: S04, `raw/S04.pdf`, "API-Bank: A Comprehensive Benchmark for Tool-Augmented LLMs" by Li et al., manifest date 2023-12.
++
++Verification notes:
++
++- PDF extraction reported 15 pages.
++- Manifest labels S04 as a public, high-quality paper/PDF intended for numerical precision and API-planning evaluation.
++- Ability grading checked: Call, Retrieval+Call, and Plan+Retrieval+Call.
++- Evaluation system checked: 73 implemented APIs, 314 retained manually annotated dialogues, 753 API calls, 21.5% discarded from 400 annotated dialogues, $8 average annotation cost per dialogue, and 98 person-days to implement APIs.
++- Training set checked from Table 2: 1,000 domains, 2,138 APIs, 1,888 dialogues, 5,221 turns, 3,147 single-call and 493 multiple-call instances.
++- Evaluation set checked from Table 2: 8 domains, 73 APIs, 314 dialogues, 914 turns, 363 single-call and 122 multiple-call instances.
++- Main results checked from Table 3: Alpaca-7B total correctness 15.19%, ChatGLM-6B 16.42%, GPT-3 Davinci 0.57%, GPT-3.5-turbo 47.16%, GPT-4 60.24%, Lynx-7B 39.58%.
++- Error distributions checked from Tables 4-6: Alpaca `No API Call` 36.77%; Lynx `API Hallucination` 61.38%; GPT-4 `Failed API Retrieval` 67.86%.
++- Limitations checked: English-only benchmark, only Lynx-7B fine-tuned in reported experiments, larger internal commercial model not reported for anonymity reasons.
++- Relationship checked against existing S02 and S03 pages: API-Bank evaluates tool-use abilities, while ReAct is a prompting method and Toolformer is a self-supervised API-call training method.
++
++No contradiction with existing S01-S03 pages was detected; S04 adds a benchmark and evaluation framework for tool-augmented LLMs.

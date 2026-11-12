@@ -1,0 +1,236 @@
+﻿diff --git a/logs/ingest_log.md b/logs/ingest_log.md
+new file mode 100644
+index 0000000..68c4984
+--- /dev/null
++++ b/logs/ingest_log.md
+@@ -0,0 +1,33 @@
++# Ingest Log
++
++This log records source ingestion and knowledge-base maintenance events. It is append-only: new work should add entries rather than rewriting old history.
++
++## 2026-07-09 - S01 - Retrieval-Augmented Generation
++
++- Source ID: S01.
++- Files read: `raw/source_manifest.md`, `schema/AGENTS.md`, `schema/page_template.md`, `wiki/index.md`, `raw/S01.pdf`, `logs/ingest_log.md`.
++- Relevant existing wiki pages read: `wiki/index.md`; no substantive topic pages existed in `wiki/` at ingest time.
++- Actions: created a new concept page for retrieval-augmented generation, repaired the malformed index, linked the new page from the index, and saved S01 verification notes.
++- Created files: `wiki/retrieval-augmented-generation.md`, `evidence/2026-07-09_ingest_S01_excerpts.md`.
++- Modified files: `wiki/index.md`, `logs/ingest_log.md`.
++- Verification: confirmed S01 manifest metadata and quality label; extracted S01 PDF text with `pdfplumber`; checked reported page count, architecture, benchmark numbers, parameter/index numbers, knowledge-update result, and limitations against the extracted source text; checked wikilinks and source IDs with `rg`.
++- Conflicts: none detected because no pre-existing substantive wiki page made comparable RAG claims.
++- Exceptions: `pdftotext` was unavailable, so bundled Python with `pdfplumber` was used; a direct console extraction hit a PowerShell/GBK encoding issue and was rerun with UTF-8-safe output.
++- Unresolved issues: the final open question about choosing among RAG variants and newer retrieval architectures remains `source-needed` until more sources are ingested.
++- Evidence saved: `evidence/2026-07-09_ingest_S01_excerpts.md`.
++- Diff saved: `evidence/diffs/2026-07-09_ingest_S01_rag.diff`.
++
++## 2026-07-09 - S02 - ReAct Reasoning and Acting
++
++- Source ID: S02.
++- Files read: `raw/source_manifest.md`, `schema/AGENTS.md`, `schema/page_template.md`, `wiki/index.md`, `raw/S02.pdf`, `wiki/retrieval-augmented-generation.md`, `logs/ingest_log.md`.
++- Relevant existing wiki pages read: `wiki/index.md`, `wiki/retrieval-augmented-generation.md`.
++- Actions: created a new concept page for ReAct reasoning/action loops, linked it from the index, and added a synthesis cross-link from the RAG page distinguishing S01's retrieval-augmented seq2seq architecture from S02's ReAct prompting/action-loop paradigm.
++- Created files: `wiki/react-reasoning-and-acting.md`, `evidence/2026-07-09_ingest_S02_excerpts.md`.
++- Modified files: `wiki/index.md`, `wiki/retrieval-augmented-generation.md`, `logs/ingest_log.md`.
++- Verification: confirmed S02 manifest metadata and quality label; extracted S02 PDF text with `pdfplumber`; checked reported page count, method definition, action space, benchmark results, failure-mode numbers, fine-tuning note, reproducibility note, and ethics boundary against the extracted source text; checked wikilinks and source IDs with `rg`.
++- Conflicts: none detected; S02 adds a distinct prompting/action-loop concept and does not revise S01's RAG architecture or benchmark claims.
++- Exceptions: PDF text extraction contains noisy figure glyphs on some pages, so numeric claims were checked against table text and surrounding extracted prose rather than figure rendering.
++- Unresolved issues: production exposure of reasoning traces and real-system permissioning remain `source-needed`; transfer to newer models beyond PaLM-540B and GPT-3 `text-davinci-002` remains uncertain.
++- Evidence saved: `evidence/2026-07-09_ingest_S02_excerpts.md`.
++- Diff saved: `evidence/diffs/2026-07-09_ingest_S02_react.diff`.
+diff --git a/wiki/index.md b/wiki/index.md
+new file mode 100644
+index 0000000..87a90e3
+--- /dev/null
++++ b/wiki/index.md
+@@ -0,0 +1,24 @@
++---
++title: Knowledge Base Index
++page_type: overview
++status: draft
++updated: 2026-07-09
++sources: [S01, S02]
++confidence: high
++---
++
++# Knowledge Base Index
++
++This index lists derived wiki pages. It currently includes coverage of retrieval-augmented generation and reasoning-action prompting for knowledge-intensive and tool-using language-model systems [S01] [S02].
++
++## Retrieval and Knowledge Updating
++
++- [[retrieval-augmented-generation|Retrieval-Augmented Generation]]
++
++## Agent Reasoning and Tool Use
++
++- [[react-reasoning-and-acting|ReAct Reasoning and Acting]]
++
++## Registers
++
++- Contradictions: source-needed
+diff --git a/wiki/retrieval-augmented-generation.md b/wiki/retrieval-augmented-generation.md
+new file mode 100644
+index 0000000..898519e
+--- /dev/null
++++ b/wiki/retrieval-augmented-generation.md
+@@ -0,0 +1,62 @@
++---
++title: Retrieval-Augmented Generation
++page_type: concept
++status: draft
++updated: 2026-07-09
++sources: [S01, S02]
++confidence: high
++---
++
++# Retrieval-Augmented Generation
++
++## Core Definition
++
++Retrieval-augmented generation (RAG) is a sequence-to-sequence modeling approach that combines parametric memory in a pre-trained generator with non-parametric memory in a retrievable document index, so generation can condition on external passages as well as model parameters [S01].
++
++In Lewis et al.'s 2020 formulation, the generator is BART-large and the retriever is initialized from Dense Passage Retrieval (DPR), with Wikipedia passages retrieved by maximum inner product search (MIPS) and treated as latent variables during generation [S01].
++
++## Key Claims
++
++- RAG was proposed to address limitations of parametric-only language models: difficulty revising memory, limited prediction provenance, and hallucination risk on knowledge-intensive tasks [S01].
++- The paper defines two variants: RAG-Sequence uses the same retrieved document for the whole generated sequence, while RAG-Token can condition each generated token on a different retrieved document [S01].
++- The experiments use a December 2018 Wikipedia dump split into 100-word disjoint chunks, producing about 21 million documents in a FAISS MIPS index [S01].
++- The retriever and generator are jointly fine-tuned without direct supervision for which document should be retrieved; the document encoder and document index are kept fixed because updating them would require periodic index refreshes [S01].
++- On open-domain QA test results, RAG-Sequence reports 44.5 exact match on Natural Questions, 56.8 on the standard TriviaQA split, 68.0 on TriviaQA-Wiki, 45.2 on WebQuestions, and 52.2 on CuratedTrec [S01].
++- RAG can generate correct Natural Questions answers even when the answer is absent from all retrieved documents, with the paper reporting 11.8% accuracy in that subset where an extractive model would score 0% [S01].
++- On Open MS-MARCO NLG, RAG-Sequence outperforms the BART baseline by 2.6 BLEU-1 points and 2.6 ROUGE-L points, while the authors caution that some MS-MARCO questions require gold passages or information outside Wikipedia [S01].
++- In Jeopardy question generation, RAG-Token scores 22.2 Q-BLEU-1 versus BART's 19.7, and human evaluators rated RAG-Token more factual than BART in 42.7% of pairwise cases versus 7.1% for BART [S01].
++- On FEVER, RAG scores 72.5 label accuracy for 3-way classification and 89.5 for 2-way classification, within 4.3% and 2.7% of cited state-of-the-art systems that use stronger evidence access or supervision [S01].
++- Replacing the non-parametric memory can update model behavior: with 2016 and 2018 Wikipedia indices, the paper reports 70% accuracy for 2016 world leaders with the 2016 index and 68% for 2018 world leaders with the 2018 index, while mismatched index/year combinations fall to 12% and 4% [S01].
++
++## Evidence and Sources
++
++S01 is a high-quality public paper by Lewis et al. dated 2020-05-22 in the manifest, and it is the primary source for this page's architecture, evaluation, and limitation claims [S01].
++
++The paper reports that the RAG models contain 626 million trainable parameters, combining 110 million parameters for the DPR query encoder, an untrained/fixed 110 million parameter DPR document encoder, and 406 million trainable parameters from BART-large [S01].
++
++The non-parametric memory is not counted as trainable parameters, but the paper describes it as 21 million 728-dimensional vectors, about 15.3 billion values, with index compression reducing a reported CPU memory requirement from about 100 GB to 36 GB in the Hugging Face implementation [S01].
++
++## Limitations and Counter-Evidence
++
++The paper's RAG results are tied to a specific experimental setup: a December 2018 Wikipedia index, DPR initialization, BART-large generation, and task-specific fine-tuning, so the reported benchmark numbers should not be generalized to arbitrary RAG systems without re-evaluation [S01].
++
++The paper notes that RAG's retriever is initialized from DPR trained with retrieval supervision on Natural Questions and TriviaQA, which limits claims that all improvements come from unsupervised retrieval learning [S01].
++
++The authors tried adding a null-document mechanism to model cases where no useful document was retrieved, but they report that learned null document embeddings, a static learned bias, and a neural-network logit did not improve performance [S01].
++
++Preliminary experiments found retrieval collapse on tasks such as story generation, where the retriever learned to return the same documents regardless of input and the generator learned to ignore them, making RAG perform equivalently to BART [S01].
++
++For FEVER evidence extraction, the paper does not directly tackle sentence-level evidence retrieval because FEVER uses a different Wikipedia dump than the RAG index; this leaves a gap between label classification and full evidence provenance [S01].
++
++Synthesis: RAG and ReAct both use external knowledge, but S01's RAG is a fine-tuned seq2seq architecture that marginalizes retrieved Wikipedia passages, while S02's ReAct is a prompting paradigm that interleaves language thoughts, tool actions, and observations through an external API or environment [S01] [S02].
++
++## Links to Other Pages
++
++- [[index|Knowledge Base Index]]
++- [[react-reasoning-and-acting|ReAct Reasoning and Acting]]
++
++## Open Questions
++
++- How much of RAG's open-domain QA gain depends on DPR pretraining and retrieval supervision rather than the RAG marginalization objective itself [S01]?
++- What validation is needed before using index replacement as an enterprise knowledge-update mechanism, given that the paper demonstrates world-leader update behavior but also reports mismatched-index failures [S01]?
++- When should a production system prefer RAG-Sequence, RAG-Token, or a more recent retrieval architecture for auditability, latency, and answer faithfulness source-needed?
+
+# Untracked evidence file diff
+
+diff --git "a/evidence\\2026-07-09_ingest_S02_excerpts.md" "b/evidence\\2026-07-09_ingest_S02_excerpts.md"
+new file mode 100644
+index 0000000..f479e05
+--- /dev/null
++++ "b/evidence\\2026-07-09_ingest_S02_excerpts.md"
+@@ -0,0 +1,18 @@
++# S02 Ingest Evidence Notes
++
++Source: S02, `raw/S02.pdf`, "ReAct: Synergizing Reasoning and Acting in Language Models" by Yao et al., manifest date 2022-10-06.
++
++Verification notes:
++
++- PDF extraction reported 33 pages.
++- Manifest labels S02 as a public, high-quality paper/PDF intended for reasoning-action loops and interpretable tool use.
++- Method checked: ReAct interleaves verbal thoughts, actions, and observations; thoughts update context but do not directly change the external environment.
++- Model/setup checked: main experiments use PaLM-540B prompting; appendix reports GPT-3 `text-davinci-002` ReAct results.
++- Tool/action space checked: HotpotQA and FEVER use a simple Wikipedia API with `search[entity]`, `lookup[string]`, and `finish[answer]`.
++- HotpotQA/FEVER numbers checked from Table 1: Standard 28.7/57.1, CoT 29.4/56.3, CoT-SC 33.4/60.4, Act 25.7/58.9, ReAct 27.4/60.9, CoT-SC to ReAct 34.2/64.6, ReAct to CoT-SC 35.1/62.0, supervised SOTA 67.5/89.5.
++- Failure analysis checked from Table 2: ReAct success false positive 6%, CoT success false positive 14%; ReAct failures 47% reasoning error, 23% search-result error, 29% label ambiguity; CoT failures 56% hallucination, 16% reasoning error, 28% label ambiguity.
++- ALFWorld/WebShop numbers checked from Tables 3 and 4: best ReAct ALFWorld overall success 71% versus best Act 45% and BUTLER 37%; WebShop ReAct score 66.6 and success rate 40.0%.
++- Limitations checked: ReAct trails CoT/CoT-SC on HotpotQA before combination; repetitive thought/action loops appear as a failure mode; large action spaces can exceed in-context learning limits; main PaLM experiments were not fully reproducible because PaLM was not openly accessible at the time.
++- Safety boundary checked from ethics statement: experiments avoid private or dangerous actions by limiting interactions to constrained benchmark environments.
++
++No contradiction with existing S01-derived RAG page was detected; S02 adds a distinct prompting/action-loop concept rather than revising S01's RAG architecture claims.
+
+# Untracked wiki page diff
+
+diff --git "a/wiki\\react-reasoning-and-acting.md" "b/wiki\\react-reasoning-and-acting.md"
+new file mode 100644
+index 0000000..d6bd1f4
+--- /dev/null
++++ "b/wiki\\react-reasoning-and-acting.md"
+@@ -0,0 +1,63 @@
++---
++title: ReAct Reasoning and Acting
++page_type: concept
++status: draft
++updated: 2026-07-09
++sources: [S02]
++confidence: high
++---
++
++# ReAct Reasoning and Acting
++
++## Core Definition
++
++ReAct is a prompting paradigm in which a language model generates verbal reasoning traces and task-specific actions in an interleaved trajectory, so thoughts can guide actions and observations from tools or environments can update later reasoning [S02].
++
++In Yao et al.'s ICLR 2023 paper, ReAct augments an agent's action space with free-form language thoughts that do not directly change the external environment but do update the model's context for later reasoning or acting [S02].
++
++## Key Claims
++
++- ReAct is designed to combine two previously separated capabilities: chain-of-thought style reasoning and action generation for interaction with external sources such as Wikipedia APIs, web environments, or text-game environments [S02].
++- For HotpotQA and FEVER, S02 uses a simple Wikipedia API with `search[entity]`, `lookup[string]`, and `finish[answer]` actions, and the authors explicitly state that this API is weaker than state-of-the-art lexical or neural retrievers [S02].
++- The main prompting experiments use a frozen PaLM-540B model with few-shot in-context examples; the paper reports additional GPT-3 `text-davinci-002` experiments in an appendix [S02].
++- For HotpotQA and FEVER prompts, the authors manually compose ReAct-format trajectories from 6 HotpotQA training cases and 3 FEVER training cases, and report that adding more examples did not improve performance [S02].
++- On PaLM-540B prompting, ReAct scores 27.4 exact match on HotpotQA and 60.9 accuracy on FEVER, compared with Act-only scores of 25.7 and 58.9 and chain-of-thought scores of 29.4 and 56.3 [S02].
++- Combining ReAct with chain-of-thought self-consistency gives the best reported prompting numbers in Table 1: ReAct to CoT-SC reaches 35.1 exact match on HotpotQA, while CoT-SC to ReAct reaches 64.6 accuracy on FEVER [S02].
++- In a manual HotpotQA error analysis, S02 reports that successful ReAct trajectories had a 6% false-positive rate versus 14% for chain-of-thought, while failed ReAct trajectories were attributed to 47% reasoning error, 23% search-result error, and 29% label ambiguity [S02].
++- In the same analysis, failed chain-of-thought trajectories were attributed to 56% hallucination, 16% reasoning error, and 28% label ambiguity, which the authors use to argue that ReAct is more grounded but less flexible than pure chain-of-thought [S02].
++- On ALFWorld, the best ReAct trial reaches a 71% overall success rate, compared with 45% for the best Act-only trial, 37% for BUTLER, and 53% for the best ReAct-IM ablation [S02].
++- On WebShop, ReAct reports a score of 66.6 and a 40.0% success rate, compared with Act-only at 62.3 and 30.1%, imitation learning at 59.9 and 29.1%, imitation learning plus reinforcement learning at 62.4 and 28.7%, and expert humans at 82.1 and 59.6% [S02].
++- S02 reports that ReAct outperforms imitation or reinforcement learning baselines on ALFWorld and WebShop by absolute success-rate gains of 34% and 10% while using only one or two in-context examples for those decision-making tasks [S02].
++
++## Evidence and Sources
++
++S02 is a high-quality public paper/PDF in the manifest, dated 2022-10-06 there and published as an ICLR 2023 conference paper in the PDF text [S02].
++
++The paper evaluates ReAct on four main benchmarks: HotpotQA for multi-hop question answering, FEVER for fact verification, ALFWorld for text-based household tasks, and WebShop for webpage navigation and shopping tasks [S02].
++
++S02 reports initial fine-tuning experiments on HotpotQA using 3,000 ReAct-generated correct-answer trajectories to fine-tune PaLM-8B and PaLM-62B models, and it states that fine-tuned ReAct becomes the best of Standard, CoT, Act, and ReAct among those four methods [S02].
++
++The reproducibility statement says the main experiments use PaLM, which was not openly accessible at the time of the paper, and points readers to included prompts, additional GPT-3 experiments, and associated GPT-3 ReAct prompting code [S02].
++
++## Limitations and Counter-Evidence
++
++ReAct prompting is not uniformly better than chain-of-thought: on PaLM-540B HotpotQA, ReAct at 27.4 exact match trails chain-of-thought at 29.4 and CoT-SC at 33.4 before combination with CoT-SC [S02].
++
++The paper reports that ReAct's interleaved thought-action-observation structure can reduce reasoning flexibility, with one common failure mode in which the model repeats previous thoughts and actions instead of recovering [S02].
++
++For ReAct on knowledge-intensive tasks, informative search is critical; S02 attributes 23% of sampled ReAct HotpotQA failures to search results that are empty or do not contain useful information [S02].
++
++The paper states that complex tasks with large action spaces may require more demonstrations than fit comfortably in in-context learning input limits, motivating fine-tuning and higher-quality human annotations as future work [S02].
++
++The ethics statement warns that connecting language models to external action spaces can create risks such as looking up inappropriate or private information or taking harmful actions, and the paper reduces that risk by limiting experiments to constrained Wikipedia, WebShop, and benchmark environments without dangerous actions [S02].
++
++## Links to Other Pages
++
++- [[index|Knowledge Base Index]]
++- [[retrieval-augmented-generation|Retrieval-Augmented Generation]]
++
++## Open Questions
++
++- How should production agents decide when to expose ReAct-style reasoning traces to users, logs, or auditors without leaking sensitive intermediate content source-needed?
++- What tool permissioning and sandboxing controls are required before ReAct-style action loops interact with real enterprise systems rather than constrained benchmarks source-needed?
++- How well do S02's few-shot ReAct results transfer to smaller, newer, or instruction-tuned models outside PaLM-540B and GPT-3 `text-davinci-002` [S02]?

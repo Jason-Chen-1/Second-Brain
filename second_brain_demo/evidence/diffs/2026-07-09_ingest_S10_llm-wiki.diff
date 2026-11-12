@@ -1,0 +1,425 @@
+﻿diff --git a/logs/ingest_log.md b/logs/ingest_log.md
+new file mode 100644
+index 0000000..d3fc38a
+--- /dev/null
++++ b/logs/ingest_log.md
+@@ -0,0 +1,153 @@
++# Ingest Log
++
++This log records source ingestion and knowledge-base maintenance events. It is append-only: new work should add entries rather than rewriting old history.
++
++## 2026-07-09 - S01 - Retrieval-Augmented Generation
++
++- Source ID: S01.
++- Files read: `raw/source_manifest.md`, `schema/AGENTS.md`, `schema/page_template.md`, `wiki/index.md`, `raw/S01.pdf`, `logs/ingest_log.md`.
++- Relevant existing wiki pages read: `wiki/index.md`; no substantive topic pages existed in `wiki/` at ingest time.
++- Actions: created a new concept page for retrieval-augmented generation, repaired the malformed index, linked the new page from the index, and saved S01 verification notes.
++- Created files: `wiki/retrieval-augmented-generation.md`, `evidence/2026-07-09_ingest_S01_excerpts.md`.
++- Modified files: `wiki/index.md`, `logs/ingest_log.md`.
++- Verification: confirmed S01 manifest metadata and quality label; extracted S01 PDF text with `pdfplumber`; checked reported page count, architecture, benchmark numbers, parameter/index numbers, knowledge-update result, and limitations against the extracted source text; checked wikilinks and source IDs with `rg`.
++- Conflicts: none detected because no pre-existing substantive wiki page made comparable RAG claims.
++- Exceptions: `pdftotext` was unavailable, so bundled Python with `pdfplumber` was used; a direct console extraction hit a PowerShell/GBK encoding issue and was rerun with UTF-8-safe output.
++- Unresolved issues: the final open question about choosing among RAG variants and newer retrieval architectures remains `source-needed` until more sources are ingested.
++- Evidence saved: `evidence/2026-07-09_ingest_S01_excerpts.md`.
++- Diff saved: `evidence/diffs/2026-07-09_ingest_S01_rag.diff`.
++
++## 2026-07-09 - S02 - ReAct Reasoning and Acting
++
++- Source ID: S02.
++- Files read: `raw/source_manifest.md`, `schema/AGENTS.md`, `schema/page_template.md`, `wiki/index.md`, `raw/S02.pdf`, `wiki/retrieval-augmented-generation.md`, `logs/ingest_log.md`.
++- Relevant existing wiki pages read: `wiki/index.md`, `wiki/retrieval-augmented-generation.md`.
++- Actions: created a new concept page for ReAct reasoning/action loops, linked it from the index, and added a synthesis cross-link from the RAG page distinguishing S01's retrieval-augmented seq2seq architecture from S02's ReAct prompting/action-loop paradigm.
++- Created files: `wiki/react-reasoning-and-acting.md`, `evidence/2026-07-09_ingest_S02_excerpts.md`.
++- Modified files: `wiki/index.md`, `wiki/retrieval-augmented-generation.md`, `logs/ingest_log.md`.
++- Verification: confirmed S02 manifest metadata and quality label; extracted S02 PDF text with `pdfplumber`; checked reported page count, method definition, action space, benchmark results, failure-mode numbers, fine-tuning note, reproducibility note, and ethics boundary against the extracted source text; checked wikilinks and source IDs with `rg`.
++- Conflicts: none detected; S02 adds a distinct prompting/action-loop concept and does not revise S01's RAG architecture or benchmark claims.
++- Exceptions: PDF text extraction contains noisy figure glyphs on some pages, so numeric claims were checked against table text and surrounding extracted prose rather than figure rendering.
++- Unresolved issues: production exposure of reasoning traces and real-system permissioning remain `source-needed`; transfer to newer models beyond PaLM-540B and GPT-3 `text-davinci-002` remains uncertain.
++- Evidence saved: `evidence/2026-07-09_ingest_S02_excerpts.md`.
++- Diff saved: `evidence/diffs/2026-07-09_ingest_S02_react.diff`.
++
++## 2026-07-09 - S03 - Toolformer Self-Supervised Tool Use
++
++- Source ID: S03.
++- Files read: `raw/source_manifest.md`, `schema/AGENTS.md`, `schema/page_template.md`, `wiki/index.md`, `raw/S03.pdf`, `wiki/react-reasoning-and-acting.md`, `wiki/retrieval-augmented-generation.md`, `logs/ingest_log.md`.
++- Relevant existing wiki pages read: `wiki/index.md`, `wiki/react-reasoning-and-acting.md`, `wiki/retrieval-augmented-generation.md`.
++- Actions: created a new concept page for Toolformer self-supervised tool use, linked it from the index, and added a synthesis cross-link from the ReAct page distinguishing prompted interactive reasoning/action trajectories from Toolformer's self-supervised API-call fine-tuning.
++- Created files: `wiki/toolformer-self-supervised-tool-use.md`, `evidence/2026-07-09_ingest_S03_excerpts.md`.
++- Modified files: `wiki/index.md`, `wiki/react-reasoning-and-acting.md`, `logs/ingest_log.md`.
++- Verification: confirmed S03 manifest metadata and quality label; extracted S03 PDF text with `pdfplumber`; checked reported page count, method definition, tool inventory, filtering thresholds and example counts, training setup, benchmark numbers, language-modeling perplexity, scaling claim, and limitations against extracted source text; checked wikilinks and source IDs with `rg`.
++- Conflicts: none detected; S03 adds a distinct self-supervised API-call learning mechanism and does not supersede S01 RAG or S02 ReAct claims.
++- Exceptions: PDF extraction included some multi-column/table ordering noise, so benchmark and count claims were checked against separately extracted table text.
++- Unresolved issues: tool-call cost/risk pricing, combining Toolformer with ReAct-style multi-step tool refinement, and learning from sensitive enterprise tool logs remain open; the sensitive-log safeguard question remains `source-needed`.
++- Evidence saved: `evidence/2026-07-09_ingest_S03_excerpts.md`.
++- Diff saved: `evidence/diffs/2026-07-09_ingest_S03_toolformer.diff`.
++
++## 2026-07-09 - S04 - API-Bank Tool-Augmented LLM Benchmark
++
++- Source ID: S04.
++- Files read: `raw/source_manifest.md`, `schema/AGENTS.md`, `schema/page_template.md`, `wiki/index.md`, `raw/S04.pdf`, `wiki/react-reasoning-and-acting.md`, `wiki/toolformer-self-supervised-tool-use.md`, `logs/ingest_log.md`.
++- Relevant existing wiki pages read: `wiki/index.md`, `wiki/react-reasoning-and-acting.md`, `wiki/toolformer-self-supervised-tool-use.md`.
++- Actions: created a new concept page for API-Bank, linked it from the index, and added synthesis cross-links from ReAct and Toolformer distinguishing API-Bank's benchmark/evaluation role from S02's prompting method and S03's self-supervised API-call training method.
++- Created files: `wiki/api-bank-tool-augmented-llm-benchmark.md`, `evidence/2026-07-09_ingest_S04_excerpts.md`.
++- Modified files: `wiki/index.md`, `wiki/react-reasoning-and-acting.md`, `wiki/toolformer-self-supervised-tool-use.md`, `logs/ingest_log.md`.
++- Verification: confirmed S04 manifest metadata and quality label; extracted S04 PDF text with `pdfplumber`; checked page count, ability grading, evaluation-system counts, training/evaluation set statistics, main benchmark results, error distributions, limitations, and ethics/annotation boundaries against extracted source text; checked wikilinks and source IDs with `rg`.
++- Conflicts: none detected; S04 adds a benchmark and evaluation framework for tool-augmented LLMs and does not supersede S02 ReAct or S03 Toolformer claims.
++- Exceptions: PDF extraction contained multi-column ordering noise in appendix/example pages, so core numeric claims were checked against table text and nearby prose.
++- Unresolved issues: applying executable API evaluation to permissioned enterprise tools, comparing API-Bank scores with later benchmarks, and reducing API hallucination remain open; two benchmark-transfer questions remain `source-needed`.
++- Evidence saved: `evidence/2026-07-09_ingest_S04_excerpts.md`.
++- Diff saved: `evidence/diffs/2026-07-09_ingest_S04_api-bank.diff`.
++
++## 2026-07-09 - S05 - Tau-Bench Agent Consistency Benchmark
++
++- Source ID: S05.
++- Files read: `raw/source_manifest.md`, `schema/AGENTS.md`, `schema/page_template.md`, `wiki/index.md`, `raw/S05.pdf`, `wiki/api-bank-tool-augmented-llm-benchmark.md`, `wiki/react-reasoning-and-acting.md`, `logs/ingest_log.md`.
++- Relevant existing wiki pages read: `wiki/index.md`, `wiki/api-bank-tool-augmented-llm-benchmark.md`, `wiki/react-reasoning-and-acting.md`.
++- Actions: created a new concept page for tau-bench agent consistency evaluation, linked it from the index, added synthesis cross-links from API-Bank and ReAct, and saved S05 extraction notes.
++- Created files: `wiki/tau-bench-agent-consistency-benchmark.md`, `evidence/2026-07-09_ingest_S05_tau-bench_excerpts.md`.
++- Modified files: `wiki/index.md`, `wiki/api-bank-tool-augmented-llm-benchmark.md`, `wiki/react-reasoning-and-acting.md`, `logs/ingest_log.md`.
++- Verification: confirmed S05 manifest metadata and quality label; extracted S05 PDF text with `pdfplumber`; checked page count, metric definition, domain statistics, experiment settings, model benchmark results, consistency result, failure-analysis counts, policy-ablation numbers, and limitations against extracted source text; checked wikilinks and source IDs with `rg`.
++- Conflicts: none detected; S05 adds a later agent-reliability benchmark and does not supersede S02 ReAct or S04 API-Bank claims.
++- Exceptions: PDF extraction contained figure/table layout noise, so numeric claims were checked against table text and nearby prose rather than relying on visual order alone.
++- Unresolved issues: production thresholds for `pass^k`, applying final-state evaluation to real enterprise write tools, and transfer of S05's model-method conclusions to later models or agent scaffolds remain open; two production-transfer questions remain `source-needed`.
++- Evidence saved: `evidence/2026-07-09_ingest_S05_tau-bench_excerpts.md`.
++- Diff saved: `evidence/diffs/2026-07-09_ingest_S05_tau-bench.diff`.
++
++## 2026-07-09 - S06 - ToolSandbox Stateful Tool-Use Benchmark
++
++- Source ID: S06.
++- Files read: `raw/source_manifest.md`, `schema/AGENTS.md`, `schema/page_template.md`, `wiki/index.md`, `raw/S06.pdf`, `wiki/api-bank-tool-augmented-llm-benchmark.md`, `wiki/tau-bench-agent-consistency-benchmark.md`, `wiki/react-reasoning-and-acting.md`, `logs/ingest_log.md`.
++- Relevant existing wiki pages read: `wiki/index.md`, `wiki/api-bank-tool-augmented-llm-benchmark.md`, `wiki/tau-bench-agent-consistency-benchmark.md`, `wiki/react-reasoning-and-acting.md`.
++- Actions: created a new concept page for ToolSandbox, created a contradiction register because S06's tau-bench comparison conflicts with S05's own evaluation description, linked both pages from the index, added synthesis cross-links from API-Bank, tau-bench, and ReAct, and saved S06 extraction notes.
++- Created files: `wiki/toolsandbox-stateful-tool-use-benchmark.md`, `wiki/contradiction-register.md`, `evidence/2026-07-09_ingest_S06_toolsandbox_excerpts.md`.
++- Modified files: `wiki/index.md`, `wiki/api-bank-tool-augmented-llm-benchmark.md`, `wiki/tau-bench-agent-consistency-benchmark.md`, `wiki/react-reasoning-and-acting.md`, `logs/ingest_log.md`.
++- Verification: confirmed S06 manifest metadata and quality label; extracted S06 PDF text with `pdfplumber`; checked page count, stateful-tool definition, user-simulator results, benchmark statistics, scenario counts, model benchmark results, ReAct appendix results, limitations, frontmatter, source tags, and wikilinks against extracted source text and wiki state.
++- Conflicts: recorded an open contradiction between S05's final database-state evaluation description for tau-bench and S06's characterization that tau-bench requires matching a single predetermined action sequence.
++- Exceptions: PDF extraction contained table and figure ordering noise, so benchmark numbers were checked against targeted page/table extractions and nearby prose.
++- Unresolved issues: scaling Milestone/Minefield authoring, modeling confirmation/authentication boundaries, and stabilizing external-service-backed tools remain open; two enterprise-transfer questions remain `source-needed`.
++- Evidence saved: `evidence/2026-07-09_ingest_S06_toolsandbox_excerpts.md`.
++- Diff saved: `evidence/diffs/2026-07-09_ingest_S06_toolsandbox.diff`.
++
++## 2026-07-09 - S07 - AutoGen Multi-Agent Conversation Framework
++
++- Source ID: S07.
++- Files read: `raw/source_manifest.md`, `schema/AGENTS.md`, `schema/page_template.md`, `wiki/index.md`, `raw/S07.pdf`, `wiki/react-reasoning-and-acting.md`, `wiki/toolsandbox-stateful-tool-use-benchmark.md`, `wiki/toolformer-self-supervised-tool-use.md`, `wiki/retrieval-augmented-generation.md`, `wiki/contradiction-register.md`, `logs/ingest_log.md`.
++- Relevant existing wiki pages read: `wiki/index.md`, `wiki/react-reasoning-and-acting.md`, `wiki/toolsandbox-stateful-tool-use-benchmark.md`, `wiki/toolformer-self-supervised-tool-use.md`, `wiki/retrieval-augmented-generation.md`, `wiki/contradiction-register.md`.
++- Actions: created a new concept page for AutoGen multi-agent conversation programming, linked it from the index, added synthesis cross-links from ReAct, RAG, and ToolSandbox, and saved S07 extraction notes.
++- Created files: `wiki/autogen-multi-agent-conversation-framework.md`, `evidence/2026-07-09_ingest_S07_autogen_excerpts.md`.
++- Modified files: `wiki/index.md`, `wiki/react-reasoning-and-acting.md`, `wiki/retrieval-augmented-generation.md`, `wiki/toolsandbox-stateful-tool-use-benchmark.md`, `logs/ingest_log.md`.
++- Verification: confirmed S07 manifest metadata and medium quality label; extracted S07 PDF text with `pdfplumber`; checked page count, agent abstractions, conversation programming interfaces, human/tool participation, application list, MATH results, ALFWorld results, OptiGuide results, dynamic group chat results, MiniWobChat result, limitations, frontmatter, source tags, and wikilinks against extracted source text and wiki state.
++- Conflicts: none detected; S07 adds a multi-agent orchestration framework and does not supersede existing ReAct, RAG, or ToolSandbox claims.
++- Exceptions: PDF extraction contained figure/table layout noise, so numeric claims were checked against targeted page/table extractions and nearby prose.
++- Unresolved issues: enterprise reliability of AutoGen conversation patterns, choosing single-agent versus multi-agent topologies, and test harnesses for code execution or external function calls remain open; two workflow-selection questions remain `source-needed`.
++- Evidence saved: `evidence/2026-07-09_ingest_S07_autogen_excerpts.md`.
++- Diff saved: `evidence/diffs/2026-07-09_ingest_S07_autogen.diff`.
++
++## 2026-07-09 - S08 - Multiagent Debate for Factuality and Reasoning
++
++- Source ID: S08.
++- Files read: `raw/source_manifest.md`, `schema/AGENTS.md`, `schema/page_template.md`, `wiki/index.md`, `raw/S08.pdf`, `wiki/autogen-multi-agent-conversation-framework.md`, `wiki/contradiction-register.md`, `logs/ingest_log.md`.
++- Relevant existing wiki pages read: `wiki/index.md`, `wiki/autogen-multi-agent-conversation-framework.md`, `wiki/contradiction-register.md`.
++- Actions: created a new concept page for multiagent debate, linked it from the index, added a synthesis cross-link from AutoGen, and saved S08 extraction notes.
++- Created files: `wiki/multiagent-debate-for-factuality-and-reasoning.md`, `evidence/2026-07-09_ingest_S08_multiagent-debate_excerpts.md`.
++- Modified files: `wiki/index.md`, `wiki/autogen-multi-agent-conversation-framework.md`, `logs/ingest_log.md`.
++- Verification: confirmed S08 manifest metadata and medium quality label; extracted S08 PDF text with `pdfplumber`; checked page count, debate protocol, model setup, task set, Table 1 reasoning results, Table 2 factuality results, appendix dataset sizes, mixed-model result, limitations, frontmatter, source tags, and wikilinks against extracted text and wiki state.
++- Conflicts: none detected yet; S08 is positive evidence for debate and the manifest identifies S09 as a future counterpoint not yet ingested.
++- Exceptions: PDF extraction contained figure/table ordering noise, so numerical claims were checked against targeted page/table extractions and surrounding prose.
++- Unresolved issues: which failures come from shared model bias versus debate design, cost comparison with other methods, and reconciliation with S09 remain open; three debate-transfer questions remain `source-needed`.
++- Evidence saved: `evidence/2026-07-09_ingest_S08_multiagent-debate_excerpts.md`.
++- Diff saved: `evidence/diffs/2026-07-09_ingest_S08_multiagent-debate.diff`.
++
++## 2026-07-09 - S09 - Multiagent Debate Limits and Majority Pressure
++
++- Source ID: S09.
++- Files read: `raw/source_manifest.md`, `schema/AGENTS.md`, `schema/page_template.md`, `wiki/index.md`, `raw/S09.pdf`, `wiki/multiagent-debate-for-factuality-and-reasoning.md`, `wiki/autogen-multi-agent-conversation-framework.md`, `wiki/contradiction-register.md`, `logs/ingest_log.md`.
++- Relevant existing wiki pages read: `wiki/index.md`, `wiki/multiagent-debate-for-factuality-and-reasoning.md`, `wiki/autogen-multi-agent-conversation-framework.md`, `wiki/contradiction-register.md`.
++- Actions: updated the existing multiagent debate page with S09's controlled logic-puzzle evidence and limitations, updated the index source list, added a contradiction-register entry preserving S08's positive claim and S09's qualifying counterpoint, and saved S09 extraction notes.
++- Created files: `evidence/2026-07-09_ingest_S09_multiagent-debate-limits_excerpts.md`.
++- Modified files: `wiki/index.md`, `wiki/multiagent-debate-for-factuality-and-reasoning.md`, `wiki/contradiction-register.md`, `logs/ingest_log.md`.
++- Verification: confirmed S09 manifest metadata and medium quality label; extracted S09 PDF text with `pdfplumber`; checked page count, title metadata, debate protocol, controlled factors, anchor configuration, puzzle counts, Table 3 accuracy results, Table 4 regression numbers, majority-pressure examples, rational-behavior correction-rate bounds, limitations, frontmatter, source tags, and wikilinks against extracted text and wiki state.
++- Conflicts: recorded an open contradiction/qualification between S08's broad positive debate results and S09's later finding that debate gains are strongly bounded by reasoning strength, team diversity, and resistance to incorrect majority pressure.
++- Exceptions: PDF extraction contained figure/table encoding and ordering noise, so numerical claims were checked against targeted page/table extractions and surrounding prose rather than raw table extraction alone.
++- Unresolved issues: transfer from S09's Knight-Knave-Spy setting to S08's factuality, math, chess, and MMLU settings remains open; two deployment-cost and failure-cause questions remain `source-needed`.
++- Evidence saved: `evidence/2026-07-09_ingest_S09_multiagent-debate-limits_excerpts.md`.
++- Diff saved: `evidence/diffs/2026-07-09_ingest_S09_multiagent-debate-limits.diff`.
++
++## 2026-07-09 - S10 - LLM Wiki
++
++- Source ID: S10.
++- Files read: `raw/source_manifest.md`, `schema/AGENTS.md`, `schema/page_template.md`, `wiki/index.md`, `raw/S10_llm_wiki.source.md`, `wiki/retrieval-augmented-generation.md`, `logs/ingest_log.md`.
++- Relevant existing wiki pages read: `wiki/index.md`, `wiki/retrieval-augmented-generation.md`.
++- Actions: created a new concept page for LLM Wiki, linked it from the index, added a synthesis link from RAG distinguishing LLM Wiki from model-level retrieval-augmented generation, and saved S10 extraction notes.
++- Created files: `wiki/llm-wiki.md`, `evidence/2026-07-09_ingest_S10_llm-wiki_excerpts.md`.
++- Modified files: `wiki/index.md`, `wiki/retrieval-augmented-generation.md`, `logs/ingest_log.md`.
++- Verification: confirmed S10 manifest metadata and medium quality label; checked the raw source capture metadata, date, access date, shareability, project-use claims, raw/wiki/schema distinction, ingest/query/lint workflow claims, medium-sized source-set claim, evidentiary boundary, frontmatter, source tags, index entry, and wikilinks against the captured source and wiki state.
++- Conflicts: none detected; S10 defines an LLM Wiki design pattern and does not supersede RAG or other existing pages.
++- Exceptions: S10 is a sparse source capture of an original design proposal rather than a controlled empirical evaluation, so the new page treats it as architecture vocabulary and not as reliability evidence.
++- Unresolved issues: lint criteria, raw-source retrieval strategy, and scaling beyond a medium-sized source set remain open; three LLM Wiki operations questions remain `source-needed`.
++- Evidence saved: `evidence/2026-07-09_ingest_S10_llm-wiki_excerpts.md`.
++- Diff saved: `evidence/diffs/2026-07-09_ingest_S10_llm-wiki.diff`.
+diff --git a/wiki/index.md b/wiki/index.md
+new file mode 100644
+index 0000000..b733439
+--- /dev/null
++++ b/wiki/index.md
+@@ -0,0 +1,31 @@
++---
++title: Knowledge Base Index
++page_type: overview
++status: draft
++updated: 2026-07-09
++sources: [S01, S02, S03, S04, S05, S06, S07, S08, S09, S10]
++confidence: high
++---
++
++# Knowledge Base Index
++
++This index lists derived wiki pages. It currently includes coverage of retrieval-augmented generation, LLM Wiki knowledge-base maintenance, reasoning-action prompting, self-supervised tool-use learning, API-planning evaluation, repeated-trial agent reliability, stateful interactive tool-use benchmarks, multi-agent orchestration frameworks, and multiagent debate benefits and limits for knowledge-intensive and tool-using language-model systems [S01] [S02] [S03] [S04] [S05] [S06] [S07] [S08] [S09] [S10].
++
++## Retrieval and Knowledge Updating
++
++- [[retrieval-augmented-generation|Retrieval-Augmented Generation]]
++- [[llm-wiki|LLM Wiki]]
++
++## Agent Reasoning and Tool Use
++
++- [[react-reasoning-and-acting|ReAct Reasoning and Acting]]
++- [[toolformer-self-supervised-tool-use|Toolformer Self-Supervised Tool Use]]
++- [[api-bank-tool-augmented-llm-benchmark|API-Bank Tool-Augmented LLM Benchmark]]
++- [[tau-bench-agent-consistency-benchmark|Tau-Bench Agent Consistency Benchmark]]
++- [[toolsandbox-stateful-tool-use-benchmark|ToolSandbox Stateful Tool-Use Benchmark]]
++- [[autogen-multi-agent-conversation-framework|AutoGen Multi-Agent Conversation Framework]]
++- [[multiagent-debate-for-factuality-and-reasoning|Multiagent Debate for Factuality and Reasoning]]
++
++## Registers
++
++- [[contradiction-register|Contradiction Register]]
+diff --git a/wiki/retrieval-augmented-generation.md b/wiki/retrieval-augmented-generation.md
+new file mode 100644
+index 0000000..8a10ca3
+--- /dev/null
++++ b/wiki/retrieval-augmented-generation.md
+@@ -0,0 +1,68 @@
++---
++title: Retrieval-Augmented Generation
++page_type: concept
++status: draft
++updated: 2026-07-09
++sources: [S01, S02, S07, S10]
++confidence: high
++---
++
++# Retrieval-Augmented Generation
++
++## Core Definition
++
++Retrieval-augmented generation (RAG) is a sequence-to-sequence modeling approach that combines parametric memory in a pre-trained generator with non-parametric memory in a retrievable document index, so generation can condition on external passages as well as model parameters [S01].
++
++In Lewis et al.'s 2020 formulation, the generator is BART-large and the retriever is initialized from Dense Passage Retrieval (DPR), with Wikipedia passages retrieved by maximum inner product search (MIPS) and treated as latent variables during generation [S01].
++
++## Key Claims
++
++- RAG was proposed to address limitations of parametric-only language models: difficulty revising memory, limited prediction provenance, and hallucination risk on knowledge-intensive tasks [S01].
++- The paper defines two variants: RAG-Sequence uses the same retrieved document for the whole generated sequence, while RAG-Token can condition each generated token on a different retrieved document [S01].
++- The experiments use a December 2018 Wikipedia dump split into 100-word disjoint chunks, producing about 21 million documents in a FAISS MIPS index [S01].
++- The retriever and generator are jointly fine-tuned without direct supervision for which document should be retrieved; the document encoder and document index are kept fixed because updating them would require periodic index refreshes [S01].
++- On open-domain QA test results, RAG-Sequence reports 44.5 exact match on Natural Questions, 56.8 on the standard TriviaQA split, 68.0 on TriviaQA-Wiki, 45.2 on WebQuestions, and 52.2 on CuratedTrec [S01].
++- RAG can generate correct Natural Questions answers even when the answer is absent from all retrieved documents, with the paper reporting 11.8% accuracy in that subset where an extractive model would score 0% [S01].
++- On Open MS-MARCO NLG, RAG-Sequence outperforms the BART baseline by 2.6 BLEU-1 points and 2.6 ROUGE-L points, while the authors caution that some MS-MARCO questions require gold passages or information outside Wikipedia [S01].
++- In Jeopardy question generation, RAG-Token scores 22.2 Q-BLEU-1 versus BART's 19.7, and human evaluators rated RAG-Token more factual than BART in 42.7% of pairwise cases versus 7.1% for BART [S01].
++- On FEVER, RAG scores 72.5 label accuracy for 3-way classification and 89.5 for 2-way classification, within 4.3% and 2.7% of cited state-of-the-art systems that use stronger evidence access or supervision [S01].
++- Replacing the non-parametric memory can update model behavior: with 2016 and 2018 Wikipedia indices, the paper reports 70% accuracy for 2016 world leaders with the 2016 index and 68% for 2018 world leaders with the 2018 index, while mismatched index/year combinations fall to 12% and 4% [S01].
++
++## Evidence and Sources
++
++S01 is a high-quality public paper by Lewis et al. dated 2020-05-22 in the manifest, and it is the primary source for this page's architecture, evaluation, and limitation claims [S01].
++
++The paper reports that the RAG models contain 626 million trainable parameters, combining 110 million parameters for the DPR query encoder, an untrained/fixed 110 million parameter DPR document encoder, and 406 million trainable parameters from BART-large [S01].
++
++The non-parametric memory is not counted as trainable parameters, but the paper describes it as 21 million 728-dimensional vectors, about 15.3 billion values, with index compression reducing a reported CPU memory requirement from about 100 GB to 36 GB in the Hugging Face implementation [S01].
++
++## Limitations and Counter-Evidence
++
++The paper's RAG results are tied to a specific experimental setup: a December 2018 Wikipedia index, DPR initialization, BART-large generation, and task-specific fine-tuning, so the reported benchmark numbers should not be generalized to arbitrary RAG systems without re-evaluation [S01].
++
++The paper notes that RAG's retriever is initialized from DPR trained with retrieval supervision on Natural Questions and TriviaQA, which limits claims that all improvements come from unsupervised retrieval learning [S01].
++
++The authors tried adding a null-document mechanism to model cases where no useful document was retrieved, but they report that learned null document embeddings, a static learned bias, and a neural-network logit did not improve performance [S01].
++
++Preliminary experiments found retrieval collapse on tasks such as story generation, where the retriever learned to return the same documents regardless of input and the generator learned to ignore them, making RAG perform equivalently to BART [S01].
++
++For FEVER evidence extraction, the paper does not directly tackle sentence-level evidence retrieval because FEVER uses a different Wikipedia dump than the RAG index; this leaves a gap between label classification and full evidence provenance [S01].
++
++Synthesis: RAG and ReAct both use external knowledge, but S01's RAG is a fine-tuned seq2seq architecture that marginalizes retrieved Wikipedia passages, while S02's ReAct is a prompting paradigm that interleaves language thoughts, tool actions, and observations through an external API or environment [S01] [S02].
++
++Synthesis: AutoGen's Retrieval-Augmented Chat uses a retrieval-augmented user proxy and retrieval-augmented assistant around a vector database, and its interactive `Update Context` loop is an application orchestration pattern rather than the same model-level RAG architecture defined in S01 [S01] [S07].
++
++Synthesis: [[llm-wiki|LLM Wiki]] and RAG both externalize knowledge beyond model parameters, but S10 describes a persistent Markdown knowledge-base maintenance pattern around raw sources, derived wiki pages, schema files, ingest/query/lint workflows, and an index-like wiki structure rather than the trainable retriever-generator architecture evaluated in S01 [S01] [S10].
++
++## Links to Other Pages
++
++- [[index|Knowledge Base Index]]
++- [[react-reasoning-and-acting|ReAct Reasoning and Acting]]
++- [[autogen-multi-agent-conversation-framework|AutoGen Multi-Agent Conversation Framework]]
++- [[llm-wiki|LLM Wiki]]
++
++## Open Questions
++
++- How much of RAG's open-domain QA gain depends on DPR pretraining and retrieval supervision rather than the RAG marginalization objective itself [S01]?
++- What validation is needed before using index replacement as an enterprise knowledge-update mechanism, given that the paper demonstrates world-leader update behavior but also reports mismatched-index failures [S01]?
++- When should a production system prefer RAG-Sequence, RAG-Token, or a more recent retrieval architecture for auditability, latency, and answer faithfulness source-needed?
+
+# LLM Wiki page snapshot
+
+diff --git "a/wiki\\llm-wiki.md" "b/wiki\\llm-wiki.md"
+new file mode 100644
+index 0000000..6ee1f9d
+--- /dev/null
++++ "b/wiki\\llm-wiki.md"
+@@ -0,0 +1,51 @@
++---
++title: LLM Wiki
++page_type: concept
++status: draft
++updated: 2026-07-09
++sources: [S10]
++confidence: medium
++---
++
++# LLM Wiki
++
++## Core Definition
++
++An LLM Wiki is a persistent Markdown knowledge-base pattern in which an LLM helps maintain derived wiki pages from raw source materials under a schema or maintenance contract [S10].
++
++S10 is the original concept source for the LLM Wiki pattern used in this project and says the pattern motivates the idea that an LLM can maintain a persistent Markdown knowledge base [S10].
++
++## Key Claims
++
++- S10 defines a project structure that distinguishes raw sources, generated wiki pages, and schema files [S10].
++- S10 identifies ingest, query, and lint workflows as part of the LLM Wiki pattern [S10].
++- S10 is used in this project as the baseline for the LLM Wiki architecture [S10].
++- S10 supports the claim that a medium-sized source set can be maintained through an index-like wiki structure [S10].
++- S10 is a public source capture of Andrej Karpathy's `LLM Wiki`, dated 2026-04-04 in the capture and manifest [S10].
++
++## Evidence and Sources
++
++The captured S10 source states that it is included because it is the original concept source for the LLM Wiki pattern used in this project [S10].
++
++The captured S10 source says the LLM Wiki pattern defines the `raw`/`wiki`/`schema` structure and motivates maintaining a persistent Markdown knowledge base with an LLM [S10].
++
++Synthesis: S10's LLM Wiki pattern is a knowledge-base maintenance workflow, while [[retrieval-augmented-generation|Retrieval-Augmented Generation]] in S01 is a model architecture that retrieves external passages during generation [S01] [S10].
++
++## Limitations and Counter-Evidence
++
++S10 should be treated as an original design proposal and concept source, not as a controlled empirical evaluation [S10].
++
++S10's reliability claims should be tested through project stress tests rather than accepted as benchmark evidence [S10].
++
++S10 is a medium-quality source capture in the manifest, so it can define project vocabulary and architecture but should not independently settle reliability, accuracy, or enterprise-readiness claims [S10].
++
++## Links to Other Pages
++
++- [[index|Knowledge Base Index]]
++- [[retrieval-augmented-generation|Retrieval-Augmented Generation]]
++
++## Open Questions
++
++- What lint checks best predict whether an LLM-maintained wiki remains faithful to raw sources over many ingests source-needed?
++- When should an LLM Wiki use retrieval over raw sources instead of relying on derived wiki pages source-needed?
++- How large can a medium-sized source set become before the index-like wiki structure needs additional hierarchy or automation source-needed?
+
+# RAG page snapshot with S10 update
+
+diff --git "a/wiki\\retrieval-augmented-generation.md" "b/wiki\\retrieval-augmented-generation.md"
+new file mode 100644
+index 0000000..8a10ca3
+--- /dev/null
++++ "b/wiki\\retrieval-augmented-generation.md"
+@@ -0,0 +1,68 @@
++---
++title: Retrieval-Augmented Generation
++page_type: concept
++status: draft
++updated: 2026-07-09
++sources: [S01, S02, S07, S10]
++confidence: high
++---
++
++# Retrieval-Augmented Generation
++
++## Core Definition
++
++Retrieval-augmented generation (RAG) is a sequence-to-sequence modeling approach that combines parametric memory in a pre-trained generator with non-parametric memory in a retrievable document index, so generation can condition on external passages as well as model parameters [S01].
++
++In Lewis et al.'s 2020 formulation, the generator is BART-large and the retriever is initialized from Dense Passage Retrieval (DPR), with Wikipedia passages retrieved by maximum inner product search (MIPS) and treated as latent variables during generation [S01].
++
++## Key Claims
++
++- RAG was proposed to address limitations of parametric-only language models: difficulty revising memory, limited prediction provenance, and hallucination risk on knowledge-intensive tasks [S01].
++- The paper defines two variants: RAG-Sequence uses the same retrieved document for the whole generated sequence, while RAG-Token can condition each generated token on a different retrieved document [S01].
++- The experiments use a December 2018 Wikipedia dump split into 100-word disjoint chunks, producing about 21 million documents in a FAISS MIPS index [S01].
++- The retriever and generator are jointly fine-tuned without direct supervision for which document should be retrieved; the document encoder and document index are kept fixed because updating them would require periodic index refreshes [S01].
++- On open-domain QA test results, RAG-Sequence reports 44.5 exact match on Natural Questions, 56.8 on the standard TriviaQA split, 68.0 on TriviaQA-Wiki, 45.2 on WebQuestions, and 52.2 on CuratedTrec [S01].
++- RAG can generate correct Natural Questions answers even when the answer is absent from all retrieved documents, with the paper reporting 11.8% accuracy in that subset where an extractive model would score 0% [S01].
++- On Open MS-MARCO NLG, RAG-Sequence outperforms the BART baseline by 2.6 BLEU-1 points and 2.6 ROUGE-L points, while the authors caution that some MS-MARCO questions require gold passages or information outside Wikipedia [S01].
++- In Jeopardy question generation, RAG-Token scores 22.2 Q-BLEU-1 versus BART's 19.7, and human evaluators rated RAG-Token more factual than BART in 42.7% of pairwise cases versus 7.1% for BART [S01].
++- On FEVER, RAG scores 72.5 label accuracy for 3-way classification and 89.5 for 2-way classification, within 4.3% and 2.7% of cited state-of-the-art systems that use stronger evidence access or supervision [S01].
++- Replacing the non-parametric memory can update model behavior: with 2016 and 2018 Wikipedia indices, the paper reports 70% accuracy for 2016 world leaders with the 2016 index and 68% for 2018 world leaders with the 2018 index, while mismatched index/year combinations fall to 12% and 4% [S01].
++
++## Evidence and Sources
++
++S01 is a high-quality public paper by Lewis et al. dated 2020-05-22 in the manifest, and it is the primary source for this page's architecture, evaluation, and limitation claims [S01].
++
++The paper reports that the RAG models contain 626 million trainable parameters, combining 110 million parameters for the DPR query encoder, an untrained/fixed 110 million parameter DPR document encoder, and 406 million trainable parameters from BART-large [S01].
++
++The non-parametric memory is not counted as trainable parameters, but the paper describes it as 21 million 728-dimensional vectors, about 15.3 billion values, with index compression reducing a reported CPU memory requirement from about 100 GB to 36 GB in the Hugging Face implementation [S01].
++
++## Limitations and Counter-Evidence
++
++The paper's RAG results are tied to a specific experimental setup: a December 2018 Wikipedia index, DPR initialization, BART-large generation, and task-specific fine-tuning, so the reported benchmark numbers should not be generalized to arbitrary RAG systems without re-evaluation [S01].
++
++The paper notes that RAG's retriever is initialized from DPR trained with retrieval supervision on Natural Questions and TriviaQA, which limits claims that all improvements come from unsupervised retrieval learning [S01].
++
++The authors tried adding a null-document mechanism to model cases where no useful document was retrieved, but they report that learned null document embeddings, a static learned bias, and a neural-network logit did not improve performance [S01].
++
++Preliminary experiments found retrieval collapse on tasks such as story generation, where the retriever learned to return the same documents regardless of input and the generator learned to ignore them, making RAG perform equivalently to BART [S01].
++
++For FEVER evidence extraction, the paper does not directly tackle sentence-level evidence retrieval because FEVER uses a different Wikipedia dump than the RAG index; this leaves a gap between label classification and full evidence provenance [S01].
++
++Synthesis: RAG and ReAct both use external knowledge, but S01's RAG is a fine-tuned seq2seq architecture that marginalizes retrieved Wikipedia passages, while S02's ReAct is a prompting paradigm that interleaves language thoughts, tool actions, and observations through an external API or environment [S01] [S02].
++
++Synthesis: AutoGen's Retrieval-Augmented Chat uses a retrieval-augmented user proxy and retrieval-augmented assistant around a vector database, and its interactive `Update Context` loop is an application orchestration pattern rather than the same model-level RAG architecture defined in S01 [S01] [S07].
++
++Synthesis: [[llm-wiki|LLM Wiki]] and RAG both externalize knowledge beyond model parameters, but S10 describes a persistent Markdown knowledge-base maintenance pattern around raw sources, derived wiki pages, schema files, ingest/query/lint workflows, and an index-like wiki structure rather than the trainable retriever-generator architecture evaluated in S01 [S01] [S10].
++
++## Links to Other Pages
++
++- [[index|Knowledge Base Index]]
++- [[react-reasoning-and-acting|ReAct Reasoning and Acting]]
++- [[autogen-multi-agent-conversation-framework|AutoGen Multi-Agent Conversation Framework]]
++- [[llm-wiki|LLM Wiki]]
++
++## Open Questions
++
++- How much of RAG's open-domain QA gain depends on DPR pretraining and retrieval supervision rather than the RAG marginalization objective itself [S01]?
++- What validation is needed before using index replacement as an enterprise knowledge-update mechanism, given that the paper demonstrates world-leader update behavior but also reports mismatched-index failures [S01]?
++- When should a production system prefer RAG-Sequence, RAG-Token, or a more recent retrieval architecture for auditability, latency, and answer faithfulness source-needed?
+
+# Evidence note snapshot
+
+diff --git "a/evidence\\2026-07-09_ingest_S10_llm-wiki_excerpts.md" "b/evidence\\2026-07-09_ingest_S10_llm-wiki_excerpts.md"
+new file mode 100644
+index 0000000..54fa351
+--- /dev/null
++++ "b/evidence\\2026-07-09_ingest_S10_llm-wiki_excerpts.md"
+@@ -0,0 +1,9 @@
++# S10 LLM Wiki Extraction Notes
++
++- Source metadata checked in `raw/source_manifest.md`: S10 is `LLM Wiki - Andrej Karpathy`, dated 2026-04-04, public, source capture, medium quality, with intended use for the LLM Wiki pattern and medium-scale knowledge compilation.
++- Raw capture checked in `raw/S10_llm_wiki.source.md`: source ID S10, type `original-concept-webpage`, accessed 2026-07-06, shareability public, quality medium.
++- Core concept checked: S10 is included as the original concept source for the LLM Wiki pattern used in this project.
++- Architecture claims checked: S10 defines the distinction between raw sources, generated wiki pages, and schema files.
++- Workflow claims checked: S10 names ingest, query, and lint workflows as part of the LLM Wiki pattern.
++- Project-use claims checked: S10 is the baseline for the LLM Wiki architecture and supports the claim that a medium-sized source set can be maintained through an index-like wiki structure.
++- Evidentiary boundary checked: S10 is an original design proposal, not a controlled empirical evaluation; reliability should be tested through project stress tests.

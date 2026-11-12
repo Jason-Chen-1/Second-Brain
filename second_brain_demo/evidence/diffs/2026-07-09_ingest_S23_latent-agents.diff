@@ -1,0 +1,98 @@
+diff --git a/wiki/latent-agents-internalized-debate.md b/wiki/latent-agents-internalized-debate.md
+new file mode 100644
+--- /dev/null
++++ b/wiki/latent-agents-internalized-debate.md
+@@
++---
++title: Latent Agents and Internalized Multi-Agent Debate
++page_type: concept
++status: draft
++updated: 2026-07-09
++sources: [S08, S09, S21, S23]
++confidence: medium
++---
++
++# Latent Agents and Internalized Multi-Agent Debate
++
++Latent Agents is a 2026 paper that proposes Internalized Multi-Agent Debate (IMAD), a two-stage fine-tuning method for distilling explicit multi-agent debate into a single language model [S23].
++
++S23's IMAD pipeline first trains a model with supervised fine-tuning to reproduce debate traces, then uses reinforcement learning with dynamic reward scheduling and length clipping to push the model toward shorter internalized reasoning [S23].
++
++S23 collected 944 debate traces from three GPT-3.5-turbo agents over two debate rounds on arithmetic expressions containing six randomly generated two-digit numbers [S23].
++
++S23's reinforcement-learning stage uses Group Relative Policy Optimization, anneals the length limit from 2000 to 500 tokens, and decays the structure reward weight from 1.0 to 0.05 [S23].
++
++In Table 1, LLaMA-3.1 8B IMAD scores 85.20% +/- 0.46 on GSM8K, 62.00% +/- 0.93 on MMLU-Pro, and 58.53% +/- 0.76 on BBH, while consuming average token counts of 644.33, 728.07, and 562.76 respectively [S23].
++
++S23 states that IMAD uses between 6.3% and 21.1% of explicit debate's tokens across the tested models, equivalent to a 5-16x inference-efficiency improvement [S23].
++
++S23's main debate dataset is constrained to arithmetic problems and a fixed three-agent, two-round debate format, so performance on more abstract or open-ended reasoning tasks and more complex debate configurations remains uncertain [S23].
++
++- [[index|Knowledge Base Index]]
++- [[multiagent-debate-for-factuality-and-reasoning|Multiagent Debate for Factuality and Reasoning]]
++- [[autogen-multi-agent-conversation-framework|AutoGen Multi-Agent Conversation Framework]]
++- [[project-scope-and-research-hypotheses|Project Scope and Research Hypotheses]]
+diff --git a/wiki/multiagent-debate-for-factuality-and-reasoning.md b/wiki/multiagent-debate-for-factuality-and-reasoning.md
+--- a/wiki/multiagent-debate-for-factuality-and-reasoning.md
++++ b/wiki/multiagent-debate-for-factuality-and-reasoning.md
+@@
+-sources: [S08, S09]
++sources: [S08, S09, S23]
+@@
++S23 studies Internalized Multi-Agent Debate, which distills multi-agent debate traces into a single LLM to reduce inference-time token cost while trying to preserve debate-like reasoning behavior [S23].
+@@
++- S23 reports that IMAD uses between 6.3% and 21.1% of explicit debate's tokens across tested models while matching or improving debate performance on several model/benchmark combinations [S23].
++- S23 reports that LLaMA-3.1 8B IMAD scores 85.20% +/- 0.46 on GSM8K and consumes 644.33 average tokens, compared with 83.03% +/- 0.55 and 5757.78 average tokens for explicit debate [S23].
+@@
++Synthesis: [[latent-agents-internalized-debate|Latent Agents and Internalized Multi-Agent Debate]] reframes debate as a training signal that may be internalized into one model, while S08 and S09 evaluate explicit multi-agent interaction at inference time [S08] [S09] [S23].
+@@
++S23 reduces explicit debate's token cost but also removes the full visible debate transcript at inference time, so its enterprise auditability implications remain unresolved [S21] [S23].
++S23's main debate dataset is limited to arithmetic problems and a fixed three-agent, two-round debate format, so its internalization results should not be treated as a general replacement for explicit debate on long-context or tool-using tasks [S23].
+@@
++- [[latent-agents-internalized-debate|Latent Agents and Internalized Multi-Agent Debate]]
+diff --git a/wiki/index.md b/wiki/index.md
+--- a/wiki/index.md
++++ b/wiki/index.md
+@@
+-sources: [S01, S02, S03, S04, S05, S06, S07, S08, S09, S10, S11, S12, S13, S14, S15, S16, S17, S18, S19, S20, S21, S22]
++sources: [S01, S02, S03, S04, S05, S06, S07, S08, S09, S10, S11, S12, S13, S14, S15, S16, S17, S18, S19, S20, S21, S22, S23]
+@@
++- [[latent-agents-internalized-debate|Latent Agents and Internalized Multi-Agent Debate]]
+diff --git a/evidence/2026-07-09_ingest_S23_latent-agents_excerpts.md b/evidence/2026-07-09_ingest_S23_latent-agents_excerpts.md
+new file mode 100644
+--- /dev/null
++++ b/evidence/2026-07-09_ingest_S23_latent-agents_excerpts.md
+@@
++# S23 Evidence Notes - Latent Agents
++
++Source ID: S23
++
++Manifest metadata checked: `Latent Agents - Yi, Mueller & Lee`, dated 2026-04-27, file `raw/S23.pdf`, arXiv URL `https://arxiv.org/abs/2604.24881`, type `paper/PDF`, public, quality `medium`, project use `internalized multi-agent debate, token cost, and agent-specific subspaces`.
++
++PDF extraction:
++
++- `raw/S23.pdf` exists and has 34 pages.
++- PDF metadata title: `Latent Agents: A Post-Training Procedure for Internalized Multi-Agent Debate`.
++- PDF metadata authors: John Seon Keun Yi, Aaron Mueller, and Dokyun Lee.
++
++Core extracted claims used:
++
++- S23 proposes Internalized Multi-Agent Debate (IMAD), a two-stage fine-tuning method that distills multi-agent debate into a single LLM.
++- The training debate dataset contains 944 debate traces from three GPT-3.5-turbo agents over two rounds on arithmetic expressions with six randomly generated two-digit numbers.
++- The RL stage uses GRPO, anneals the length limit from 2000 to 500 tokens, decays the structure reward weight from 1.0 to 0.05, and uses LoRA adapters.
++- S23 evaluates GSM8K, MMLU-Pro, and Big-Bench Hard with 1000 sampled problems per dataset and mean accuracy with standard error across three runs.
++- S23 says IMAD uses 6.3% to 21.1% of explicit debate's tokens across tested models, described as a 5-16x inference-efficiency improvement.
+diff --git a/logs/ingest_log.md b/logs/ingest_log.md
+--- a/logs/ingest_log.md
++++ b/logs/ingest_log.md
+@@
++## 2026-07-09 - S23 - Latent Agents
++
++- Source ID: S23.
++- Files read: `raw/source_manifest.md`, `schema/AGENTS.md`, `schema/page_template.md`, `wiki/index.md`, `raw/S23.pdf`, `wiki/multiagent-debate-for-factuality-and-reasoning.md`, `wiki/autogen-multi-agent-conversation-framework.md`, `wiki/project-scope-and-research-hypotheses.md`, `wiki/contradiction-register.md`, `logs/ingest_log.md`.
++- Actions: created a new concept page for Latent Agents and Internalized Multi-Agent Debate, updated the multiagent debate page with S23's internalized-debate and token-efficiency evidence, linked the new page from the index, and saved S23 PDF extraction notes.
++- Created files: `wiki/latent-agents-internalized-debate.md`, `evidence/2026-07-09_ingest_S23_latent-agents_excerpts.md`.
++- Modified files: `wiki/index.md`, `wiki/multiagent-debate-for-factuality-and-reasoning.md`, `logs/ingest_log.md`.
++- Conflicts: none detected; S23 extends explicit debate with an internalized-debate method and raises auditability questions, but it does not directly contradict S08's positive explicit-debate evidence or S09's debate-limit evidence.
++- Evidence saved: `evidence/2026-07-09_ingest_S23_latent-agents_excerpts.md`.
++- Diff saved: `evidence/diffs/2026-07-09_ingest_S23_latent-agents.diff`.

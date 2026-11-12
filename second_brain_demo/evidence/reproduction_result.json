@@ -1,0 +1,21 @@
+{
+  "status": "pass",
+  "checks": [
+    {
+      "name": "wiki index links to RAG",
+      "passed": true
+    },
+    {
+      "name": "RAG page cites S01",
+      "passed": true
+    },
+    {
+      "name": "S01 stress test recorded",
+      "passed": true
+    },
+    {
+      "name": "diff evidence path recorded",
+      "passed": true
+    }
+  ]
+}

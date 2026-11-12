@@ -1,0 +1,566 @@
+﻿diff --git a/logs/ingest_log.md b/logs/ingest_log.md
+new file mode 100644
+index 0000000..9a50f94
+--- /dev/null
++++ b/logs/ingest_log.md
+@@ -0,0 +1,108 @@
++# Ingest Log
++
++This log records source ingestion and knowledge-base maintenance events. It is append-only: new work should add entries rather than rewriting old history.
++
++## 2026-07-09 - S01 - Retrieval-Augmented Generation
++
++- Source ID: S01.
++- Files read: `raw/source_manifest.md`, `schema/AGENTS.md`, `schema/page_template.md`, `wiki/index.md`, `raw/S01.pdf`, `logs/ingest_log.md`.
++- Relevant existing wiki pages read: `wiki/index.md`; no substantive topic pages existed in `wiki/` at ingest time.
++- Actions: created a new concept page for retrieval-augmented generation, repaired the malformed index, linked the new page from the index, and saved S01 verification notes.
++- Created files: `wiki/retrieval-augmented-generation.md`, `evidence/2026-07-09_ingest_S01_excerpts.md`.
++- Modified files: `wiki/index.md`, `logs/ingest_log.md`.
++- Verification: confirmed S01 manifest metadata and quality label; extracted S01 PDF text with `pdfplumber`; checked reported page count, architecture, benchmark numbers, parameter/index numbers, knowledge-update result, and limitations against the extracted source text; checked wikilinks and source IDs with `rg`.
++- Conflicts: none detected because no pre-existing substantive wiki page made comparable RAG claims.
++- Exceptions: `pdftotext` was unavailable, so bundled Python with `pdfplumber` was used; a direct console extraction hit a PowerShell/GBK encoding issue and was rerun with UTF-8-safe output.
++- Unresolved issues: the final open question about choosing among RAG variants and newer retrieval architectures remains `source-needed` until more sources are ingested.
++- Evidence saved: `evidence/2026-07-09_ingest_S01_excerpts.md`.
++- Diff saved: `evidence/diffs/2026-07-09_ingest_S01_rag.diff`.
++
++## 2026-07-09 - S02 - ReAct Reasoning and Acting
++
++- Source ID: S02.
++- Files read: `raw/source_manifest.md`, `schema/AGENTS.md`, `schema/page_template.md`, `wiki/index.md`, `raw/S02.pdf`, `wiki/retrieval-augmented-generation.md`, `logs/ingest_log.md`.
++- Relevant existing wiki pages read: `wiki/index.md`, `wiki/retrieval-augmented-generation.md`.
++- Actions: created a new concept page for ReAct reasoning/action loops, linked it from the index, and added a synthesis cross-link from the RAG page distinguishing S01's retrieval-augmented seq2seq architecture from S02's ReAct prompting/action-loop paradigm.
++- Created files: `wiki/react-reasoning-and-acting.md`, `evidence/2026-07-09_ingest_S02_excerpts.md`.
++- Modified files: `wiki/index.md`, `wiki/retrieval-augmented-generation.md`, `logs/ingest_log.md`.
++- Verification: confirmed S02 manifest metadata and quality label; extracted S02 PDF text with `pdfplumber`; checked reported page count, method definition, action space, benchmark results, failure-mode numbers, fine-tuning note, reproducibility note, and ethics boundary against the extracted source text; checked wikilinks and source IDs with `rg`.
++- Conflicts: none detected; S02 adds a distinct prompting/action-loop concept and does not revise S01's RAG architecture or benchmark claims.
++- Exceptions: PDF text extraction contains noisy figure glyphs on some pages, so numeric claims were checked against table text and surrounding extracted prose rather than figure rendering.
++- Unresolved issues: production exposure of reasoning traces and real-system permissioning remain `source-needed`; transfer to newer models beyond PaLM-540B and GPT-3 `text-davinci-002` remains uncertain.
++- Evidence saved: `evidence/2026-07-09_ingest_S02_excerpts.md`.
++- Diff saved: `evidence/diffs/2026-07-09_ingest_S02_react.diff`.
++
++## 2026-07-09 - S03 - Toolformer Self-Supervised Tool Use
++
++- Source ID: S03.
++- Files read: `raw/source_manifest.md`, `schema/AGENTS.md`, `schema/page_template.md`, `wiki/index.md`, `raw/S03.pdf`, `wiki/react-reasoning-and-acting.md`, `wiki/retrieval-augmented-generation.md`, `logs/ingest_log.md`.
++- Relevant existing wiki pages read: `wiki/index.md`, `wiki/react-reasoning-and-acting.md`, `wiki/retrieval-augmented-generation.md`.
++- Actions: created a new concept page for Toolformer self-supervised tool use, linked it from the index, and added a synthesis cross-link from the ReAct page distinguishing prompted interactive reasoning/action trajectories from Toolformer's self-supervised API-call fine-tuning.
++- Created files: `wiki/toolformer-self-supervised-tool-use.md`, `evidence/2026-07-09_ingest_S03_excerpts.md`.
++- Modified files: `wiki/index.md`, `wiki/react-reasoning-and-acting.md`, `logs/ingest_log.md`.
++- Verification: confirmed S03 manifest metadata and quality label; extracted S03 PDF text with `pdfplumber`; checked reported page count, method definition, tool inventory, filtering thresholds and example counts, training setup, benchmark numbers, language-modeling perplexity, scaling claim, and limitations against extracted source text; checked wikilinks and source IDs with `rg`.
++- Conflicts: none detected; S03 adds a distinct self-supervised API-call learning mechanism and does not supersede S01 RAG or S02 ReAct claims.
++- Exceptions: PDF extraction included some multi-column/table ordering noise, so benchmark and count claims were checked against separately extracted table text.
++- Unresolved issues: tool-call cost/risk pricing, combining Toolformer with ReAct-style multi-step tool refinement, and learning from sensitive enterprise tool logs remain open; the sensitive-log safeguard question remains `source-needed`.
++- Evidence saved: `evidence/2026-07-09_ingest_S03_excerpts.md`.
++- Diff saved: `evidence/diffs/2026-07-09_ingest_S03_toolformer.diff`.
++
++## 2026-07-09 - S04 - API-Bank Tool-Augmented LLM Benchmark
++
++- Source ID: S04.
++- Files read: `raw/source_manifest.md`, `schema/AGENTS.md`, `schema/page_template.md`, `wiki/index.md`, `raw/S04.pdf`, `wiki/react-reasoning-and-acting.md`, `wiki/toolformer-self-supervised-tool-use.md`, `logs/ingest_log.md`.
++- Relevant existing wiki pages read: `wiki/index.md`, `wiki/react-reasoning-and-acting.md`, `wiki/toolformer-self-supervised-tool-use.md`.
++- Actions: created a new concept page for API-Bank, linked it from the index, and added synthesis cross-links from ReAct and Toolformer distinguishing API-Bank's benchmark/evaluation role from S02's prompting method and S03's self-supervised API-call training method.
++- Created files: `wiki/api-bank-tool-augmented-llm-benchmark.md`, `evidence/2026-07-09_ingest_S04_excerpts.md`.
++- Modified files: `wiki/index.md`, `wiki/react-reasoning-and-acting.md`, `wiki/toolformer-self-supervised-tool-use.md`, `logs/ingest_log.md`.
++- Verification: confirmed S04 manifest metadata and quality label; extracted S04 PDF text with `pdfplumber`; checked page count, ability grading, evaluation-system counts, training/evaluation set statistics, main benchmark results, error distributions, limitations, and ethics/annotation boundaries against extracted source text; checked wikilinks and source IDs with `rg`.
++- Conflicts: none detected; S04 adds a benchmark and evaluation framework for tool-augmented LLMs and does not supersede S02 ReAct or S03 Toolformer claims.
++- Exceptions: PDF extraction contained multi-column ordering noise in appendix/example pages, so core numeric claims were checked against table text and nearby prose.
++- Unresolved issues: applying executable API evaluation to permissioned enterprise tools, comparing API-Bank scores with later benchmarks, and reducing API hallucination remain open; two benchmark-transfer questions remain `source-needed`.
++- Evidence saved: `evidence/2026-07-09_ingest_S04_excerpts.md`.
++- Diff saved: `evidence/diffs/2026-07-09_ingest_S04_api-bank.diff`.
++
++## 2026-07-09 - S05 - Tau-Bench Agent Consistency Benchmark
++
++- Source ID: S05.
++- Files read: `raw/source_manifest.md`, `schema/AGENTS.md`, `schema/page_template.md`, `wiki/index.md`, `raw/S05.pdf`, `wiki/api-bank-tool-augmented-llm-benchmark.md`, `wiki/react-reasoning-and-acting.md`, `logs/ingest_log.md`.
++- Relevant existing wiki pages read: `wiki/index.md`, `wiki/api-bank-tool-augmented-llm-benchmark.md`, `wiki/react-reasoning-and-acting.md`.
++- Actions: created a new concept page for tau-bench agent consistency evaluation, linked it from the index, added synthesis cross-links from API-Bank and ReAct, and saved S05 extraction notes.
++- Created files: `wiki/tau-bench-agent-consistency-benchmark.md`, `evidence/2026-07-09_ingest_S05_tau-bench_excerpts.md`.
++- Modified files: `wiki/index.md`, `wiki/api-bank-tool-augmented-llm-benchmark.md`, `wiki/react-reasoning-and-acting.md`, `logs/ingest_log.md`.
++- Verification: confirmed S05 manifest metadata and quality label; extracted S05 PDF text with `pdfplumber`; checked page count, metric definition, domain statistics, experiment settings, model benchmark results, consistency result, failure-analysis counts, policy-ablation numbers, and limitations against extracted source text; checked wikilinks and source IDs with `rg`.
++- Conflicts: none detected; S05 adds a later agent-reliability benchmark and does not supersede S02 ReAct or S04 API-Bank claims.
++- Exceptions: PDF extraction contained figure/table layout noise, so numeric claims were checked against table text and nearby prose rather than relying on visual order alone.
++- Unresolved issues: production thresholds for `pass^k`, applying final-state evaluation to real enterprise write tools, and transfer of S05's model-method conclusions to later models or agent scaffolds remain open; two production-transfer questions remain `source-needed`.
++- Evidence saved: `evidence/2026-07-09_ingest_S05_tau-bench_excerpts.md`.
++- Diff saved: `evidence/diffs/2026-07-09_ingest_S05_tau-bench.diff`.
++
++## 2026-07-09 - S06 - ToolSandbox Stateful Tool-Use Benchmark
++
++- Source ID: S06.
++- Files read: `raw/source_manifest.md`, `schema/AGENTS.md`, `schema/page_template.md`, `wiki/index.md`, `raw/S06.pdf`, `wiki/api-bank-tool-augmented-llm-benchmark.md`, `wiki/tau-bench-agent-consistency-benchmark.md`, `wiki/react-reasoning-and-acting.md`, `logs/ingest_log.md`.
++- Relevant existing wiki pages read: `wiki/index.md`, `wiki/api-bank-tool-augmented-llm-benchmark.md`, `wiki/tau-bench-agent-consistency-benchmark.md`, `wiki/react-reasoning-and-acting.md`.
++- Actions: created a new concept page for ToolSandbox, created a contradiction register because S06's tau-bench comparison conflicts with S05's own evaluation description, linked both pages from the index, added synthesis cross-links from API-Bank, tau-bench, and ReAct, and saved S06 extraction notes.
++- Created files: `wiki/toolsandbox-stateful-tool-use-benchmark.md`, `wiki/contradiction-register.md`, `evidence/2026-07-09_ingest_S06_toolsandbox_excerpts.md`.
++- Modified files: `wiki/index.md`, `wiki/api-bank-tool-augmented-llm-benchmark.md`, `wiki/tau-bench-agent-consistency-benchmark.md`, `wiki/react-reasoning-and-acting.md`, `logs/ingest_log.md`.
++- Verification: confirmed S06 manifest metadata and quality label; extracted S06 PDF text with `pdfplumber`; checked page count, stateful-tool definition, user-simulator results, benchmark statistics, scenario counts, model benchmark results, ReAct appendix results, limitations, frontmatter, source tags, and wikilinks against extracted source text and wiki state.
++- Conflicts: recorded an open contradiction between S05's final database-state evaluation description for tau-bench and S06's characterization that tau-bench requires matching a single predetermined action sequence.
++- Exceptions: PDF extraction contained table and figure ordering noise, so benchmark numbers were checked against targeted page/table extractions and nearby prose.
++- Unresolved issues: scaling Milestone/Minefield authoring, modeling confirmation/authentication boundaries, and stabilizing external-service-backed tools remain open; two enterprise-transfer questions remain `source-needed`.
++- Evidence saved: `evidence/2026-07-09_ingest_S06_toolsandbox_excerpts.md`.
++- Diff saved: `evidence/diffs/2026-07-09_ingest_S06_toolsandbox.diff`.
++
++## 2026-07-09 - S07 - AutoGen Multi-Agent Conversation Framework
++
++- Source ID: S07.
++- Files read: `raw/source_manifest.md`, `schema/AGENTS.md`, `schema/page_template.md`, `wiki/index.md`, `raw/S07.pdf`, `wiki/react-reasoning-and-acting.md`, `wiki/toolsandbox-stateful-tool-use-benchmark.md`, `wiki/toolformer-self-supervised-tool-use.md`, `wiki/retrieval-augmented-generation.md`, `wiki/contradiction-register.md`, `logs/ingest_log.md`.
++- Relevant existing wiki pages read: `wiki/index.md`, `wiki/react-reasoning-and-acting.md`, `wiki/toolsandbox-stateful-tool-use-benchmark.md`, `wiki/toolformer-self-supervised-tool-use.md`, `wiki/retrieval-augmented-generation.md`, `wiki/contradiction-register.md`.
++- Actions: created a new concept page for AutoGen multi-agent conversation programming, linked it from the index, added synthesis cross-links from ReAct, RAG, and ToolSandbox, and saved S07 extraction notes.
++- Created files: `wiki/autogen-multi-agent-conversation-framework.md`, `evidence/2026-07-09_ingest_S07_autogen_excerpts.md`.
++- Modified files: `wiki/index.md`, `wiki/react-reasoning-and-acting.md`, `wiki/retrieval-augmented-generation.md`, `wiki/toolsandbox-stateful-tool-use-benchmark.md`, `logs/ingest_log.md`.
++- Verification: confirmed S07 manifest metadata and medium quality label; extracted S07 PDF text with `pdfplumber`; checked page count, agent abstractions, conversation programming interfaces, human/tool participation, application list, MATH results, ALFWorld results, OptiGuide results, dynamic group chat results, MiniWobChat result, limitations, frontmatter, source tags, and wikilinks against extracted source text and wiki state.
++- Conflicts: none detected; S07 adds a multi-agent orchestration framework and does not supersede existing ReAct, RAG, or ToolSandbox claims.
++- Exceptions: PDF extraction contained figure/table layout noise, so numeric claims were checked against targeted page/table extractions and nearby prose.
++- Unresolved issues: enterprise reliability of AutoGen conversation patterns, choosing single-agent versus multi-agent topologies, and test harnesses for code execution or external function calls remain open; two workflow-selection questions remain `source-needed`.
++- Evidence saved: `evidence/2026-07-09_ingest_S07_autogen_excerpts.md`.
++- Diff saved: `evidence/diffs/2026-07-09_ingest_S07_autogen.diff`.
+diff --git a/wiki/index.md b/wiki/index.md
+new file mode 100644
+index 0000000..c84742a
+--- /dev/null
++++ b/wiki/index.md
+@@ -0,0 +1,29 @@
++---
++title: Knowledge Base Index
++page_type: overview
++status: draft
++updated: 2026-07-09
++sources: [S01, S02, S03, S04, S05, S06, S07]
++confidence: high
++---
++
++# Knowledge Base Index
++
++This index lists derived wiki pages. It currently includes coverage of retrieval-augmented generation, reasoning-action prompting, self-supervised tool-use learning, API-planning evaluation, repeated-trial agent reliability, stateful interactive tool-use benchmarks, and multi-agent orchestration frameworks for knowledge-intensive and tool-using language-model systems [S01] [S02] [S03] [S04] [S05] [S06] [S07].
++
++## Retrieval and Knowledge Updating
++
++- [[retrieval-augmented-generation|Retrieval-Augmented Generation]]
++
++## Agent Reasoning and Tool Use
++
++- [[react-reasoning-and-acting|ReAct Reasoning and Acting]]
++- [[toolformer-self-supervised-tool-use|Toolformer Self-Supervised Tool Use]]
++- [[api-bank-tool-augmented-llm-benchmark|API-Bank Tool-Augmented LLM Benchmark]]
++- [[tau-bench-agent-consistency-benchmark|Tau-Bench Agent Consistency Benchmark]]
++- [[toolsandbox-stateful-tool-use-benchmark|ToolSandbox Stateful Tool-Use Benchmark]]
++- [[autogen-multi-agent-conversation-framework|AutoGen Multi-Agent Conversation Framework]]
++
++## Registers
++
++- [[contradiction-register|Contradiction Register]]
+diff --git a/wiki/retrieval-augmented-generation.md b/wiki/retrieval-augmented-generation.md
+new file mode 100644
+index 0000000..8849691
+--- /dev/null
++++ b/wiki/retrieval-augmented-generation.md
+@@ -0,0 +1,65 @@
++---
++title: Retrieval-Augmented Generation
++page_type: concept
++status: draft
++updated: 2026-07-09
++sources: [S01, S02, S07]
++confidence: high
++---
++
++# Retrieval-Augmented Generation
++
++## Core Definition
++
++Retrieval-augmented generation (RAG) is a sequence-to-sequence modeling approach that combines parametric memory in a pre-trained generator with non-parametric memory in a retrievable document index, so generation can condition on external passages as well as model parameters [S01].
++
++In Lewis et al.'s 2020 formulation, the generator is BART-large and the retriever is initialized from Dense Passage Retrieval (DPR), with Wikipedia passages retrieved by maximum inner product search (MIPS) and treated as latent variables during generation [S01].
++
++## Key Claims
++
++- RAG was proposed to address limitations of parametric-only language models: difficulty revising memory, limited prediction provenance, and hallucination risk on knowledge-intensive tasks [S01].
++- The paper defines two variants: RAG-Sequence uses the same retrieved document for the whole generated sequence, while RAG-Token can condition each generated token on a different retrieved document [S01].
++- The experiments use a December 2018 Wikipedia dump split into 100-word disjoint chunks, producing about 21 million documents in a FAISS MIPS index [S01].
++- The retriever and generator are jointly fine-tuned without direct supervision for which document should be retrieved; the document encoder and document index are kept fixed because updating them would require periodic index refreshes [S01].
++- On open-domain QA test results, RAG-Sequence reports 44.5 exact match on Natural Questions, 56.8 on the standard TriviaQA split, 68.0 on TriviaQA-Wiki, 45.2 on WebQuestions, and 52.2 on CuratedTrec [S01].
++- RAG can generate correct Natural Questions answers even when the answer is absent from all retrieved documents, with the paper reporting 11.8% accuracy in that subset where an extractive model would score 0% [S01].
++- On Open MS-MARCO NLG, RAG-Sequence outperforms the BART baseline by 2.6 BLEU-1 points and 2.6 ROUGE-L points, while the authors caution that some MS-MARCO questions require gold passages or information outside Wikipedia [S01].
++- In Jeopardy question generation, RAG-Token scores 22.2 Q-BLEU-1 versus BART's 19.7, and human evaluators rated RAG-Token more factual than BART in 42.7% of pairwise cases versus 7.1% for BART [S01].
++- On FEVER, RAG scores 72.5 label accuracy for 3-way classification and 89.5 for 2-way classification, within 4.3% and 2.7% of cited state-of-the-art systems that use stronger evidence access or supervision [S01].
++- Replacing the non-parametric memory can update model behavior: with 2016 and 2018 Wikipedia indices, the paper reports 70% accuracy for 2016 world leaders with the 2016 index and 68% for 2018 world leaders with the 2018 index, while mismatched index/year combinations fall to 12% and 4% [S01].
++
++## Evidence and Sources
++
++S01 is a high-quality public paper by Lewis et al. dated 2020-05-22 in the manifest, and it is the primary source for this page's architecture, evaluation, and limitation claims [S01].
++
++The paper reports that the RAG models contain 626 million trainable parameters, combining 110 million parameters for the DPR query encoder, an untrained/fixed 110 million parameter DPR document encoder, and 406 million trainable parameters from BART-large [S01].
++
++The non-parametric memory is not counted as trainable parameters, but the paper describes it as 21 million 728-dimensional vectors, about 15.3 billion values, with index compression reducing a reported CPU memory requirement from about 100 GB to 36 GB in the Hugging Face implementation [S01].
++
++## Limitations and Counter-Evidence
++
++The paper's RAG results are tied to a specific experimental setup: a December 2018 Wikipedia index, DPR initialization, BART-large generation, and task-specific fine-tuning, so the reported benchmark numbers should not be generalized to arbitrary RAG systems without re-evaluation [S01].
++
++The paper notes that RAG's retriever is initialized from DPR trained with retrieval supervision on Natural Questions and TriviaQA, which limits claims that all improvements come from unsupervised retrieval learning [S01].
++
++The authors tried adding a null-document mechanism to model cases where no useful document was retrieved, but they report that learned null document embeddings, a static learned bias, and a neural-network logit did not improve performance [S01].
++
++Preliminary experiments found retrieval collapse on tasks such as story generation, where the retriever learned to return the same documents regardless of input and the generator learned to ignore them, making RAG perform equivalently to BART [S01].
++
++For FEVER evidence extraction, the paper does not directly tackle sentence-level evidence retrieval because FEVER uses a different Wikipedia dump than the RAG index; this leaves a gap between label classification and full evidence provenance [S01].
++
++Synthesis: RAG and ReAct both use external knowledge, but S01's RAG is a fine-tuned seq2seq architecture that marginalizes retrieved Wikipedia passages, while S02's ReAct is a prompting paradigm that interleaves language thoughts, tool actions, and observations through an external API or environment [S01] [S02].
++
++Synthesis: AutoGen's Retrieval-Augmented Chat uses a retrieval-augmented user proxy and retrieval-augmented assistant around a vector database, and its interactive `Update Context` loop is an application orchestration pattern rather than the same model-level RAG architecture defined in S01 [S01] [S07].
++
++## Links to Other Pages
++
++- [[index|Knowledge Base Index]]
++- [[react-reasoning-and-acting|ReAct Reasoning and Acting]]
++- [[autogen-multi-agent-conversation-framework|AutoGen Multi-Agent Conversation Framework]]
++
++## Open Questions
++
++- How much of RAG's open-domain QA gain depends on DPR pretraining and retrieval supervision rather than the RAG marginalization objective itself [S01]?
++- What validation is needed before using index replacement as an enterprise knowledge-update mechanism, given that the paper demonstrates world-leader update behavior but also reports mismatched-index failures [S01]?
++- When should a production system prefer RAG-Sequence, RAG-Token, or a more recent retrieval architecture for auditability, latency, and answer faithfulness source-needed?
+
+# AutoGen page snapshot
+
+diff --git "a/wiki\\autogen-multi-agent-conversation-framework.md" "b/wiki\\autogen-multi-agent-conversation-framework.md"
+new file mode 100644
+index 0000000..7484ccd
+--- /dev/null
++++ "b/wiki\\autogen-multi-agent-conversation-framework.md"
+@@ -0,0 +1,74 @@
++---
++title: AutoGen Multi-Agent Conversation Framework
++page_type: concept
++status: draft
++updated: 2026-07-09
++sources: [S07]
++confidence: medium
++---
++
++# AutoGen Multi-Agent Conversation Framework
++
++## Core Definition
++
++AutoGen is an open-source framework for building LLM applications through multiple conversable agents that can exchange messages and coordinate task completion [S07].
++
++The paper frames AutoGen around two core ideas: customizable conversable agents and conversation programming, where developers define agent roles and program the computation and control flow of inter-agent conversations [S07].
++
++## Key Claims
++
++- AutoGen agents can be backed by LLMs, human input, tools, or combinations of these capabilities, allowing agents to write code, execute code, solicit human feedback, validate outputs, or perform other custom roles [S07].
++- A `ConversableAgent` is the highest-level AutoGen agent abstraction, and the built-in `AssistantAgent` and `UserProxyAgent` are preconfigured subclasses for common AI-assistant and human/tool-proxy usage modes [S07].
++- AutoGen supports human participation through human-backed agents and configurable human-involvement patterns, including whether and when a human is asked for input and whether a human can skip input [S07].
++- AutoGen supports tool-backed agents through code execution or function execution; the paper's default user proxy agent can execute LLM-suggested code or make LLM-suggested function calls [S07].
++- AutoGen agents expose unified conversation interfaces such as `send`, `receive`, and `generate_reply`, and its default auto-reply mechanism invokes reply generation after message receipt unless a termination condition is met [S07].
++- Conversation programming in AutoGen combines natural-language control through LLM prompts with programming-language control through Python code for termination conditions, human input mode, tool execution logic, and custom reply functions [S07].
++- AutoGen supports static and dynamic conversation patterns, including custom `generate_reply` functions, LLM-proposed function calls that message additional agents, and dynamic group chat through a built-in `GroupChatManager` [S07].
++- The paper demonstrates six main applications in Section 3: math problem solving, retrieval-augmented chat for code generation and QA, ALFWorld decision-making, multi-agent coding through OptiGuide, dynamic group chat, and conversational chess [S07].
++- In AutoGen's MATH evaluation with GPT-4, the paper reports 69.48% accuracy on the full MATH test set for AutoGen versus 55.18% for GPT-4, and Figure 4a reports AutoGen as the strongest compared method on the sampled level-5 math problems [S07].
++- In a qualitative autonomous math evaluation over two level-5 MATH problems with three trials per problem, AutoGen solved the first problem in 3 of 3 trials and the second in 2 of 3 trials, while AutoGPT, LangChain ReAct, and Multi-Agent Debate solved 0 of 3 trials on both problems [S07].
++- For Retrieval-Augmented Chat on Natural Questions, S07 reports that interactive retrieval improves over the no-interactive-retrieval ablation and DPR in Figure 4b; the paper also states that about 19.4% of Natural Questions queries triggered an `Update Context` operation [S07].
++- In ALFWorld, AutoGen's two-agent ALFChat matches ReAct at 54% average success, while adding a grounding agent raises average success to 69% and best-of-three success to 77% in Table 3 [S07].
++- In OptiGuide, the paper says AutoGen reduced the core workflow code from over 430 lines to 100 lines, and a coffee supply-chain user study reports that AutoGen-based OptiGuide averaged about 1.5 minutes per problem compared with 4 minutes 35 seconds for ChatGPT plus Code Interpreter [S07].
++- In OptiGuide, the paper reports that the multi-agent design improves F1 for identifying unsafe code by 8 percentage points with GPT-4 and 35 percentage points with GPT-3.5-turbo compared with a single-agent approach [S07].
++- In a dynamic group-chat pilot over 12 manually crafted tasks, GPT-4 with AutoGen group chat solved 11 tasks compared with 9 for the two-agent design and 8 for group chat with task-based speaker selection [S07].
++- In MiniWobChat, an AutoGen two-agent browser-interaction system reaches 52.8% success across 49 MiniWoB++ tasks, 3.6 percentage points below RCI, which was designed specifically for MiniWoB++ [S07].
++
++## Evidence and Sources
++
++S07 is a medium-quality public paper/PDF in the manifest, dated 2023-08-16, with intended use for multi-agent orchestration and human/tool participation [S07].
++
++The paper describes AutoGen as an open-source framework and provides the GitHub URL `https://github.com/microsoft/autogen` in a title-page footnote [S07].
++
++The paper compares AutoGen with related multi-agent systems and states that AutoGen differs from Multi-Agent Debate, CAMEL, BabyAGI, and MetaGPT by combining generic infrastructure, flexible conversation patterns, execution capability, and chat/skip human involvement in Table 1 of the appendix [S07].
++
++Synthesis: AutoGen operationalizes multi-agent orchestration, whereas [[react-reasoning-and-acting|ReAct]] is a prompting paradigm for a model's thought-action-observation trajectory; S07 can embed ReAct-style prompting inside an AutoGen agent workflow, as in its ALFWorld application [S02] [S07].
++
++Synthesis: AutoGen's Retrieval-Augmented Chat is an application-level orchestration pattern around retrieval and assistant agents, while [[retrieval-augmented-generation|RAG]] in S01 is a model architecture that marginalizes retrieved passages during sequence generation [S01] [S07].
++
++Synthesis: AutoGen is an application-building framework for multi-agent conversations, while [[toolsandbox-stateful-tool-use-benchmark|ToolSandbox]] is an evaluation benchmark for stateful conversational tool use; both make user/tool/environment interaction explicit, but they occupy different layers of the agent stack [S06] [S07].
++
++## Limitations and Counter-Evidence
++
++S07 states that the work is still in early experimental stages and identifies future work on integrating existing agent implementations, balancing automation with human control, and understanding which agent topologies and conversation patterns are most effective [S07].
++
++The paper notes that increasing the number of agents and degrees of freedom may introduce new safety challenges requiring additional study and careful consideration [S07].
++
++The ethics statement identifies privacy and data protection, bias and fairness, accountability and transparency, trust and reliance, and unintended consequences as concerns for AutoGen applications [S07].
++
++The ethics statement specifically warns that letting LLM agents change external environments through code execution or function calls, such as installing packages, can be risky and requires safeguards [S07].
++
++Some S07 evaluations are demonstrations, pilot studies, or manually selected tasks rather than broad standardized benchmark comparisons, so their results should be treated as evidence of feasibility rather than a general performance guarantee [S07].
++
++## Links to Other Pages
++
++- [[index|Knowledge Base Index]]
++- [[react-reasoning-and-acting|ReAct Reasoning and Acting]]
++- [[retrieval-augmented-generation|Retrieval-Augmented Generation]]
++- [[toolsandbox-stateful-tool-use-benchmark|ToolSandbox Stateful Tool-Use Benchmark]]
++
++## Open Questions
++
++- Which AutoGen conversation patterns are reliable enough for enterprise workflows with tool side effects, human approvals, and audit requirements source-needed?
++- How should teams choose between a single-agent ReAct-style loop and a multi-agent AutoGen topology for cost, latency, debuggability, and safety source-needed?
++- What test harness should verify AutoGen workflows that include code execution, package installation, or external function calls before production use [S07]?
+
+# Existing topic page snapshots with S07 updates
+
+diff --git "a/wiki\\react-reasoning-and-acting.md" "b/wiki\\react-reasoning-and-acting.md"
+new file mode 100644
+index 0000000..4fd4bfc
+--- /dev/null
++++ "b/wiki\\react-reasoning-and-acting.md"
+@@ -0,0 +1,78 @@
++---
++title: ReAct Reasoning and Acting
++page_type: concept
++status: draft
++updated: 2026-07-09
++sources: [S02, S03, S04, S05, S06, S07]
++confidence: high
++---
++
++# ReAct Reasoning and Acting
++
++## Core Definition
++
++ReAct is a prompting paradigm in which a language model generates verbal reasoning traces and task-specific actions in an interleaved trajectory, so thoughts can guide actions and observations from tools or environments can update later reasoning [S02].
++
++In Yao et al.'s ICLR 2023 paper, ReAct augments an agent's action space with free-form language thoughts that do not directly change the external environment but do update the model's context for later reasoning or acting [S02].
++
++## Key Claims
++
++- ReAct is designed to combine two previously separated capabilities: chain-of-thought style reasoning and action generation for interaction with external sources such as Wikipedia APIs, web environments, or text-game environments [S02].
++- For HotpotQA and FEVER, S02 uses a simple Wikipedia API with `search[entity]`, `lookup[string]`, and `finish[answer]` actions, and the authors explicitly state that this API is weaker than state-of-the-art lexical or neural retrievers [S02].
++- The main prompting experiments use a frozen PaLM-540B model with few-shot in-context examples; the paper reports additional GPT-3 `text-davinci-002` experiments in an appendix [S02].
++- For HotpotQA and FEVER prompts, the authors manually compose ReAct-format trajectories from 6 HotpotQA training cases and 3 FEVER training cases, and report that adding more examples did not improve performance [S02].
++- On PaLM-540B prompting, ReAct scores 27.4 exact match on HotpotQA and 60.9 accuracy on FEVER, compared with Act-only scores of 25.7 and 58.9 and chain-of-thought scores of 29.4 and 56.3 [S02].
++- Combining ReAct with chain-of-thought self-consistency gives the best reported prompting numbers in Table 1: ReAct to CoT-SC reaches 35.1 exact match on HotpotQA, while CoT-SC to ReAct reaches 64.6 accuracy on FEVER [S02].
++- In a manual HotpotQA error analysis, S02 reports that successful ReAct trajectories had a 6% false-positive rate versus 14% for chain-of-thought, while failed ReAct trajectories were attributed to 47% reasoning error, 23% search-result error, and 29% label ambiguity [S02].
++- In the same analysis, failed chain-of-thought trajectories were attributed to 56% hallucination, 16% reasoning error, and 28% label ambiguity, which the authors use to argue that ReAct is more grounded but less flexible than pure chain-of-thought [S02].
++- On ALFWorld, the best ReAct trial reaches a 71% overall success rate, compared with 45% for the best Act-only trial, 37% for BUTLER, and 53% for the best ReAct-IM ablation [S02].
++- On WebShop, ReAct reports a score of 66.6 and a 40.0% success rate, compared with Act-only at 62.3 and 30.1%, imitation learning at 59.9 and 29.1%, imitation learning plus reinforcement learning at 62.4 and 28.7%, and expert humans at 82.1 and 59.6% [S02].
++- S02 reports that ReAct outperforms imitation or reinforcement learning baselines on ALFWorld and WebShop by absolute success-rate gains of 34% and 10% while using only one or two in-context examples for those decision-making tasks [S02].
++
++## Evidence and Sources
++
++S02 is a high-quality public paper/PDF in the manifest, dated 2022-10-06 there and published as an ICLR 2023 conference paper in the PDF text [S02].
++
++The paper evaluates ReAct on four main benchmarks: HotpotQA for multi-hop question answering, FEVER for fact verification, ALFWorld for text-based household tasks, and WebShop for webpage navigation and shopping tasks [S02].
++
++S02 reports initial fine-tuning experiments on HotpotQA using 3,000 ReAct-generated correct-answer trajectories to fine-tune PaLM-8B and PaLM-62B models, and it states that fine-tuned ReAct becomes the best of Standard, CoT, Act, and ReAct among those four methods [S02].
++
++The reproducibility statement says the main experiments use PaLM, which was not openly accessible at the time of the paper, and points readers to included prompts, additional GPT-3 experiments, and associated GPT-3 ReAct prompting code [S02].
++
++## Limitations and Counter-Evidence
++
++ReAct prompting is not uniformly better than chain-of-thought: on PaLM-540B HotpotQA, ReAct at 27.4 exact match trails chain-of-thought at 29.4 and CoT-SC at 33.4 before combination with CoT-SC [S02].
++
++The paper reports that ReAct's interleaved thought-action-observation structure can reduce reasoning flexibility, with one common failure mode in which the model repeats previous thoughts and actions instead of recovering [S02].
++
++For ReAct on knowledge-intensive tasks, informative search is critical; S02 attributes 23% of sampled ReAct HotpotQA failures to search results that are empty or do not contain useful information [S02].
++
++The paper states that complex tasks with large action spaces may require more demonstrations than fit comfortably in in-context learning input limits, motivating fine-tuning and higher-quality human annotations as future work [S02].
++
++The ethics statement warns that connecting language models to external action spaces can create risks such as looking up inappropriate or private information or taking harmful actions, and the paper reduces that risk by limiting experiments to constrained Wikipedia, WebShop, and benchmark environments without dangerous actions [S02].
++
++Synthesis: ReAct and Toolformer both address tool use by language models, but ReAct uses prompted interleaving of thoughts, actions, and observations in an environment, while Toolformer fine-tunes a model on self-supervised API-call annotations so it can decide when and how to call tools during generation [S02] [S03].
++
++Synthesis: API-Bank evaluates related tool-use skills at benchmark level by separating API Call, Retrieve+Call, and Plan+Retrieve+Call abilities, whereas ReAct is a prompting paradigm for generating thought-action-observation trajectories [S02] [S04].
++
++Synthesis: Tau-bench evaluates ReAct-style text agents as one method variant in longer tool-agent-user customer-service interactions, and S05 reports that natively supported function calling consistently outperforms text-formatted ReAct and Act-only baselines for the tested state-of-the-art models [S02] [S05].
++
++Synthesis: ToolSandbox's appendix reports that adding ReAct prompting to its default interactive tool-use setup gives small or minimal score changes for four tested models, which S06 attributes to the baseline setup already providing reasoning signals through user and execution-environment interaction [S02] [S06].
++
++Synthesis: AutoGen can embed ReAct-style prompting inside a multi-agent workflow; in S07's ALFWorld application, a two-agent AutoGen system integrates ReAct prompting and matches ReAct at 54% average success, while adding a grounding agent raises average success to 69% [S02] [S07].
++
++## Links to Other Pages
++
++- [[index|Knowledge Base Index]]
++- [[retrieval-augmented-generation|Retrieval-Augmented Generation]]
++- [[toolformer-self-supervised-tool-use|Toolformer Self-Supervised Tool Use]]
++- [[api-bank-tool-augmented-llm-benchmark|API-Bank Tool-Augmented LLM Benchmark]]
++- [[tau-bench-agent-consistency-benchmark|Tau-Bench Agent Consistency Benchmark]]
++- [[toolsandbox-stateful-tool-use-benchmark|ToolSandbox Stateful Tool-Use Benchmark]]
++- [[autogen-multi-agent-conversation-framework|AutoGen Multi-Agent Conversation Framework]]
++
++## Open Questions
++
++- How should production agents decide when to expose ReAct-style reasoning traces to users, logs, or auditors without leaking sensitive intermediate content source-needed?
++- What tool permissioning and sandboxing controls are required before ReAct-style action loops interact with real enterprise systems rather than constrained benchmarks source-needed?
++- How well do S02's few-shot ReAct results transfer to smaller, newer, or instruction-tuned models outside PaLM-540B and GPT-3 `text-davinci-002` [S02]?
+diff --git "a/wiki\\toolsandbox-stateful-tool-use-benchmark.md" "b/wiki\\toolsandbox-stateful-tool-use-benchmark.md"
+new file mode 100644
+index 0000000..951821c
+--- /dev/null
++++ "b/wiki\\toolsandbox-stateful-tool-use-benchmark.md"
+@@ -0,0 +1,75 @@
++---
++title: ToolSandbox Stateful Tool-Use Benchmark
++page_type: concept
++status: draft
++updated: 2026-07-09
++sources: [S06, S07]
++confidence: high
++---
++
++# ToolSandbox Stateful Tool-Use Benchmark
++
++## Core Definition
++
++ToolSandbox is a Python-native benchmark for evaluating LLM tool-use agents in stateful, conversational, and interactive settings with mutable world state, a simulated user, and tool execution through an execution environment [S06].
++
++The benchmark evaluates trajectories with human-authored Milestones and Minefields: Milestones define key events that must occur in a trajectory, while Minefields define events that must not occur, such as hallucinated tool calls in insufficient-information scenarios [S06].
++
++## Key Claims
++
++- S06 argues that prior tool-use benchmarks often evaluate stateless web services from a single-turn prompt or evaluate predefined off-policy dialogue trajectories, while real task-oriented tool use is stateful, conversational, and interactive [S06].
++- ToolSandbox represents mutable state with an `ExecutionContext`, tools as Python functions, and role communication among User, Agent, and Execution Environment through a `MessageBus` [S06].
++- Stateful tools in ToolSandbox inspect, depend on, or manipulate world states such as cellular service, Wi-Fi, location service, and low-battery mode [S06].
++- Stateful tools make up 44% of the ToolSandbox toolbox, and their implicit dependencies test whether an agent can track world state and tool-call stack effects [S06].
++- ToolSandbox uses a GPT-4o-powered user simulator for on-policy conversational rollouts, and the simulator can terminate with an `end_conversation` tool when it judges the task complete or impossible [S06].
++- The paper reports that adding Knowledge Boundary and Demonstration prompt components to the user simulator reduced hallucination from 12.4% to 6.97% and instruction-following error from 6.20% to 0.77% in a GPT-4o simulator/GPT-4o agent setup over 1,032 manually annotated trajectories [S06].
++- ToolSandbox contains 1,032 test scenarios, 34 tools, an average of 13.9 turns, and an average of 3.80 tool calls, compared in Table 4 with API-Bank at 261 test cases, 73 tools, 3.88 average turns, and 2.04 average tool calls [S06].
++- The 34 tools cover 11 domains: Contact, Messaging, Reminder, System settings, Time utilities, Math utilities, Map, Weather, Stock, Conversion, and Holiday [S06].
++- ToolSandbox scenario counts include 152 Single Tool Call, 656 Multiple Tool Call, 584 Single User Turn, 224 Multiple User Turn, 192 State Dependency, 472 Canonicalization, and 224 Insufficient Information scenarios; a scenario can belong to multiple categories [S06].
++- S06 states that 85% of ToolSandbox scenarios are associated with at least one difficult category among Multiple Tool Call, Multiple User Turn, State Dependency, and Insufficient Information [S06].
++- In Table 5, `GPT-4o-2024-05-13` has the highest average similarity score at 73.0, followed by `Claude-3-Opus-20240229` at 69.2, `GPT-3.5-Turbo-0125` at 65.6, `GPT-4-0125-Preview` at 64.3, and `Claude-3-Sonnet-20240229` at 63.8 [S06].
++- In Table 5, the best open-source model listed by the authors, `Hermes-2-Pro-Mistral-7B`, scores 31.4 average similarity, more than 20 points below `Claude-3-Haiku-20240307` at 54.9 [S06].
++- The Insufficient Information category has an inverse pattern in Table 5: `Mistral-7B-Instruct-v0.3` scores 76.8 and `Gemini-1.5-Pro-001` scores 76.2, while `GPT-4o-2024-05-13` scores 42.0 and `GPT-3.5-Turbo-0125` scores 22.3; S06 interprets some high scores from weaker models as a side effect of not issuing tool calls rather than a generally positive outcome [S06].
++- The State Dependency category shows an unusual pattern where larger models such as GPT-4 and Claude-3-Opus can perform worse than smaller models because they may issue erroneous parallel tool calls when tools are dependent [S06].
++- A ReAct prompting appendix reports small or minimal gains over the default ToolSandbox prompt: GPT-4o rises from 73.0 to 73.6, Claude-3-Opus from 69.2 to 69.3, GPT-4-0125-Preview from 64.3 to 65.2, and Claude-3-Sonnet from 63.8 to 63.7 [S06].
++
++## Evidence and Sources
++
++S06 is a high-quality public paper/PDF in the manifest, dated 2024-08-08, with intended use for stateful, multi-turn, insufficient-information tool evaluation [S06].
++
++The ToolSandbox evaluation strategy maps Milestones to trajectory snapshots while preserving a topological ordering over milestone dependencies, allowing multiple valid trajectories to satisfy the same task [S06].
++
++ToolSandbox uses Minefields to penalize trajectories that take forbidden actions; the paper gives an insufficient-information example where a task lacks the current timestamp and the model should not call `timestamp_diff` with a hallucinated argument [S06].
++
++Synthesis: ToolSandbox complements [[api-bank-tool-augmented-llm-benchmark|API-Bank]] by moving from executable API-call evaluation toward mutable world-state evaluation with dynamic trajectories, simulated users, and intermediate milestone checks [S04] [S06].
++
++Synthesis: ToolSandbox and [[tau-bench-agent-consistency-benchmark|Tau-Bench]] both evaluate conversational tool-use agents, but ToolSandbox emphasizes state dependencies, minefields for impossible tasks, and milestone scoring over arbitrary trajectories, while tau-bench emphasizes domain-policy following and repeated-trial `pass^k` reliability [S05] [S06].
++
++Synthesis: ToolSandbox is an evaluation benchmark for stateful conversational tool use, while [[autogen-multi-agent-conversation-framework|AutoGen]] is a framework for constructing multi-agent conversations with LLM, human, and tool-backed agents [S06] [S07].
++
++## Limitations and Counter-Evidence
++
++S06 states that authoring Milestones and Minefields requires deep knowledge of tool capacities and many iterations, which hinders scalability [S06].
++
++S06 reports that its user simulator still has non-negligible hallucination and instruction-following errors despite prompt controls [S06].
++
++Mandatory confirmation and authentication are not addressed in ToolSandbox, even though the paper identifies them as important for tool-use LLM designs and transactional services [S06].
++
++ToolSandbox does not currently address daemon-style tools such as timers, where a tool returns after spawning a background process that later interrupts the main process [S06].
++
++Some ToolSandbox tools depend on external web services, such as weather search, and S06 says this can affect reproducibility [S06].
++
++## Links to Other Pages
++
++- [[index|Knowledge Base Index]]
++- [[api-bank-tool-augmented-llm-benchmark|API-Bank Tool-Augmented LLM Benchmark]]
++- [[tau-bench-agent-consistency-benchmark|Tau-Bench Agent Consistency Benchmark]]
++- [[react-reasoning-and-acting|ReAct Reasoning and Acting]]
++- [[autogen-multi-agent-conversation-framework|AutoGen Multi-Agent Conversation Framework]]
++- [[contradiction-register|Contradiction Register]]
++
++## Open Questions
++
++- How should ToolSandbox-style milestone and minefield authoring be scaled without losing the interpretability of human-authored intermediate checks source-needed?
++- How should stateful tool benchmarks model confirmation, authentication, and permission boundaries before write actions in enterprise systems source-needed?
++- How stable are ToolSandbox scores when external-service-backed tools are cached or replaced by deterministic local fixtures [S06]?
+diff --git "a/wiki\\retrieval-augmented-generation.md" "b/wiki\\retrieval-augmented-generation.md"
+new file mode 100644
+index 0000000..8849691
+--- /dev/null
++++ "b/wiki\\retrieval-augmented-generation.md"
+@@ -0,0 +1,65 @@
++---
++title: Retrieval-Augmented Generation
++page_type: concept
++status: draft
++updated: 2026-07-09
++sources: [S01, S02, S07]
++confidence: high
++---
++
++# Retrieval-Augmented Generation
++
++## Core Definition
++
++Retrieval-augmented generation (RAG) is a sequence-to-sequence modeling approach that combines parametric memory in a pre-trained generator with non-parametric memory in a retrievable document index, so generation can condition on external passages as well as model parameters [S01].
++
++In Lewis et al.'s 2020 formulation, the generator is BART-large and the retriever is initialized from Dense Passage Retrieval (DPR), with Wikipedia passages retrieved by maximum inner product search (MIPS) and treated as latent variables during generation [S01].
++
++## Key Claims
++
++- RAG was proposed to address limitations of parametric-only language models: difficulty revising memory, limited prediction provenance, and hallucination risk on knowledge-intensive tasks [S01].
++- The paper defines two variants: RAG-Sequence uses the same retrieved document for the whole generated sequence, while RAG-Token can condition each generated token on a different retrieved document [S01].
++- The experiments use a December 2018 Wikipedia dump split into 100-word disjoint chunks, producing about 21 million documents in a FAISS MIPS index [S01].
++- The retriever and generator are jointly fine-tuned without direct supervision for which document should be retrieved; the document encoder and document index are kept fixed because updating them would require periodic index refreshes [S01].
++- On open-domain QA test results, RAG-Sequence reports 44.5 exact match on Natural Questions, 56.8 on the standard TriviaQA split, 68.0 on TriviaQA-Wiki, 45.2 on WebQuestions, and 52.2 on CuratedTrec [S01].
++- RAG can generate correct Natural Questions answers even when the answer is absent from all retrieved documents, with the paper reporting 11.8% accuracy in that subset where an extractive model would score 0% [S01].
++- On Open MS-MARCO NLG, RAG-Sequence outperforms the BART baseline by 2.6 BLEU-1 points and 2.6 ROUGE-L points, while the authors caution that some MS-MARCO questions require gold passages or information outside Wikipedia [S01].
++- In Jeopardy question generation, RAG-Token scores 22.2 Q-BLEU-1 versus BART's 19.7, and human evaluators rated RAG-Token more factual than BART in 42.7% of pairwise cases versus 7.1% for BART [S01].
++- On FEVER, RAG scores 72.5 label accuracy for 3-way classification and 89.5 for 2-way classification, within 4.3% and 2.7% of cited state-of-the-art systems that use stronger evidence access or supervision [S01].
++- Replacing the non-parametric memory can update model behavior: with 2016 and 2018 Wikipedia indices, the paper reports 70% accuracy for 2016 world leaders with the 2016 index and 68% for 2018 world leaders with the 2018 index, while mismatched index/year combinations fall to 12% and 4% [S01].
++
++## Evidence and Sources
++
++S01 is a high-quality public paper by Lewis et al. dated 2020-05-22 in the manifest, and it is the primary source for this page's architecture, evaluation, and limitation claims [S01].
++
++The paper reports that the RAG models contain 626 million trainable parameters, combining 110 million parameters for the DPR query encoder, an untrained/fixed 110 million parameter DPR document encoder, and 406 million trainable parameters from BART-large [S01].
++
++The non-parametric memory is not counted as trainable parameters, but the paper describes it as 21 million 728-dimensional vectors, about 15.3 billion values, with index compression reducing a reported CPU memory requirement from about 100 GB to 36 GB in the Hugging Face implementation [S01].
++
++## Limitations and Counter-Evidence
++
++The paper's RAG results are tied to a specific experimental setup: a December 2018 Wikipedia index, DPR initialization, BART-large generation, and task-specific fine-tuning, so the reported benchmark numbers should not be generalized to arbitrary RAG systems without re-evaluation [S01].
++
++The paper notes that RAG's retriever is initialized from DPR trained with retrieval supervision on Natural Questions and TriviaQA, which limits claims that all improvements come from unsupervised retrieval learning [S01].
++
++The authors tried adding a null-document mechanism to model cases where no useful document was retrieved, but they report that learned null document embeddings, a static learned bias, and a neural-network logit did not improve performance [S01].
++
++Preliminary experiments found retrieval collapse on tasks such as story generation, where the retriever learned to return the same documents regardless of input and the generator learned to ignore them, making RAG perform equivalently to BART [S01].
++
++For FEVER evidence extraction, the paper does not directly tackle sentence-level evidence retrieval because FEVER uses a different Wikipedia dump than the RAG index; this leaves a gap between label classification and full evidence provenance [S01].
++
++Synthesis: RAG and ReAct both use external knowledge, but S01's RAG is a fine-tuned seq2seq architecture that marginalizes retrieved Wikipedia passages, while S02's ReAct is a prompting paradigm that interleaves language thoughts, tool actions, and observations through an external API or environment [S01] [S02].
++
++Synthesis: AutoGen's Retrieval-Augmented Chat uses a retrieval-augmented user proxy and retrieval-augmented assistant around a vector database, and its interactive `Update Context` loop is an application orchestration pattern rather than the same model-level RAG architecture defined in S01 [S01] [S07].
++
++## Links to Other Pages
++
++- [[index|Knowledge Base Index]]
++- [[react-reasoning-and-acting|ReAct Reasoning and Acting]]
++- [[autogen-multi-agent-conversation-framework|AutoGen Multi-Agent Conversation Framework]]
++
++## Open Questions
++
++- How much of RAG's open-domain QA gain depends on DPR pretraining and retrieval supervision rather than the RAG marginalization objective itself [S01]?
++- What validation is needed before using index replacement as an enterprise knowledge-update mechanism, given that the paper demonstrates world-leader update behavior but also reports mismatched-index failures [S01]?
++- When should a production system prefer RAG-Sequence, RAG-Token, or a more recent retrieval architecture for auditability, latency, and answer faithfulness source-needed?
+
+# Evidence note snapshot
+
+diff --git "a/evidence\\2026-07-09_ingest_S07_autogen_excerpts.md" "b/evidence\\2026-07-09_ingest_S07_autogen_excerpts.md"
+new file mode 100644
+index 0000000..457b34a
+--- /dev/null
++++ "b/evidence\\2026-07-09_ingest_S07_autogen_excerpts.md"
+@@ -0,0 +1,15 @@
++# S07 AutoGen Extraction Notes
++
++- Source metadata checked in `raw/source_manifest.md`: S07 is `AutoGen - Wu et al.`, dated 2023-08-16, public, paper/PDF, medium quality, with intended use for multi-agent orchestration and human/tool participation.
++- PDF extraction used bundled Python with `pdfplumber`; the PDF has 43 pages.
++- Core definition checked from abstract and Section 2: AutoGen is an open-source framework for LLM applications built from multiple conversable agents and conversation programming.
++- Agent abstraction checked from Section 2.1: `ConversableAgent` is the highest-level abstraction; `AssistantAgent` and `UserProxyAgent` are built-in subclasses; agents can use LLM, human, and tool capabilities.
++- Conversation programming checked from Section 2.2: agents use `send`, `receive`, and `generate_reply`; auto-reply invokes response generation after message receipt unless termination conditions are met; control can combine natural language and Python.
++- Application list checked from Section 3/Figure 3: math problem solving, retrieval-augmented chat, ALFWorld, multi-agent coding, dynamic group chat, and conversational chess.
++- MATH results checked from Figure 4 and Appendix D: AutoGen reports 69.48% full MATH test accuracy with GPT-4 versus 55.18% for GPT-4; qualitative tests report AutoGen at 3/3 and 2/3 on two level-5 problems.
++- Retrieval-Augmented Chat checked from Section 3 and Appendix D: Natural Questions evaluation uses 5,332 non-redundant context documents and 6,775 queries; about 19.4% of questions trigger `Update Context`.
++- ALFWorld results checked from Section 3/Table 3: ReAct average 54, ALFChat two-agent average 54, ALFChat three-agent average 69; best-of-three scores are 66, 63, and 77.
++- OptiGuide results checked from Section 3 and Appendix D: workflow code reduced from over 430 lines to 100 lines; coffee user study reports 4 minutes 35 seconds average with ChatGPT plus Code Interpreter versus about 1.5 minutes with AutoGen-based OptiGuide; multi-agent design improves unsafe-code F1 by 8 points with GPT-4 and 35 points with GPT-3.5-turbo.
++- Dynamic group chat checked from Appendix D: on 12 tasks, GPT-4 solves 9 with two-agent chat, 11 with group chat, and 8 with group chat using task-based speaker selection.
++- MiniWobChat checked from Appendix D: success rate is 52.8% across 49 MiniWoB++ tasks, 3.6 percentage points below RCI.
++- Evidentiary boundary: medium-quality preprint/framework report; many results are demonstrations, pilot studies, selected tasks, or appendix evaluations rather than a single standardized benchmark suite.

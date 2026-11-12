@@ -1,0 +1,97 @@
+diff --git a/wiki/mcp-acronym-disambiguation.md b/wiki/mcp-acronym-disambiguation.md
+new file mode 100644
+--- /dev/null
++++ b/wiki/mcp-acronym-disambiguation.md
+@@
++---
++title: MCP Acronym Disambiguation
++page_type: comparison
++status: draft
++updated: 2026-07-09
++sources: [S11, S14, S22]
++confidence: medium
++---
++
++# MCP Acronym Disambiguation
++
++In this knowledge base, MCP usually means Model Context Protocol, the AI integration protocol whose architecture page covers hosts, clients, servers, tools, resources, prompts, and capability negotiation [S11].
++
++S22 uses MCP to mean maximum clique problem, a graph-optimization problem about finding a clique with the maximum number of vertices in an undirected graph [S22].
++
++S22 is relevant to this project mainly as acronym disambiguation, not as evidence about Model Context Protocol architecture, authorization, or security [S11] [S14] [S22].
++
++S22 reports tests on 10 randomly generated binary matrices, 36 DIMACS benchmark instances, and 8 CLUTO text-mining data sets [S22].
++
++S22 is a medium-quality academic PDF source for the maximum clique problem acronym and its own optimization claims, but it should not support claims about Model Context Protocol roles, protocol primitives, OAuth authorization, security best practices, or agent-tool governance [S11] [S22].
++
++- [[index|Knowledge Base Index]]
++- [[model-context-protocol-architecture|Model Context Protocol Architecture]]
++- [[project-scope-and-research-hypotheses|Project Scope and Research Hypotheses]]
+diff --git a/wiki/model-context-protocol-architecture.md b/wiki/model-context-protocol-architecture.md
+--- a/wiki/model-context-protocol-architecture.md
++++ b/wiki/model-context-protocol-architecture.md
+@@
+-sources: [S11, S12, S13, S14, S19]
+-confidence: high
++sources: [S11, S12, S13, S14, S19, S22]
++confidence: mixed
+@@
++S22 uses MCP to mean maximum clique problem rather than Model Context Protocol, so this page treats S22 only as acronym disambiguation and not as architecture evidence [S11] [S22].
+@@
++- S22 is a 2015-05-26 medium-quality academic PDF about the maximum clique problem, and it shows that the abbreviation MCP can refer to graph optimization rather than the Model Context Protocol [S22].
+@@
++Synthesis: [[mcp-acronym-disambiguation|MCP Acronym Disambiguation]] should be used when deciding whether a source is about Model Context Protocol or the maximum clique problem, because S11/S14 and S22 use the same abbreviation for different domains [S11] [S14] [S22].
+@@
++S22 should not be used as evidence for Model Context Protocol requirements because its MCP means maximum clique problem and its evidence concerns graph-optimization formulations and clique-finding algorithms [S22].
+@@
++- [[mcp-acronym-disambiguation|MCP Acronym Disambiguation]]
+diff --git a/wiki/index.md b/wiki/index.md
+--- a/wiki/index.md
++++ b/wiki/index.md
+@@
+-sources: [S01, S02, S03, S04, S05, S06, S07, S08, S09, S10, S11, S12, S13, S14, S15, S16, S17, S18, S19, S20, S21]
+-confidence: high
++sources: [S01, S02, S03, S04, S05, S06, S07, S08, S09, S10, S11, S12, S13, S14, S15, S16, S17, S18, S19, S20, S21, S22]
++confidence: mixed
+@@
+-This index lists derived wiki pages. It currently includes coverage of retrieval-augmented generation, LLM Wiki knowledge-base maintenance, public second-brain and LLM Wiki implementation references, low-confidence critique of LLM Wiki as a RAG complement, project scope and research hypotheses, Model Context Protocol architecture, initial positioning, authorization, security practices, OWASP-style MCP security checklist concerns, generative AI risk governance, enterprise agent design practices, reasoning-action prompting, self-supervised tool-use learning, API-planning evaluation, repeated-trial agent reliability, stateful interactive tool-use benchmarks, multi-agent orchestration frameworks, and multiagent debate benefits and limits for knowledge-intensive and tool-using language-model systems [S01] [S02] [S03] [S04] [S05] [S06] [S07] [S08] [S09] [S10] [S11] [S12] [S13] [S14] [S15] [S16] [S17] [S18] [S19] [S20] [S21].
++This index lists derived wiki pages. It currently includes coverage of retrieval-augmented generation, LLM Wiki knowledge-base maintenance, public second-brain and LLM Wiki implementation references, low-confidence critique of LLM Wiki as a RAG complement, project scope and research hypotheses, Model Context Protocol architecture, initial positioning, authorization, security practices, OWASP-style MCP security checklist concerns, MCP acronym disambiguation, generative AI risk governance, enterprise agent design practices, reasoning-action prompting, self-supervised tool-use learning, API-planning evaluation, repeated-trial agent reliability, stateful interactive tool-use benchmarks, multi-agent orchestration frameworks, and multiagent debate benefits and limits for knowledge-intensive and tool-using language-model systems [S01] [S02] [S03] [S04] [S05] [S06] [S07] [S08] [S09] [S10] [S11] [S12] [S13] [S14] [S15] [S16] [S17] [S18] [S19] [S20] [S21] [S22].
+@@
++- [[mcp-acronym-disambiguation|MCP Acronym Disambiguation]]
+diff --git a/evidence/2026-07-09_ingest_S22_mcp-acronym-disambiguation_excerpts.md b/evidence/2026-07-09_ingest_S22_mcp-acronym-disambiguation_excerpts.md
+new file mode 100644
+--- /dev/null
++++ b/evidence/2026-07-09_ingest_S22_mcp-acronym-disambiguation_excerpts.md
+@@
++# S22 Evidence Notes - MCP Acronym Disambiguation
++
++Source ID: S22
++
++Manifest metadata checked: `Solving the Maximum Clique Problem with Symmetric Rank-One Nonnegative Matrix Approximation - Belachew & Gillis`, dated 2015-05-26, file `raw/S22.pdf`, arXiv URL `https://arxiv.org/abs/1505.07077`, type `paper/PDF`, public, quality `medium`, project use `MCP acronym disambiguation: Maximum Clique Problem vs Model Context Protocol`.
++
++PDF extraction:
++
++- `raw/S22.pdf` exists and has 24 pages.
++- First page title: `Solving the Maximum Clique Problem with Symmetric Rank-One Nonnegative Matrix Approximation`.
++- Authors: Melisew Tefera Belachew and Nicolas Gillis.
++
++Core extracted claims used:
++
++- S22 expands MCP as maximum clique problem.
++- S22 defines the maximum clique problem as finding a clique with the maximum number of vertices in an undirected graph.
++- S22 says the maximum clique problem is NP-hard and the associated decision problem is NP-complete.
++- S22 reports experiments on 10 randomly generated binary matrices, 36 DIMACS benchmark instances, and 8 CLUTO text-mining data sets.
+diff --git a/logs/ingest_log.md b/logs/ingest_log.md
+--- a/logs/ingest_log.md
++++ b/logs/ingest_log.md
+@@
++## 2026-07-09 - S22 - MCP Acronym Disambiguation
++
++- Source ID: S22.
++- Files read: `raw/source_manifest.md`, `schema/AGENTS.md`, `schema/page_template.md`, `wiki/index.md`, `raw/S22.pdf`, `wiki/model-context-protocol-architecture.md`, `wiki/project-scope-and-research-hypotheses.md`, `wiki/contradiction-register.md`, `logs/ingest_log.md`.
++- Actions: created a new comparison page for MCP acronym disambiguation, linked it from the index and MCP architecture page, updated the MCP architecture page with S22's non-protocol boundary, and saved S22 PDF extraction notes.
++- Created files: `wiki/mcp-acronym-disambiguation.md`, `evidence/2026-07-09_ingest_S22_mcp-acronym-disambiguation_excerpts.md`.
++- Modified files: `wiki/index.md`, `wiki/model-context-protocol-architecture.md`, `logs/ingest_log.md`.
++- Conflicts: none detected; S22 is an acronym ambiguity rather than a contradiction with Model Context Protocol sources, so no contradiction-register entry was added.
++- Evidence saved: `evidence/2026-07-09_ingest_S22_mcp-acronym-disambiguation_excerpts.md`.
++- Diff saved: `evidence/diffs/2026-07-09_ingest_S22_mcp-acronym-disambiguation.diff`.

@@ -1,0 +1,141 @@
+﻿diff --git a/logs/ingest_log.md b/logs/ingest_log.md
+new file mode 100644
+index 0000000..1750d1a
+--- /dev/null
++++ b/logs/ingest_log.md
+@@ -0,0 +1,18 @@
++# Ingest Log
++
++This log records source ingestion and knowledge-base maintenance events. It is append-only: new work should add entries rather than rewriting old history.
++
++## 2026-07-09 - S01 - Retrieval-Augmented Generation
++
++- Source ID: S01.
++- Files read: `raw/source_manifest.md`, `schema/AGENTS.md`, `schema/page_template.md`, `wiki/index.md`, `raw/S01.pdf`, `logs/ingest_log.md`.
++- Relevant existing wiki pages read: `wiki/index.md`; no substantive topic pages existed in `wiki/` at ingest time.
++- Actions: created a new concept page for retrieval-augmented generation, repaired the malformed index, linked the new page from the index, and saved S01 verification notes.
++- Created files: `wiki/retrieval-augmented-generation.md`, `evidence/2026-07-09_ingest_S01_excerpts.md`.
++- Modified files: `wiki/index.md`, `logs/ingest_log.md`.
++- Verification: confirmed S01 manifest metadata and quality label; extracted S01 PDF text with `pdfplumber`; checked reported page count, architecture, benchmark numbers, parameter/index numbers, knowledge-update result, and limitations against the extracted source text; checked wikilinks and source IDs with `rg`.
++- Conflicts: none detected because no pre-existing substantive wiki page made comparable RAG claims.
++- Exceptions: `pdftotext` was unavailable, so bundled Python with `pdfplumber` was used; a direct console extraction hit a PowerShell/GBK encoding issue and was rerun with UTF-8-safe output.
++- Unresolved issues: the final open question about choosing among RAG variants and newer retrieval architectures remains `source-needed` until more sources are ingested.
++- Evidence saved: `evidence/2026-07-09_ingest_S01_excerpts.md`.
++- Diff saved: `evidence/diffs/2026-07-09_ingest_S01_rag.diff`.
+diff --git a/wiki/index.md b/wiki/index.md
+new file mode 100644
+index 0000000..03b8908
+--- /dev/null
++++ b/wiki/index.md
+@@ -0,0 +1,20 @@
++---
++title: Knowledge Base Index
++page_type: overview
++status: draft
++updated: 2026-07-09
++sources: [S01]
++confidence: high
++---
++
++# Knowledge Base Index
++
++This index lists derived wiki pages. It currently includes S01-derived coverage of retrieval-augmented generation for knowledge-intensive NLP tasks [S01].
++
++## Retrieval and Knowledge Updating
++
++- [[retrieval-augmented-generation|Retrieval-Augmented Generation]]
++
++## Registers
++
++- Contradictions: source-needed
+diff --git a/wiki/retrieval-augmented-generation.md b/wiki/retrieval-augmented-generation.md
+new file mode 100644
+index 0000000..fd7022a
+--- /dev/null
++++ b/wiki/retrieval-augmented-generation.md
+@@ -0,0 +1,59 @@
++---
++title: Retrieval-Augmented Generation
++page_type: concept
++status: draft
++updated: 2026-07-09
++sources: [S01]
++confidence: high
++---
++
++# Retrieval-Augmented Generation
++
++## Core Definition
++
++Retrieval-augmented generation (RAG) is a sequence-to-sequence modeling approach that combines parametric memory in a pre-trained generator with non-parametric memory in a retrievable document index, so generation can condition on external passages as well as model parameters [S01].
++
++In Lewis et al.'s 2020 formulation, the generator is BART-large and the retriever is initialized from Dense Passage Retrieval (DPR), with Wikipedia passages retrieved by maximum inner product search (MIPS) and treated as latent variables during generation [S01].
++
++## Key Claims
++
++- RAG was proposed to address limitations of parametric-only language models: difficulty revising memory, limited prediction provenance, and hallucination risk on knowledge-intensive tasks [S01].
++- The paper defines two variants: RAG-Sequence uses the same retrieved document for the whole generated sequence, while RAG-Token can condition each generated token on a different retrieved document [S01].
++- The experiments use a December 2018 Wikipedia dump split into 100-word disjoint chunks, producing about 21 million documents in a FAISS MIPS index [S01].
++- The retriever and generator are jointly fine-tuned without direct supervision for which document should be retrieved; the document encoder and document index are kept fixed because updating them would require periodic index refreshes [S01].
++- On open-domain QA test results, RAG-Sequence reports 44.5 exact match on Natural Questions, 56.8 on the standard TriviaQA split, 68.0 on TriviaQA-Wiki, 45.2 on WebQuestions, and 52.2 on CuratedTrec [S01].
++- RAG can generate correct Natural Questions answers even when the answer is absent from all retrieved documents, with the paper reporting 11.8% accuracy in that subset where an extractive model would score 0% [S01].
++- On Open MS-MARCO NLG, RAG-Sequence outperforms the BART baseline by 2.6 BLEU-1 points and 2.6 ROUGE-L points, while the authors caution that some MS-MARCO questions require gold passages or information outside Wikipedia [S01].
++- In Jeopardy question generation, RAG-Token scores 22.2 Q-BLEU-1 versus BART's 19.7, and human evaluators rated RAG-Token more factual than BART in 42.7% of pairwise cases versus 7.1% for BART [S01].
++- On FEVER, RAG scores 72.5 label accuracy for 3-way classification and 89.5 for 2-way classification, within 4.3% and 2.7% of cited state-of-the-art systems that use stronger evidence access or supervision [S01].
++- Replacing the non-parametric memory can update model behavior: with 2016 and 2018 Wikipedia indices, the paper reports 70% accuracy for 2016 world leaders with the 2016 index and 68% for 2018 world leaders with the 2018 index, while mismatched index/year combinations fall to 12% and 4% [S01].
++
++## Evidence and Sources
++
++S01 is a high-quality public paper by Lewis et al. dated 2020-05-22 in the manifest, and it is the primary source for this page's architecture, evaluation, and limitation claims [S01].
++
++The paper reports that the RAG models contain 626 million trainable parameters, combining 110 million parameters for the DPR query encoder, an untrained/fixed 110 million parameter DPR document encoder, and 406 million trainable parameters from BART-large [S01].
++
++The non-parametric memory is not counted as trainable parameters, but the paper describes it as 21 million 728-dimensional vectors, about 15.3 billion values, with index compression reducing a reported CPU memory requirement from about 100 GB to 36 GB in the Hugging Face implementation [S01].
++
++## Limitations and Counter-Evidence
++
++The paper's RAG results are tied to a specific experimental setup: a December 2018 Wikipedia index, DPR initialization, BART-large generation, and task-specific fine-tuning, so the reported benchmark numbers should not be generalized to arbitrary RAG systems without re-evaluation [S01].
++
++The paper notes that RAG's retriever is initialized from DPR trained with retrieval supervision on Natural Questions and TriviaQA, which limits claims that all improvements come from unsupervised retrieval learning [S01].
++
++The authors tried adding a null-document mechanism to model cases where no useful document was retrieved, but they report that learned null document embeddings, a static learned bias, and a neural-network logit did not improve performance [S01].
++
++Preliminary experiments found retrieval collapse on tasks such as story generation, where the retriever learned to return the same documents regardless of input and the generator learned to ignore them, making RAG perform equivalently to BART [S01].
++
++For FEVER evidence extraction, the paper does not directly tackle sentence-level evidence retrieval because FEVER uses a different Wikipedia dump than the RAG index; this leaves a gap between label classification and full evidence provenance [S01].
++
++## Links to Other Pages
++
++- [[index|Knowledge Base Index]]
++
++## Open Questions
++
++- How much of RAG's open-domain QA gain depends on DPR pretraining and retrieval supervision rather than the RAG marginalization objective itself [S01]?
++- What validation is needed before using index replacement as an enterprise knowledge-update mechanism, given that the paper demonstrates world-leader update behavior but also reports mismatched-index failures [S01]?
++- When should a production system prefer RAG-Sequence, RAG-Token, or a more recent retrieval architecture for auditability, latency, and answer faithfulness source-needed?
+
+# Untracked evidence file diff
+
+diff --git "a/evidence\\2026-07-09_ingest_S01_excerpts.md" "b/evidence\\2026-07-09_ingest_S01_excerpts.md"
+new file mode 100644
+index 0000000..2f2f857
+--- /dev/null
++++ "b/evidence\\2026-07-09_ingest_S01_excerpts.md"
+@@ -0,0 +1,17 @@
++# S01 Ingest Evidence Notes
++
++Source: S01, `raw/S01.pdf`, "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks" by Lewis et al., manifest date 2020-05-22.
++
++Verification notes:
++
++- PDF extraction reported 19 pages.
++- Manifest labels S01 as a public, high-quality paper/PDF intended for RAG baseline, source traceability, and knowledge updating.
++- Architecture checked: RAG combines a BART-large generator with a DPR-initialized retriever over a Wikipedia dense-vector index; documents are latent variables marginalized by RAG-Sequence or RAG-Token.
++- Corpus/index checked: experiments use the December 2018 Wikipedia dump, 100-word disjoint chunks, about 21 million documents, FAISS MIPS retrieval.
++- Open-domain QA numbers checked from Table 1: RAG-Sequence reports NQ 44.5, TQA 56.8/68.0, WQ 45.2, CT 52.2 exact match.
++- Generation/classification numbers checked from Table 2 and adjacent results text: RAG-Token Jeopardy Q-BLEU-1 22.2 vs BART 19.7; RAG FEVER 3-way 72.5 and 2-way 89.5 label accuracy.
++- Human evaluation checked from Section 4.3/Table 4: RAG better factuality 42.7%; BART better factuality 7.1%.
++- Knowledge update result checked from Section 4.5: matched 2016/2018 indices score 70%/68%; mismatched index/year settings score 12%/4%.
++- Limitations checked: DPR retrieval supervision on NQ/TQA, no improvement from null-document mechanisms, preliminary retrieval collapse on story generation, and no direct FEVER sentence-evidence task because of Wikipedia dump mismatch.
++
++No existing wiki topic pages were available beyond the malformed index, so no source conflict was detected during this ingest.

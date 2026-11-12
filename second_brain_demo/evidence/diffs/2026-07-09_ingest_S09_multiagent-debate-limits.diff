@@ -1,0 +1,390 @@
+﻿diff --git a/logs/ingest_log.md b/logs/ingest_log.md
+new file mode 100644
+index 0000000..4a6b22b
+--- /dev/null
++++ b/logs/ingest_log.md
+@@ -0,0 +1,138 @@
++# Ingest Log
++
++This log records source ingestion and knowledge-base maintenance events. It is append-only: new work should add entries rather than rewriting old history.
++
++## 2026-07-09 - S01 - Retrieval-Augmented Generation
++
++- Source ID: S01.
++- Files read: `raw/source_manifest.md`, `schema/AGENTS.md`, `schema/page_template.md`, `wiki/index.md`, `raw/S01.pdf`, `logs/ingest_log.md`.
++- Relevant existing wiki pages read: `wiki/index.md`; no substantive topic pages existed in `wiki/` at ingest time.
++- Actions: created a new concept page for retrieval-augmented generation, repaired the malformed index, linked the new page from the index, and saved S01 verification notes.
++- Created files: `wiki/retrieval-augmented-generation.md`, `evidence/2026-07-09_ingest_S01_excerpts.md`.
++- Modified files: `wiki/index.md`, `logs/ingest_log.md`.
++- Verification: confirmed S01 manifest metadata and quality label; extracted S01 PDF text with `pdfplumber`; checked reported page count, architecture, benchmark numbers, parameter/index numbers, knowledge-update result, and limitations against the extracted source text; checked wikilinks and source IDs with `rg`.
++- Conflicts: none detected because no pre-existing substantive wiki page made comparable RAG claims.
++- Exceptions: `pdftotext` was unavailable, so bundled Python with `pdfplumber` was used; a direct console extraction hit a PowerShell/GBK encoding issue and was rerun with UTF-8-safe output.
++- Unresolved issues: the final open question about choosing among RAG variants and newer retrieval architectures remains `source-needed` until more sources are ingested.
++- Evidence saved: `evidence/2026-07-09_ingest_S01_excerpts.md`.
++- Diff saved: `evidence/diffs/2026-07-09_ingest_S01_rag.diff`.
++
++## 2026-07-09 - S02 - ReAct Reasoning and Acting
++
++- Source ID: S02.
++- Files read: `raw/source_manifest.md`, `schema/AGENTS.md`, `schema/page_template.md`, `wiki/index.md`, `raw/S02.pdf`, `wiki/retrieval-augmented-generation.md`, `logs/ingest_log.md`.
++- Relevant existing wiki pages read: `wiki/index.md`, `wiki/retrieval-augmented-generation.md`.
++- Actions: created a new concept page for ReAct reasoning/action loops, linked it from the index, and added a synthesis cross-link from the RAG page distinguishing S01's retrieval-augmented seq2seq architecture from S02's ReAct prompting/action-loop paradigm.
++- Created files: `wiki/react-reasoning-and-acting.md`, `evidence/2026-07-09_ingest_S02_excerpts.md`.
++- Modified files: `wiki/index.md`, `wiki/retrieval-augmented-generation.md`, `logs/ingest_log.md`.
++- Verification: confirmed S02 manifest metadata and quality label; extracted S02 PDF text with `pdfplumber`; checked reported page count, method definition, action space, benchmark results, failure-mode numbers, fine-tuning note, reproducibility note, and ethics boundary against the extracted source text; checked wikilinks and source IDs with `rg`.
++- Conflicts: none detected; S02 adds a distinct prompting/action-loop concept and does not revise S01's RAG architecture or benchmark claims.
++- Exceptions: PDF text extraction contains noisy figure glyphs on some pages, so numeric claims were checked against table text and surrounding extracted prose rather than figure rendering.
++- Unresolved issues: production exposure of reasoning traces and real-system permissioning remain `source-needed`; transfer to newer models beyond PaLM-540B and GPT-3 `text-davinci-002` remains uncertain.
++- Evidence saved: `evidence/2026-07-09_ingest_S02_excerpts.md`.
++- Diff saved: `evidence/diffs/2026-07-09_ingest_S02_react.diff`.
++
++## 2026-07-09 - S03 - Toolformer Self-Supervised Tool Use
++
++- Source ID: S03.
++- Files read: `raw/source_manifest.md`, `schema/AGENTS.md`, `schema/page_template.md`, `wiki/index.md`, `raw/S03.pdf`, `wiki/react-reasoning-and-acting.md`, `wiki/retrieval-augmented-generation.md`, `logs/ingest_log.md`.
++- Relevant existing wiki pages read: `wiki/index.md`, `wiki/react-reasoning-and-acting.md`, `wiki/retrieval-augmented-generation.md`.
++- Actions: created a new concept page for Toolformer self-supervised tool use, linked it from the index, and added a synthesis cross-link from the ReAct page distinguishing prompted interactive reasoning/action trajectories from Toolformer's self-supervised API-call fine-tuning.
++- Created files: `wiki/toolformer-self-supervised-tool-use.md`, `evidence/2026-07-09_ingest_S03_excerpts.md`.
++- Modified files: `wiki/index.md`, `wiki/react-reasoning-and-acting.md`, `logs/ingest_log.md`.
++- Verification: confirmed S03 manifest metadata and quality label; extracted S03 PDF text with `pdfplumber`; checked reported page count, method definition, tool inventory, filtering thresholds and example counts, training setup, benchmark numbers, language-modeling perplexity, scaling claim, and limitations against extracted source text; checked wikilinks and source IDs with `rg`.
++- Conflicts: none detected; S03 adds a distinct self-supervised API-call learning mechanism and does not supersede S01 RAG or S02 ReAct claims.
++- Exceptions: PDF extraction included some multi-column/table ordering noise, so benchmark and count claims were checked against separately extracted table text.
++- Unresolved issues: tool-call cost/risk pricing, combining Toolformer with ReAct-style multi-step tool refinement, and learning from sensitive enterprise tool logs remain open; the sensitive-log safeguard question remains `source-needed`.
++- Evidence saved: `evidence/2026-07-09_ingest_S03_excerpts.md`.
++- Diff saved: `evidence/diffs/2026-07-09_ingest_S03_toolformer.diff`.
++
++## 2026-07-09 - S04 - API-Bank Tool-Augmented LLM Benchmark
++
++- Source ID: S04.
++- Files read: `raw/source_manifest.md`, `schema/AGENTS.md`, `schema/page_template.md`, `wiki/index.md`, `raw/S04.pdf`, `wiki/react-reasoning-and-acting.md`, `wiki/toolformer-self-supervised-tool-use.md`, `logs/ingest_log.md`.
++- Relevant existing wiki pages read: `wiki/index.md`, `wiki/react-reasoning-and-acting.md`, `wiki/toolformer-self-supervised-tool-use.md`.
++- Actions: created a new concept page for API-Bank, linked it from the index, and added synthesis cross-links from ReAct and Toolformer distinguishing API-Bank's benchmark/evaluation role from S02's prompting method and S03's self-supervised API-call training method.
++- Created files: `wiki/api-bank-tool-augmented-llm-benchmark.md`, `evidence/2026-07-09_ingest_S04_excerpts.md`.
++- Modified files: `wiki/index.md`, `wiki/react-reasoning-and-acting.md`, `wiki/toolformer-self-supervised-tool-use.md`, `logs/ingest_log.md`.
++- Verification: confirmed S04 manifest metadata and quality label; extracted S04 PDF text with `pdfplumber`; checked page count, ability grading, evaluation-system counts, training/evaluation set statistics, main benchmark results, error distributions, limitations, and ethics/annotation boundaries against extracted source text; checked wikilinks and source IDs with `rg`.
++- Conflicts: none detected; S04 adds a benchmark and evaluation framework for tool-augmented LLMs and does not supersede S02 ReAct or S03 Toolformer claims.
++- Exceptions: PDF extraction contained multi-column ordering noise in appendix/example pages, so core numeric claims were checked against table text and nearby prose.
++- Unresolved issues: applying executable API evaluation to permissioned enterprise tools, comparing API-Bank scores with later benchmarks, and reducing API hallucination remain open; two benchmark-transfer questions remain `source-needed`.
++- Evidence saved: `evidence/2026-07-09_ingest_S04_excerpts.md`.
++- Diff saved: `evidence/diffs/2026-07-09_ingest_S04_api-bank.diff`.
++
++## 2026-07-09 - S05 - Tau-Bench Agent Consistency Benchmark
++
++- Source ID: S05.
++- Files read: `raw/source_manifest.md`, `schema/AGENTS.md`, `schema/page_template.md`, `wiki/index.md`, `raw/S05.pdf`, `wiki/api-bank-tool-augmented-llm-benchmark.md`, `wiki/react-reasoning-and-acting.md`, `logs/ingest_log.md`.
++- Relevant existing wiki pages read: `wiki/index.md`, `wiki/api-bank-tool-augmented-llm-benchmark.md`, `wiki/react-reasoning-and-acting.md`.
++- Actions: created a new concept page for tau-bench agent consistency evaluation, linked it from the index, added synthesis cross-links from API-Bank and ReAct, and saved S05 extraction notes.
++- Created files: `wiki/tau-bench-agent-consistency-benchmark.md`, `evidence/2026-07-09_ingest_S05_tau-bench_excerpts.md`.
++- Modified files: `wiki/index.md`, `wiki/api-bank-tool-augmented-llm-benchmark.md`, `wiki/react-reasoning-and-acting.md`, `logs/ingest_log.md`.
++- Verification: confirmed S05 manifest metadata and quality label; extracted S05 PDF text with `pdfplumber`; checked page count, metric definition, domain statistics, experiment settings, model benchmark results, consistency result, failure-analysis counts, policy-ablation numbers, and limitations against extracted source text; checked wikilinks and source IDs with `rg`.
++- Conflicts: none detected; S05 adds a later agent-reliability benchmark and does not supersede S02 ReAct or S04 API-Bank claims.
++- Exceptions: PDF extraction contained figure/table layout noise, so numeric claims were checked against table text and nearby prose rather than relying on visual order alone.
++- Unresolved issues: production thresholds for `pass^k`, applying final-state evaluation to real enterprise write tools, and transfer of S05's model-method conclusions to later models or agent scaffolds remain open; two production-transfer questions remain `source-needed`.
++- Evidence saved: `evidence/2026-07-09_ingest_S05_tau-bench_excerpts.md`.
++- Diff saved: `evidence/diffs/2026-07-09_ingest_S05_tau-bench.diff`.
++
++## 2026-07-09 - S06 - ToolSandbox Stateful Tool-Use Benchmark
++
++- Source ID: S06.
++- Files read: `raw/source_manifest.md`, `schema/AGENTS.md`, `schema/page_template.md`, `wiki/index.md`, `raw/S06.pdf`, `wiki/api-bank-tool-augmented-llm-benchmark.md`, `wiki/tau-bench-agent-consistency-benchmark.md`, `wiki/react-reasoning-and-acting.md`, `logs/ingest_log.md`.
++- Relevant existing wiki pages read: `wiki/index.md`, `wiki/api-bank-tool-augmented-llm-benchmark.md`, `wiki/tau-bench-agent-consistency-benchmark.md`, `wiki/react-reasoning-and-acting.md`.
++- Actions: created a new concept page for ToolSandbox, created a contradiction register because S06's tau-bench comparison conflicts with S05's own evaluation description, linked both pages from the index, added synthesis cross-links from API-Bank, tau-bench, and ReAct, and saved S06 extraction notes.
++- Created files: `wiki/toolsandbox-stateful-tool-use-benchmark.md`, `wiki/contradiction-register.md`, `evidence/2026-07-09_ingest_S06_toolsandbox_excerpts.md`.
++- Modified files: `wiki/index.md`, `wiki/api-bank-tool-augmented-llm-benchmark.md`, `wiki/tau-bench-agent-consistency-benchmark.md`, `wiki/react-reasoning-and-acting.md`, `logs/ingest_log.md`.
++- Verification: confirmed S06 manifest metadata and quality label; extracted S06 PDF text with `pdfplumber`; checked page count, stateful-tool definition, user-simulator results, benchmark statistics, scenario counts, model benchmark results, ReAct appendix results, limitations, frontmatter, source tags, and wikilinks against extracted source text and wiki state.
++- Conflicts: recorded an open contradiction between S05's final database-state evaluation description for tau-bench and S06's characterization that tau-bench requires matching a single predetermined action sequence.
++- Exceptions: PDF extraction contained table and figure ordering noise, so benchmark numbers were checked against targeted page/table extractions and nearby prose.
++- Unresolved issues: scaling Milestone/Minefield authoring, modeling confirmation/authentication boundaries, and stabilizing external-service-backed tools remain open; two enterprise-transfer questions remain `source-needed`.
++- Evidence saved: `evidence/2026-07-09_ingest_S06_toolsandbox_excerpts.md`.
++- Diff saved: `evidence/diffs/2026-07-09_ingest_S06_toolsandbox.diff`.
++
++## 2026-07-09 - S07 - AutoGen Multi-Agent Conversation Framework
++
++- Source ID: S07.
++- Files read: `raw/source_manifest.md`, `schema/AGENTS.md`, `schema/page_template.md`, `wiki/index.md`, `raw/S07.pdf`, `wiki/react-reasoning-and-acting.md`, `wiki/toolsandbox-stateful-tool-use-benchmark.md`, `wiki/toolformer-self-supervised-tool-use.md`, `wiki/retrieval-augmented-generation.md`, `wiki/contradiction-register.md`, `logs/ingest_log.md`.
++- Relevant existing wiki pages read: `wiki/index.md`, `wiki/react-reasoning-and-acting.md`, `wiki/toolsandbox-stateful-tool-use-benchmark.md`, `wiki/toolformer-self-supervised-tool-use.md`, `wiki/retrieval-augmented-generation.md`, `wiki/contradiction-register.md`.
++- Actions: created a new concept page for AutoGen multi-agent conversation programming, linked it from the index, added synthesis cross-links from ReAct, RAG, and ToolSandbox, and saved S07 extraction notes.
++- Created files: `wiki/autogen-multi-agent-conversation-framework.md`, `evidence/2026-07-09_ingest_S07_autogen_excerpts.md`.
++- Modified files: `wiki/index.md`, `wiki/react-reasoning-and-acting.md`, `wiki/retrieval-augmented-generation.md`, `wiki/toolsandbox-stateful-tool-use-benchmark.md`, `logs/ingest_log.md`.
++- Verification: confirmed S07 manifest metadata and medium quality label; extracted S07 PDF text with `pdfplumber`; checked page count, agent abstractions, conversation programming interfaces, human/tool participation, application list, MATH results, ALFWorld results, OptiGuide results, dynamic group chat results, MiniWobChat result, limitations, frontmatter, source tags, and wikilinks against extracted source text and wiki state.
++- Conflicts: none detected; S07 adds a multi-agent orchestration framework and does not supersede existing ReAct, RAG, or ToolSandbox claims.
++- Exceptions: PDF extraction contained figure/table layout noise, so numeric claims were checked against targeted page/table extractions and nearby prose.
++- Unresolved issues: enterprise reliability of AutoGen conversation patterns, choosing single-agent versus multi-agent topologies, and test harnesses for code execution or external function calls remain open; two workflow-selection questions remain `source-needed`.
++- Evidence saved: `evidence/2026-07-09_ingest_S07_autogen_excerpts.md`.
++- Diff saved: `evidence/diffs/2026-07-09_ingest_S07_autogen.diff`.
++
++## 2026-07-09 - S08 - Multiagent Debate for Factuality and Reasoning
++
++- Source ID: S08.
++- Files read: `raw/source_manifest.md`, `schema/AGENTS.md`, `schema/page_template.md`, `wiki/index.md`, `raw/S08.pdf`, `wiki/autogen-multi-agent-conversation-framework.md`, `wiki/contradiction-register.md`, `logs/ingest_log.md`.
++- Relevant existing wiki pages read: `wiki/index.md`, `wiki/autogen-multi-agent-conversation-framework.md`, `wiki/contradiction-register.md`.
++- Actions: created a new concept page for multiagent debate, linked it from the index, added a synthesis cross-link from AutoGen, and saved S08 extraction notes.
++- Created files: `wiki/multiagent-debate-for-factuality-and-reasoning.md`, `evidence/2026-07-09_ingest_S08_multiagent-debate_excerpts.md`.
++- Modified files: `wiki/index.md`, `wiki/autogen-multi-agent-conversation-framework.md`, `logs/ingest_log.md`.
++- Verification: confirmed S08 manifest metadata and medium quality label; extracted S08 PDF text with `pdfplumber`; checked page count, debate protocol, model setup, task set, Table 1 reasoning results, Table 2 factuality results, appendix dataset sizes, mixed-model result, limitations, frontmatter, source tags, and wikilinks against extracted text and wiki state.
++- Conflicts: none detected yet; S08 is positive evidence for debate and the manifest identifies S09 as a future counterpoint not yet ingested.
++- Exceptions: PDF extraction contained figure/table ordering noise, so numerical claims were checked against targeted page/table extractions and surrounding prose.
++- Unresolved issues: which failures come from shared model bias versus debate design, cost comparison with other methods, and reconciliation with S09 remain open; three debate-transfer questions remain `source-needed`.
++- Evidence saved: `evidence/2026-07-09_ingest_S08_multiagent-debate_excerpts.md`.
++- Diff saved: `evidence/diffs/2026-07-09_ingest_S08_multiagent-debate.diff`.
++
++## 2026-07-09 - S09 - Multiagent Debate Limits and Majority Pressure
++
++- Source ID: S09.
++- Files read: `raw/source_manifest.md`, `schema/AGENTS.md`, `schema/page_template.md`, `wiki/index.md`, `raw/S09.pdf`, `wiki/multiagent-debate-for-factuality-and-reasoning.md`, `wiki/autogen-multi-agent-conversation-framework.md`, `wiki/contradiction-register.md`, `logs/ingest_log.md`.
++- Relevant existing wiki pages read: `wiki/index.md`, `wiki/multiagent-debate-for-factuality-and-reasoning.md`, `wiki/autogen-multi-agent-conversation-framework.md`, `wiki/contradiction-register.md`.
++- Actions: updated the existing multiagent debate page with S09's controlled logic-puzzle evidence and limitations, updated the index source list, added a contradiction-register entry preserving S08's positive claim and S09's qualifying counterpoint, and saved S09 extraction notes.
++- Created files: `evidence/2026-07-09_ingest_S09_multiagent-debate-limits_excerpts.md`.
++- Modified files: `wiki/index.md`, `wiki/multiagent-debate-for-factuality-and-reasoning.md`, `wiki/contradiction-register.md`, `logs/ingest_log.md`.
++- Verification: confirmed S09 manifest metadata and medium quality label; extracted S09 PDF text with `pdfplumber`; checked page count, title metadata, debate protocol, controlled factors, anchor configuration, puzzle counts, Table 3 accuracy results, Table 4 regression numbers, majority-pressure examples, rational-behavior correction-rate bounds, limitations, frontmatter, source tags, and wikilinks against extracted text and wiki state.
++- Conflicts: recorded an open contradiction/qualification between S08's broad positive debate results and S09's later finding that debate gains are strongly bounded by reasoning strength, team diversity, and resistance to incorrect majority pressure.
++- Exceptions: PDF extraction contained figure/table encoding and ordering noise, so numerical claims were checked against targeted page/table extractions and surrounding prose rather than raw table extraction alone.
++- Unresolved issues: transfer from S09's Knight-Knave-Spy setting to S08's factuality, math, chess, and MMLU settings remains open; two deployment-cost and failure-cause questions remain `source-needed`.
++- Evidence saved: `evidence/2026-07-09_ingest_S09_multiagent-debate-limits_excerpts.md`.
++- Diff saved: `evidence/diffs/2026-07-09_ingest_S09_multiagent-debate-limits.diff`.
+diff --git a/wiki/index.md b/wiki/index.md
+new file mode 100644
+index 0000000..47745f4
+--- /dev/null
++++ b/wiki/index.md
+@@ -0,0 +1,30 @@
++---
++title: Knowledge Base Index
++page_type: overview
++status: draft
++updated: 2026-07-09
++sources: [S01, S02, S03, S04, S05, S06, S07, S08, S09]
++confidence: high
++---
++
++# Knowledge Base Index
++
++This index lists derived wiki pages. It currently includes coverage of retrieval-augmented generation, reasoning-action prompting, self-supervised tool-use learning, API-planning evaluation, repeated-trial agent reliability, stateful interactive tool-use benchmarks, multi-agent orchestration frameworks, and multiagent debate benefits and limits for knowledge-intensive and tool-using language-model systems [S01] [S02] [S03] [S04] [S05] [S06] [S07] [S08] [S09].
++
++## Retrieval and Knowledge Updating
++
++- [[retrieval-augmented-generation|Retrieval-Augmented Generation]]
++
++## Agent Reasoning and Tool Use
++
++- [[react-reasoning-and-acting|ReAct Reasoning and Acting]]
++- [[toolformer-self-supervised-tool-use|Toolformer Self-Supervised Tool Use]]
++- [[api-bank-tool-augmented-llm-benchmark|API-Bank Tool-Augmented LLM Benchmark]]
++- [[tau-bench-agent-consistency-benchmark|Tau-Bench Agent Consistency Benchmark]]
++- [[toolsandbox-stateful-tool-use-benchmark|ToolSandbox Stateful Tool-Use Benchmark]]
++- [[autogen-multi-agent-conversation-framework|AutoGen Multi-Agent Conversation Framework]]
++- [[multiagent-debate-for-factuality-and-reasoning|Multiagent Debate for Factuality and Reasoning]]
++
++## Registers
++
++- [[contradiction-register|Contradiction Register]]
+
+# Index snapshot with S09 update
+
+diff --git "a/wiki\\index.md" "b/wiki\\index.md"
+new file mode 100644
+index 0000000..47745f4
+--- /dev/null
++++ "b/wiki\\index.md"
+@@ -0,0 +1,30 @@
++---
++title: Knowledge Base Index
++page_type: overview
++status: draft
++updated: 2026-07-09
++sources: [S01, S02, S03, S04, S05, S06, S07, S08, S09]
++confidence: high
++---
++
++# Knowledge Base Index
++
++This index lists derived wiki pages. It currently includes coverage of retrieval-augmented generation, reasoning-action prompting, self-supervised tool-use learning, API-planning evaluation, repeated-trial agent reliability, stateful interactive tool-use benchmarks, multi-agent orchestration frameworks, and multiagent debate benefits and limits for knowledge-intensive and tool-using language-model systems [S01] [S02] [S03] [S04] [S05] [S06] [S07] [S08] [S09].
++
++## Retrieval and Knowledge Updating
++
++- [[retrieval-augmented-generation|Retrieval-Augmented Generation]]
++
++## Agent Reasoning and Tool Use
++
++- [[react-reasoning-and-acting|ReAct Reasoning and Acting]]
++- [[toolformer-self-supervised-tool-use|Toolformer Self-Supervised Tool Use]]
++- [[api-bank-tool-augmented-llm-benchmark|API-Bank Tool-Augmented LLM Benchmark]]
++- [[tau-bench-agent-consistency-benchmark|Tau-Bench Agent Consistency Benchmark]]
++- [[toolsandbox-stateful-tool-use-benchmark|ToolSandbox Stateful Tool-Use Benchmark]]
++- [[autogen-multi-agent-conversation-framework|AutoGen Multi-Agent Conversation Framework]]
++- [[multiagent-debate-for-factuality-and-reasoning|Multiagent Debate for Factuality and Reasoning]]
++
++## Registers
++
++- [[contradiction-register|Contradiction Register]]
+
+# Multiagent debate page snapshot with S09 update
+
+diff --git "a/wiki\\multiagent-debate-for-factuality-and-reasoning.md" "b/wiki\\multiagent-debate-for-factuality-and-reasoning.md"
+new file mode 100644
+index 0000000..adb6966
+--- /dev/null
++++ "b/wiki\\multiagent-debate-for-factuality-and-reasoning.md"
+@@ -0,0 +1,94 @@
++---
++title: Multiagent Debate for Factuality and Reasoning
++page_type: concept
++status: draft
++updated: 2026-07-09
++sources: [S08, S09]
++confidence: mixed
++---
++
++# Multiagent Debate for Factuality and Reasoning
++
++## Core Definition
++
++Multiagent debate is a language-generation procedure in which multiple LLM instances independently propose answers, read the other agents' answers, update their own answers over multiple rounds, and converge toward a shared final answer [S08].
++
++Du et al. present multiagent debate as a black-box method: it requires only access to model generations, not model likelihoods, gradients, or internal state [S08].
++
++S09 studies multi-agent debate in a controlled Knight-Knave-Spy logic-puzzle environment, where agents make initial proposals, debate one player at a time, self-adjust, and then output final role assignments that are aggregated by majority vote with a supervisor tie-breaker if needed [S09].
++
++## Key Claims
++
++- S08 positions debate as complementary to single-model prompting methods such as chain-of-thought, verification, self-consistency, and scratchpads [S08].
++- In the S08 protocol, each agent first answers a query independently; then each agent receives the other agents' responses in a consensus prompt and is asked to update its answer, with this process repeated for multiple debate rounds [S08].
++- S08 reports that language-model agents empirically converge to a single shared answer after multiple debate rounds, but it explicitly states that convergence is not guaranteed because debate can be viewed as a multi-agent game [S08].
++- The paper says prompts that make agents more "stubborn" about their own solutions can induce longer debates and better final solutions, while agents are often relatively agreeable, possibly because of instruction tuning or RLHF [S08].
++- Most S08 benchmark experiments use three agents and two debate rounds because of computational expense, though the paper reports additional gains from more agents and rounds in Figure 10 [S08].
++- The main experiments use `gpt-3.5-turbo-0301`, and S08 combines debate with zero-shot chain-of-thought prompting in its evaluations [S08].
++- In Table 1, multiagent debate scores 81.8% +/- 2.3 on arithmetic, compared with 67.0% +/- 4.7 for a single agent, 72.1% +/- 4.5 for single-agent reflection, and 69.0% +/- 4.6 for multi-agent majority voting [S08].
++- In Table 1, multiagent debate scores 85.0% +/- 3.5 on GSM8K grade-school math, compared with 77.0% +/- 4.2 for a single agent, 75.0% +/- 4.3 for single-agent reflection, and 81.0% +/- 3.9 for multi-agent majority voting [S08].
++- In Table 1, multiagent debate scores 122.9 +/- 7.6 on chess move prediction measured by Stockfish pawn score, compared with 91.4 +/- 10.6 for a single agent, 102.1 +/- 11.9 for single-agent reflection, and 102.2 +/- 6.2 for multi-agent majority voting [S08].
++- In Table 2, multiagent debate scores 73.8% +/- 2.3 on the biography factuality benchmark, 71.1% +/- 4.6 on MMLU, and 45.2% +/- 2.9 on chess move validity [S08].
++- In Table 2, single-agent baselines score 66.0% +/- 2.2 on biographies, 63.9% +/- 4.8 on MMLU, and 29.3% +/- 2.6 on chess move validity, while single-agent reflection scores 68.3% +/- 2.9, 57.7% +/- 5.0, and 38.8% +/- 2.9 respectively [S08].
++- S08 introduces a biography factuality benchmark for famous computer scientists and says contemporary language models often hallucinate institutions and dates in generated biographies [S08].
++- The paper reports that, on 20 GSM8K problems debated between ChatGPT and Bard, Bard solves 11, ChatGPT solves 14, and joint multiagent debate solves 17 [S08].
++- The appendix says the arithmetic evaluation uses 100 generated arithmetic tasks, GSM8K uses 100 grade-school math problems, chess move prediction uses 300 selected chess games, MMLU uses 100 selected questions, and chess validity uses 100 selected BIG-Bench chess-state-tracking tasks [S08].
++- S09 frames the open question as whether multi-agent debate gains reflect genuine deliberative reasoning rather than ensembling or majority voting, and it evaluates both debate outcomes and debate process quality [S09].
++- S09 varies six factors: agent team size, agent team composition, confidence visibility, debate order, debate depth, and task difficulty [S09].
++- In S09's default anchor configuration, agent team size is 3, composition is Het-MixA, confidence visibility is hidden, debate order is fixed, debate depth is 1, and task difficulty spans all levels [S09].
++- S09 says all controlled experiments use 100 puzzles per configuration across easy, medium, and hard conditions [S09].
++- In S09 Table 3, debate improves strict instance accuracy from 17.33% to 69.33% on size-4 puzzles, from 6.00% to 46.67% on size-6 puzzles, and from 3.33% to 36.00% on size-8 puzzles [S09].
++- In S09 Table 3, debate improves agent-level accuracy from 35.33% to 77.11% on size-4 puzzles, from 27.11% to 55.56% on size-6 puzzles, and from 22.66% to 44.89% on size-8 puzzles [S09].
++- S09 reports that initial smooth accuracy is the strongest predictor of final smooth accuracy in its regression, with beta = 0.600, p < 0.001, R2 = 0.393, and 745 observations [S09].
++- S09 reports that number of agents positively predicts final smooth accuracy with beta = 0.066 and p < 0.001, while game size negatively predicts final smooth accuracy with beta = -0.030 and p < 0.001 [S09].
++- S09 reports that debate depth, confidence visibility, and debate order are not significant predictors in its final-output-accuracy regression [S09].
++- S09 finds that majority pressure can suppress independent correction: stronger models such as `gemini-2.5-flash` and `gpt-5-mini` corrected an incorrect majority 34.4% and 30.0% of the time, while `gemini-2.5-flash-lite` in Mix A corrected itself only 3.6% of the time in such cases [S09].
++- S09 reports that rational, validity-aligned behavior produced correction rates above 90%, while irrational behavior produced correction rates below 55% despite the `gemini-2.5-flash-lite` exception noted in the paper [S09].
++
++## Evidence and Sources
++
++S08 is a medium-quality public paper/PDF in the manifest, dated 2023-05-23, with intended use as the positive claim that debate improves factuality [S08].
++
++S09 is a medium-quality public paper/PDF in the manifest, dated 2025-11-11, with intended use as a counterpoint to S08 about debate limits and majority pressure [S09].
++
++The paper evaluates debate on six task families: arithmetic, GSM8K grade-school math, chess move prediction, biographies, MMLU, and chess move validity [S08].
++
++The biography factuality metric compares generated biography bullets against Wikipedia-derived ground-truth facts by prompting ChatGPT to judge consistency as `yes`, `no`, or `uncertain`, and the authors ignore ground-truth bullets labeled `uncertain` [S08].
++
++S09 uses Knight-Knave-Spy puzzles because they provide structured logical reasoning tasks with verifiable ground truth and stepwise intermediate debate decisions [S09].
++
++Synthesis: Multiagent debate is a specific multi-agent inference pattern, while [[autogen-multi-agent-conversation-framework|AutoGen]] is a general framework that can implement many multi-agent conversation patterns, including debate-like interactions [S07] [S08].
++
++Synthesis: S08 supports multiagent debate as a useful black-box inference procedure, while S09 narrows that claim by showing that controlled logic-task gains are strongly bounded by participant reasoning strength, diversity, and ability to resist incorrect majorities [S08] [S09].
++
++## Limitations and Counter-Evidence
++
++S08 states that multiagent debate is more computationally expensive than other prompting techniques because it requires multiple language generations and multiple debate rounds [S08].
++
++S08 reports that, as debates become longer, current language models sometimes struggle to process the full debate input and focus mostly on recent generations [S08].
++
++The paper states that debate consensus can still be wrong: agents may converge to a single incorrect answer and confidently affirm that it is correct and consistent with other agents' responses [S08].
++
++S08's biography evaluation can miss incorrect generated facts if those facts are not covered by the ground-truth bullet set, so the authors describe the metric as estimating relative accuracy rather than fully validating biographies [S08].
++
++S08 is a preprint/framework-style empirical paper rather than a peer-reviewed benchmark standard in the manifest, so its results should be treated as medium-confidence positive evidence pending later counter-evidence [S08].
++
++S09 is also medium-quality preprint evidence in the manifest, so its negative and qualifying claims should update confidence but not be treated as final consensus [S09].
++
++S09 limits its study to Knight-Knave-Spy logic puzzles, and the authors state that this structured domain may not capture open-ended reasoning, creative problem-solving, commonsense tasks, or tasks with multiple valid solutions [S09].
++
++S09 says its analysis is limited to the LLMs available at the time of study, a narrow range of team compositions and debate protocols, and criteria tailored to logical reasoning with verifiable ground truth [S09].
++
++S09 reports that weaker teams can converge prematurely or follow persuasive but unsound reasoning, and that coordination mechanisms alone cannot overcome weak reasoning foundations [S09].
++
++## Links to Other Pages
++
++- [[index|Knowledge Base Index]]
++- [[autogen-multi-agent-conversation-framework|AutoGen Multi-Agent Conversation Framework]]
++- [[contradiction-register|Contradiction Register]]
++
++## Open Questions
++
++- Which debate failures are caused by shared model biases versus poor debate prompts or insufficient agent diversity source-needed?
++- When does the extra cost of multiagent debate justify itself compared with self-consistency, retrieval, verification, or tool execution source-needed?
++- How far do S09's Knight-Knave-Spy results transfer to S08's factuality, math, chess, and MMLU settings source-needed?
+
+# Contradiction register snapshot with S09 update
+
+diff --git "a/wiki\\contradiction-register.md" "b/wiki\\contradiction-register.md"
+new file mode 100644
+index 0000000..9d41579
+--- /dev/null
++++ "b/wiki\\contradiction-register.md"
+@@ -0,0 +1,34 @@
++---
++title: Contradiction Register
++page_type: register
++status: draft
++updated: 2026-07-09
++sources: [S05, S06, S08, S09]
++confidence: mixed
++---
++
++# Contradiction Register
++
++## Tau-Bench Evaluation Flexibility
++
++Claim A: The tau-bench paper says its evaluation compares the database state at the end of each episode with the ground-truth expected state, which allows stochastic conversational variation so long as different conversations reach the same end database state [S05].
++
++Claim B: The ToolSandbox paper says tau-bench requires agent action to match a single predetermined sequence, leaving no room for error correction or multiple possible answer sequences [S06].
++
++Applicability: Claim A is from the primary tau-bench source, while Claim B is from a later benchmark-comparison passage in ToolSandbox rather than tau-bench itself [S05] [S06].
++
++Status: Open, leaning toward S05 for tau-bench's own evaluation design because S05 is the primary source and describes final-state database comparison, but S06's critique should be preserved as an external benchmark-comparison claim until a direct reconciliation is available [S05] [S06].
++
++Related pages: [[tau-bench-agent-consistency-benchmark|Tau-Bench Agent Consistency Benchmark]], [[toolsandbox-stateful-tool-use-benchmark|ToolSandbox Stateful Tool-Use Benchmark]].
++
++## Multiagent Debate Benefit Versus Majority Pressure
++
++Claim A: The S08 multiagent debate paper reports that debate improves over single-agent, reflection, and majority-voting baselines on arithmetic, GSM8K, chess move prediction, biographies, MMLU, and chess move validity, and frames debate as a black-box way for language-model agents to critique and refine one another's answers [S08].
++
++Claim B: The S09 controlled study reports that multi-agent debate can improve Knight-Knave-Spy logic-puzzle accuracy, but argues that debate success is primarily driven by intrinsic reasoning strength and diversity, while structural parameters such as debate depth, order, and confidence visibility offer limited gains and majority pressure can suppress independent correction [S09].
++
++Applicability: Claim A covers broad positive empirical results across S08's benchmark families, while Claim B comes from a later controlled logic-puzzle setting designed to distinguish outcome gains from debate-process quality [S08] [S09].
++
++Status: Open; S09 qualifies but does not fully supersede S08 because the tasks, models, dates, and evaluation designs differ, and S09 still reports accuracy gains while narrowing the interpretation of what those gains mean [S08] [S09].
++
++Related pages: [[multiagent-debate-for-factuality-and-reasoning|Multiagent Debate for Factuality and Reasoning]].
+
+# Evidence note snapshot
+
+diff --git "a/evidence\\2026-07-09_ingest_S09_multiagent-debate-limits_excerpts.md" "b/evidence\\2026-07-09_ingest_S09_multiagent-debate-limits_excerpts.md"
+new file mode 100644
+index 0000000..8e7087b
+--- /dev/null
++++ "b/evidence\\2026-07-09_ingest_S09_multiagent-debate-limits_excerpts.md"
+@@ -0,0 +1,16 @@
++# S09 Multiagent Debate Limits Extraction Notes
++
++- Source metadata checked in `raw/source_manifest.md`: S09 is `Can LLM Agents Really Debate? - Wu, Li & Li`, dated 2025-11-11, public, paper/PDF, medium quality, with intended use as a counterpoint to S08 about debate limits and majority pressure.
++- PDF extraction used bundled Python with `pdfplumber`; the PDF has 20 pages.
++- Title and metadata checked from the PDF: `Can LLM Agents Really Debate? A Controlled Study of Multi-Agent Debate in Logical Reasoning`; authors Haolun Wu, Zhenkun Li, and Lingyao Li; arXiv ID `2511.07784v1`.
++- Core task checked from Sections 3-4: S09 uses Knight-Knave-Spy logic puzzles with knights, knaves, and spies; the debate protocol includes initial proposals, player-by-player debate, self-adjustment, and final decision.
++- Controlled factors checked from Table 1: agent team size, team composition, confidence visibility, debate order, debate depth, and task difficulty.
++- Anchor configuration checked from Section 5.2: team size 3, Het-MixA composition, hidden confidence, fixed debate order, depth 1, and all task-difficulty levels.
++- Experiment size checked from Section 5.2: all controlled experiments use 100 puzzles per configuration across easy, medium, and hard conditions.
++- Table 3 checked: strict instance accuracy improves from 17.33% to 69.33% on size-4 puzzles, 6.00% to 46.67% on size-6 puzzles, and 3.33% to 36.00% on size-8 puzzles.
++- Table 3 checked: agent-level accuracy improves from 35.33% to 77.11% on size-4 puzzles, 27.11% to 55.56% on size-6 puzzles, and 22.66% to 44.89% on size-8 puzzles.
++- Table 4 checked: final smooth accuracy regression has R2 = 0.393 and 745 observations; initial smooth accuracy beta = 0.600 with p < 0.001; number of agents beta = 0.066 with p < 0.001; game size beta = -0.030 with p < 0.001.
++- Process findings checked from Section 6.2: majority pressure suppresses independent correction; `gemini-2.5-flash` and `gpt-5-mini` correct incorrect majorities 34.4% and 30.0% of the time, while `gemini-2.5-flash-lite` in Mix A corrects itself only 3.6% of the time.
++- Figure 6/prose checked: rational behavior yields correction rates above 90%, while irrational behavior yields rates below 55% despite a noted `gemini-2.5-flash-lite` exception.
++- Limitations checked from Section 8: results are limited to Knight-Knave-Spy puzzles, available models, narrow team compositions and protocols, criteria tailored to verifiable logic tasks, and limited analysis of linguistic or rhetorical mechanisms.
++- Evidentiary boundary: medium-quality 2025 preprint; useful as a counterpoint to S08, but it qualifies rather than fully supersedes S08 because the task domain and experimental design differ.

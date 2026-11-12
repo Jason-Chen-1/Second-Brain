@@ -1,0 +1,509 @@
+﻿diff --git a/logs/ingest_log.md b/logs/ingest_log.md
+new file mode 100644
+index 0000000..109f2dd
+--- /dev/null
++++ b/logs/ingest_log.md
+@@ -0,0 +1,93 @@
++# Ingest Log
++
++This log records source ingestion and knowledge-base maintenance events. It is append-only: new work should add entries rather than rewriting old history.
++
++## 2026-07-09 - S01 - Retrieval-Augmented Generation
++
++- Source ID: S01.
++- Files read: `raw/source_manifest.md`, `schema/AGENTS.md`, `schema/page_template.md`, `wiki/index.md`, `raw/S01.pdf`, `logs/ingest_log.md`.
++- Relevant existing wiki pages read: `wiki/index.md`; no substantive topic pages existed in `wiki/` at ingest time.
++- Actions: created a new concept page for retrieval-augmented generation, repaired the malformed index, linked the new page from the index, and saved S01 verification notes.
++- Created files: `wiki/retrieval-augmented-generation.md`, `evidence/2026-07-09_ingest_S01_excerpts.md`.
++- Modified files: `wiki/index.md`, `logs/ingest_log.md`.
++- Verification: confirmed S01 manifest metadata and quality label; extracted S01 PDF text with `pdfplumber`; checked reported page count, architecture, benchmark numbers, parameter/index numbers, knowledge-update result, and limitations against the extracted source text; checked wikilinks and source IDs with `rg`.
++- Conflicts: none detected because no pre-existing substantive wiki page made comparable RAG claims.
++- Exceptions: `pdftotext` was unavailable, so bundled Python with `pdfplumber` was used; a direct console extraction hit a PowerShell/GBK encoding issue and was rerun with UTF-8-safe output.
++- Unresolved issues: the final open question about choosing among RAG variants and newer retrieval architectures remains `source-needed` until more sources are ingested.
++- Evidence saved: `evidence/2026-07-09_ingest_S01_excerpts.md`.
++- Diff saved: `evidence/diffs/2026-07-09_ingest_S01_rag.diff`.
++
++## 2026-07-09 - S02 - ReAct Reasoning and Acting
++
++- Source ID: S02.
++- Files read: `raw/source_manifest.md`, `schema/AGENTS.md`, `schema/page_template.md`, `wiki/index.md`, `raw/S02.pdf`, `wiki/retrieval-augmented-generation.md`, `logs/ingest_log.md`.
++- Relevant existing wiki pages read: `wiki/index.md`, `wiki/retrieval-augmented-generation.md`.
++- Actions: created a new concept page for ReAct reasoning/action loops, linked it from the index, and added a synthesis cross-link from the RAG page distinguishing S01's retrieval-augmented seq2seq architecture from S02's ReAct prompting/action-loop paradigm.
++- Created files: `wiki/react-reasoning-and-acting.md`, `evidence/2026-07-09_ingest_S02_excerpts.md`.
++- Modified files: `wiki/index.md`, `wiki/retrieval-augmented-generation.md`, `logs/ingest_log.md`.
++- Verification: confirmed S02 manifest metadata and quality label; extracted S02 PDF text with `pdfplumber`; checked reported page count, method definition, action space, benchmark results, failure-mode numbers, fine-tuning note, reproducibility note, and ethics boundary against the extracted source text; checked wikilinks and source IDs with `rg`.
++- Conflicts: none detected; S02 adds a distinct prompting/action-loop concept and does not revise S01's RAG architecture or benchmark claims.
++- Exceptions: PDF text extraction contains noisy figure glyphs on some pages, so numeric claims were checked against table text and surrounding extracted prose rather than figure rendering.
++- Unresolved issues: production exposure of reasoning traces and real-system permissioning remain `source-needed`; transfer to newer models beyond PaLM-540B and GPT-3 `text-davinci-002` remains uncertain.
++- Evidence saved: `evidence/2026-07-09_ingest_S02_excerpts.md`.
++- Diff saved: `evidence/diffs/2026-07-09_ingest_S02_react.diff`.
++
++## 2026-07-09 - S03 - Toolformer Self-Supervised Tool Use
++
++- Source ID: S03.
++- Files read: `raw/source_manifest.md`, `schema/AGENTS.md`, `schema/page_template.md`, `wiki/index.md`, `raw/S03.pdf`, `wiki/react-reasoning-and-acting.md`, `wiki/retrieval-augmented-generation.md`, `logs/ingest_log.md`.
++- Relevant existing wiki pages read: `wiki/index.md`, `wiki/react-reasoning-and-acting.md`, `wiki/retrieval-augmented-generation.md`.
++- Actions: created a new concept page for Toolformer self-supervised tool use, linked it from the index, and added a synthesis cross-link from the ReAct page distinguishing prompted interactive reasoning/action trajectories from Toolformer's self-supervised API-call fine-tuning.
++- Created files: `wiki/toolformer-self-supervised-tool-use.md`, `evidence/2026-07-09_ingest_S03_excerpts.md`.
++- Modified files: `wiki/index.md`, `wiki/react-reasoning-and-acting.md`, `logs/ingest_log.md`.
++- Verification: confirmed S03 manifest metadata and quality label; extracted S03 PDF text with `pdfplumber`; checked reported page count, method definition, tool inventory, filtering thresholds and example counts, training setup, benchmark numbers, language-modeling perplexity, scaling claim, and limitations against extracted source text; checked wikilinks and source IDs with `rg`.
++- Conflicts: none detected; S03 adds a distinct self-supervised API-call learning mechanism and does not supersede S01 RAG or S02 ReAct claims.
++- Exceptions: PDF extraction included some multi-column/table ordering noise, so benchmark and count claims were checked against separately extracted table text.
++- Unresolved issues: tool-call cost/risk pricing, combining Toolformer with ReAct-style multi-step tool refinement, and learning from sensitive enterprise tool logs remain open; the sensitive-log safeguard question remains `source-needed`.
++- Evidence saved: `evidence/2026-07-09_ingest_S03_excerpts.md`.
++- Diff saved: `evidence/diffs/2026-07-09_ingest_S03_toolformer.diff`.
++
++## 2026-07-09 - S04 - API-Bank Tool-Augmented LLM Benchmark
++
++- Source ID: S04.
++- Files read: `raw/source_manifest.md`, `schema/AGENTS.md`, `schema/page_template.md`, `wiki/index.md`, `raw/S04.pdf`, `wiki/react-reasoning-and-acting.md`, `wiki/toolformer-self-supervised-tool-use.md`, `logs/ingest_log.md`.
++- Relevant existing wiki pages read: `wiki/index.md`, `wiki/react-reasoning-and-acting.md`, `wiki/toolformer-self-supervised-tool-use.md`.
++- Actions: created a new concept page for API-Bank, linked it from the index, and added synthesis cross-links from ReAct and Toolformer distinguishing API-Bank's benchmark/evaluation role from S02's prompting method and S03's self-supervised API-call training method.
++- Created files: `wiki/api-bank-tool-augmented-llm-benchmark.md`, `evidence/2026-07-09_ingest_S04_excerpts.md`.
++- Modified files: `wiki/index.md`, `wiki/react-reasoning-and-acting.md`, `wiki/toolformer-self-supervised-tool-use.md`, `logs/ingest_log.md`.
++- Verification: confirmed S04 manifest metadata and quality label; extracted S04 PDF text with `pdfplumber`; checked page count, ability grading, evaluation-system counts, training/evaluation set statistics, main benchmark results, error distributions, limitations, and ethics/annotation boundaries against extracted source text; checked wikilinks and source IDs with `rg`.
++- Conflicts: none detected; S04 adds a benchmark and evaluation framework for tool-augmented LLMs and does not supersede S02 ReAct or S03 Toolformer claims.
++- Exceptions: PDF extraction contained multi-column ordering noise in appendix/example pages, so core numeric claims were checked against table text and nearby prose.
++- Unresolved issues: applying executable API evaluation to permissioned enterprise tools, comparing API-Bank scores with later benchmarks, and reducing API hallucination remain open; two benchmark-transfer questions remain `source-needed`.
++- Evidence saved: `evidence/2026-07-09_ingest_S04_excerpts.md`.
++- Diff saved: `evidence/diffs/2026-07-09_ingest_S04_api-bank.diff`.
++
++## 2026-07-09 - S05 - Tau-Bench Agent Consistency Benchmark
++
++- Source ID: S05.
++- Files read: `raw/source_manifest.md`, `schema/AGENTS.md`, `schema/page_template.md`, `wiki/index.md`, `raw/S05.pdf`, `wiki/api-bank-tool-augmented-llm-benchmark.md`, `wiki/react-reasoning-and-acting.md`, `logs/ingest_log.md`.
++- Relevant existing wiki pages read: `wiki/index.md`, `wiki/api-bank-tool-augmented-llm-benchmark.md`, `wiki/react-reasoning-and-acting.md`.
++- Actions: created a new concept page for tau-bench agent consistency evaluation, linked it from the index, added synthesis cross-links from API-Bank and ReAct, and saved S05 extraction notes.
++- Created files: `wiki/tau-bench-agent-consistency-benchmark.md`, `evidence/2026-07-09_ingest_S05_tau-bench_excerpts.md`.
++- Modified files: `wiki/index.md`, `wiki/api-bank-tool-augmented-llm-benchmark.md`, `wiki/react-reasoning-and-acting.md`, `logs/ingest_log.md`.
++- Verification: confirmed S05 manifest metadata and quality label; extracted S05 PDF text with `pdfplumber`; checked page count, metric definition, domain statistics, experiment settings, model benchmark results, consistency result, failure-analysis counts, policy-ablation numbers, and limitations against extracted source text; checked wikilinks and source IDs with `rg`.
++- Conflicts: none detected; S05 adds a later agent-reliability benchmark and does not supersede S02 ReAct or S04 API-Bank claims.
++- Exceptions: PDF extraction contained figure/table layout noise, so numeric claims were checked against table text and nearby prose rather than relying on visual order alone.
++- Unresolved issues: production thresholds for `pass^k`, applying final-state evaluation to real enterprise write tools, and transfer of S05's model-method conclusions to later models or agent scaffolds remain open; two production-transfer questions remain `source-needed`.
++- Evidence saved: `evidence/2026-07-09_ingest_S05_tau-bench_excerpts.md`.
++- Diff saved: `evidence/diffs/2026-07-09_ingest_S05_tau-bench.diff`.
++
++## 2026-07-09 - S06 - ToolSandbox Stateful Tool-Use Benchmark
++
++- Source ID: S06.
++- Files read: `raw/source_manifest.md`, `schema/AGENTS.md`, `schema/page_template.md`, `wiki/index.md`, `raw/S06.pdf`, `wiki/api-bank-tool-augmented-llm-benchmark.md`, `wiki/tau-bench-agent-consistency-benchmark.md`, `wiki/react-reasoning-and-acting.md`, `logs/ingest_log.md`.
++- Relevant existing wiki pages read: `wiki/index.md`, `wiki/api-bank-tool-augmented-llm-benchmark.md`, `wiki/tau-bench-agent-consistency-benchmark.md`, `wiki/react-reasoning-and-acting.md`.
++- Actions: created a new concept page for ToolSandbox, created a contradiction register because S06's tau-bench comparison conflicts with S05's own evaluation description, linked both pages from the index, added synthesis cross-links from API-Bank, tau-bench, and ReAct, and saved S06 extraction notes.
++- Created files: `wiki/toolsandbox-stateful-tool-use-benchmark.md`, `wiki/contradiction-register.md`, `evidence/2026-07-09_ingest_S06_toolsandbox_excerpts.md`.
++- Modified files: `wiki/index.md`, `wiki/api-bank-tool-augmented-llm-benchmark.md`, `wiki/tau-bench-agent-consistency-benchmark.md`, `wiki/react-reasoning-and-acting.md`, `logs/ingest_log.md`.
++- Verification: confirmed S06 manifest metadata and quality label; extracted S06 PDF text with `pdfplumber`; checked page count, stateful-tool definition, user-simulator results, benchmark statistics, scenario counts, model benchmark results, ReAct appendix results, limitations, frontmatter, source tags, and wikilinks against extracted source text and wiki state.
++- Conflicts: recorded an open contradiction between S05's final database-state evaluation description for tau-bench and S06's characterization that tau-bench requires matching a single predetermined action sequence.
++- Exceptions: PDF extraction contained table and figure ordering noise, so benchmark numbers were checked against targeted page/table extractions and nearby prose.
++- Unresolved issues: scaling Milestone/Minefield authoring, modeling confirmation/authentication boundaries, and stabilizing external-service-backed tools remain open; two enterprise-transfer questions remain `source-needed`.
++- Evidence saved: `evidence/2026-07-09_ingest_S06_toolsandbox_excerpts.md`.
++- Diff saved: `evidence/diffs/2026-07-09_ingest_S06_toolsandbox.diff`.
+diff --git a/wiki/index.md b/wiki/index.md
+new file mode 100644
+index 0000000..ff73570
+--- /dev/null
++++ b/wiki/index.md
+@@ -0,0 +1,28 @@
++---
++title: Knowledge Base Index
++page_type: overview
++status: draft
++updated: 2026-07-09
++sources: [S01, S02, S03, S04, S05, S06]
++confidence: high
++---
++
++# Knowledge Base Index
++
++This index lists derived wiki pages. It currently includes coverage of retrieval-augmented generation, reasoning-action prompting, self-supervised tool-use learning, API-planning evaluation, repeated-trial agent reliability, and stateful interactive tool-use benchmarks for knowledge-intensive and tool-using language-model systems [S01] [S02] [S03] [S04] [S05] [S06].
++
++## Retrieval and Knowledge Updating
++
++- [[retrieval-augmented-generation|Retrieval-Augmented Generation]]
++
++## Agent Reasoning and Tool Use
++
++- [[react-reasoning-and-acting|ReAct Reasoning and Acting]]
++- [[toolformer-self-supervised-tool-use|Toolformer Self-Supervised Tool Use]]
++- [[api-bank-tool-augmented-llm-benchmark|API-Bank Tool-Augmented LLM Benchmark]]
++- [[tau-bench-agent-consistency-benchmark|Tau-Bench Agent Consistency Benchmark]]
++- [[toolsandbox-stateful-tool-use-benchmark|ToolSandbox Stateful Tool-Use Benchmark]]
++
++## Registers
++
++- [[contradiction-register|Contradiction Register]]
+
+# Wiki page snapshots for S06-relevant untracked/created files
+
+diff --git "a/wiki\\toolsandbox-stateful-tool-use-benchmark.md" "b/wiki\\toolsandbox-stateful-tool-use-benchmark.md"
+new file mode 100644
+index 0000000..8316770
+--- /dev/null
++++ "b/wiki\\toolsandbox-stateful-tool-use-benchmark.md"
+@@ -0,0 +1,72 @@
++---
++title: ToolSandbox Stateful Tool-Use Benchmark
++page_type: concept
++status: draft
++updated: 2026-07-09
++sources: [S06]
++confidence: high
++---
++
++# ToolSandbox Stateful Tool-Use Benchmark
++
++## Core Definition
++
++ToolSandbox is a Python-native benchmark for evaluating LLM tool-use agents in stateful, conversational, and interactive settings with mutable world state, a simulated user, and tool execution through an execution environment [S06].
++
++The benchmark evaluates trajectories with human-authored Milestones and Minefields: Milestones define key events that must occur in a trajectory, while Minefields define events that must not occur, such as hallucinated tool calls in insufficient-information scenarios [S06].
++
++## Key Claims
++
++- S06 argues that prior tool-use benchmarks often evaluate stateless web services from a single-turn prompt or evaluate predefined off-policy dialogue trajectories, while real task-oriented tool use is stateful, conversational, and interactive [S06].
++- ToolSandbox represents mutable state with an `ExecutionContext`, tools as Python functions, and role communication among User, Agent, and Execution Environment through a `MessageBus` [S06].
++- Stateful tools in ToolSandbox inspect, depend on, or manipulate world states such as cellular service, Wi-Fi, location service, and low-battery mode [S06].
++- Stateful tools make up 44% of the ToolSandbox toolbox, and their implicit dependencies test whether an agent can track world state and tool-call stack effects [S06].
++- ToolSandbox uses a GPT-4o-powered user simulator for on-policy conversational rollouts, and the simulator can terminate with an `end_conversation` tool when it judges the task complete or impossible [S06].
++- The paper reports that adding Knowledge Boundary and Demonstration prompt components to the user simulator reduced hallucination from 12.4% to 6.97% and instruction-following error from 6.20% to 0.77% in a GPT-4o simulator/GPT-4o agent setup over 1,032 manually annotated trajectories [S06].
++- ToolSandbox contains 1,032 test scenarios, 34 tools, an average of 13.9 turns, and an average of 3.80 tool calls, compared in Table 4 with API-Bank at 261 test cases, 73 tools, 3.88 average turns, and 2.04 average tool calls [S06].
++- The 34 tools cover 11 domains: Contact, Messaging, Reminder, System settings, Time utilities, Math utilities, Map, Weather, Stock, Conversion, and Holiday [S06].
++- ToolSandbox scenario counts include 152 Single Tool Call, 656 Multiple Tool Call, 584 Single User Turn, 224 Multiple User Turn, 192 State Dependency, 472 Canonicalization, and 224 Insufficient Information scenarios; a scenario can belong to multiple categories [S06].
++- S06 states that 85% of ToolSandbox scenarios are associated with at least one difficult category among Multiple Tool Call, Multiple User Turn, State Dependency, and Insufficient Information [S06].
++- In Table 5, `GPT-4o-2024-05-13` has the highest average similarity score at 73.0, followed by `Claude-3-Opus-20240229` at 69.2, `GPT-3.5-Turbo-0125` at 65.6, `GPT-4-0125-Preview` at 64.3, and `Claude-3-Sonnet-20240229` at 63.8 [S06].
++- In Table 5, the best open-source model listed by the authors, `Hermes-2-Pro-Mistral-7B`, scores 31.4 average similarity, more than 20 points below `Claude-3-Haiku-20240307` at 54.9 [S06].
++- The Insufficient Information category has an inverse pattern in Table 5: `Mistral-7B-Instruct-v0.3` scores 76.8 and `Gemini-1.5-Pro-001` scores 76.2, while `GPT-4o-2024-05-13` scores 42.0 and `GPT-3.5-Turbo-0125` scores 22.3; S06 interprets some high scores from weaker models as a side effect of not issuing tool calls rather than a generally positive outcome [S06].
++- The State Dependency category shows an unusual pattern where larger models such as GPT-4 and Claude-3-Opus can perform worse than smaller models because they may issue erroneous parallel tool calls when tools are dependent [S06].
++- A ReAct prompting appendix reports small or minimal gains over the default ToolSandbox prompt: GPT-4o rises from 73.0 to 73.6, Claude-3-Opus from 69.2 to 69.3, GPT-4-0125-Preview from 64.3 to 65.2, and Claude-3-Sonnet from 63.8 to 63.7 [S06].
++
++## Evidence and Sources
++
++S06 is a high-quality public paper/PDF in the manifest, dated 2024-08-08, with intended use for stateful, multi-turn, insufficient-information tool evaluation [S06].
++
++The ToolSandbox evaluation strategy maps Milestones to trajectory snapshots while preserving a topological ordering over milestone dependencies, allowing multiple valid trajectories to satisfy the same task [S06].
++
++ToolSandbox uses Minefields to penalize trajectories that take forbidden actions; the paper gives an insufficient-information example where a task lacks the current timestamp and the model should not call `timestamp_diff` with a hallucinated argument [S06].
++
++Synthesis: ToolSandbox complements [[api-bank-tool-augmented-llm-benchmark|API-Bank]] by moving from executable API-call evaluation toward mutable world-state evaluation with dynamic trajectories, simulated users, and intermediate milestone checks [S04] [S06].
++
++Synthesis: ToolSandbox and [[tau-bench-agent-consistency-benchmark|Tau-Bench]] both evaluate conversational tool-use agents, but ToolSandbox emphasizes state dependencies, minefields for impossible tasks, and milestone scoring over arbitrary trajectories, while tau-bench emphasizes domain-policy following and repeated-trial `pass^k` reliability [S05] [S06].
++
++## Limitations and Counter-Evidence
++
++S06 states that authoring Milestones and Minefields requires deep knowledge of tool capacities and many iterations, which hinders scalability [S06].
++
++S06 reports that its user simulator still has non-negligible hallucination and instruction-following errors despite prompt controls [S06].
++
++Mandatory confirmation and authentication are not addressed in ToolSandbox, even though the paper identifies them as important for tool-use LLM designs and transactional services [S06].
++
++ToolSandbox does not currently address daemon-style tools such as timers, where a tool returns after spawning a background process that later interrupts the main process [S06].
++
++Some ToolSandbox tools depend on external web services, such as weather search, and S06 says this can affect reproducibility [S06].
++
++## Links to Other Pages
++
++- [[index|Knowledge Base Index]]
++- [[api-bank-tool-augmented-llm-benchmark|API-Bank Tool-Augmented LLM Benchmark]]
++- [[tau-bench-agent-consistency-benchmark|Tau-Bench Agent Consistency Benchmark]]
++- [[react-reasoning-and-acting|ReAct Reasoning and Acting]]
++- [[contradiction-register|Contradiction Register]]
++
++## Open Questions
++
++- How should ToolSandbox-style milestone and minefield authoring be scaled without losing the interpretability of human-authored intermediate checks source-needed?
++- How should stateful tool benchmarks model confirmation, authentication, and permission boundaries before write actions in enterprise systems source-needed?
++- How stable are ToolSandbox scores when external-service-backed tools are cached or replaced by deterministic local fixtures [S06]?
+
+# Contradiction register snapshot
+
+diff --git "a/wiki\\contradiction-register.md" "b/wiki\\contradiction-register.md"
+new file mode 100644
+index 0000000..318c07e
+--- /dev/null
++++ "b/wiki\\contradiction-register.md"
+@@ -0,0 +1,22 @@
++---
++title: Contradiction Register
++page_type: register
++status: draft
++updated: 2026-07-09
++sources: [S05, S06]
++confidence: mixed
++---
++
++# Contradiction Register
++
++## Tau-Bench Evaluation Flexibility
++
++Claim A: The tau-bench paper says its evaluation compares the database state at the end of each episode with the ground-truth expected state, which allows stochastic conversational variation so long as different conversations reach the same end database state [S05].
++
++Claim B: The ToolSandbox paper says tau-bench requires agent action to match a single predetermined sequence, leaving no room for error correction or multiple possible answer sequences [S06].
++
++Applicability: Claim A is from the primary tau-bench source, while Claim B is from a later benchmark-comparison passage in ToolSandbox rather than tau-bench itself [S05] [S06].
++
++Status: Open, leaning toward S05 for tau-bench's own evaluation design because S05 is the primary source and describes final-state database comparison, but S06's critique should be preserved as an external benchmark-comparison claim until a direct reconciliation is available [S05] [S06].
++
++Related pages: [[tau-bench-agent-consistency-benchmark|Tau-Bench Agent Consistency Benchmark]], [[toolsandbox-stateful-tool-use-benchmark|ToolSandbox Stateful Tool-Use Benchmark]].
+
+# Existing topic page snapshots with S06 updates
+
+diff --git "a/wiki\\api-bank-tool-augmented-llm-benchmark.md" "b/wiki\\api-bank-tool-augmented-llm-benchmark.md"
+new file mode 100644
+index 0000000..068dd3e
+--- /dev/null
++++ "b/wiki\\api-bank-tool-augmented-llm-benchmark.md"
+@@ -0,0 +1,71 @@
++---
++title: API-Bank Tool-Augmented LLM Benchmark
++page_type: concept
++status: draft
++updated: 2026-07-09
++sources: [S04, S05, S06]
++confidence: high
++---
++
++# API-Bank Tool-Augmented LLM Benchmark
++
++## Core Definition
++
++API-Bank is a benchmark and training resource for evaluating and improving tool-augmented large language models across API calling, API retrieval, and multi-step API planning [S04].
++
++Li et al.'s API-Bank paper defines three tool-use abilities: Call, where APIs are known and the model must call the right one; Retrieve+Call, where APIs are unknown and the model must retrieve then call one API; and Plan+Retrieve+Call, where the model must repeatedly plan, retrieve, and call multiple APIs when APIs are unknown [S04].
++
++## Key Claims
++
++- API-Bank's design principles were derived from interviews with over 500 users interested in adding tools to LLMs, and the authors identify two user-requirement dimensions: few versus many APIs in a pool, and single versus several API calls per turn [S04].
++- The benchmark construction standards emphasize domain diversity, API authenticity, API diversity, and evaluation authenticity through a functional system that executes model-proposed API calls and evaluates their effect [S04].
++- The evaluation system implements 73 APIs, including daily-use APIs such as weather forecast and APIs that access other AI models such as text-to-image generation [S04].
++- API-Bank's manually annotated evaluation set retains 314 dialogues with 753 API calls after discarding 21.5% of 400 annotated dialogues because of annotation issues [S04].
++- The paper reports an average manual annotation cost of $8 per dialogue and says the 73 APIs required 98 person-days of senior research and development engineering time to implement [S04].
++- For Retrieval+Call and Plan+Retrieval+Call, API-Bank provides a special `APISearch` tool that retrieves potentially relevant API metadata by comparing sentence embeddings from query keywords and API meta-information [S04].
++- API-call correctness is evaluated with accuracy based on consistency between predicted and annotated API calls, including whether the same database queries or modifications are performed and whether returned results match; response quality is evaluated with ROUGE-L [S04].
++- The training set is generated by a Multi-agent method with five LLM agents that generate domains, APIs, user queries, API calls and responses, and quality checks; the paper reports this reduces cost by 98% compared with manual annotation [S04].
++- API-Bank's training set has 1,000 domains, 2,138 APIs, 1,888 dialogues, 5,221 turns, 3,147 single-call instances, and 493 multiple-call instances [S04].
++- API-Bank's evaluation set has 8 domains, 73 APIs, 314 dialogues, 914 turns, 363 single-call instances, and 122 multiple-call instances [S04].
++- In the API-Bank evaluation, GPT-4 reports 60.24% total API-call correctness and 0.3910 ROUGE-L, while GPT-3.5-turbo reports 47.16% correctness and 0.4267 ROUGE-L [S04].
++- Lynx-7B, fine-tuned from Alpaca-7B on API-Bank's training set, reports 39.58% total correctness and 0.3794 ROUGE-L, compared with Alpaca-7B at 15.19% correctness and 0.0318 ROUGE-L [S04].
++- The paper reports that GPT-4 excels in the Plan+Retrieve+Call setting with 70.00% correctness, compared with 22.00% for GPT-3.5-turbo and 20.00% for Lynx-7B [S04].
++- Error analysis reports that Alpaca's largest error category is `No API Call` at 36.77%, Lynx's largest error category is `API Hallucination` at 61.38%, and GPT-4's largest error category is `Failed API Retrieval` at 67.86% [S04].
++
++## Evidence and Sources
++
++S04 is a high-quality public paper/PDF in the manifest, dated 2023-12, and published in the EMNLP 2023 proceedings pages 3102-3116 according to the PDF text [S04].
++
++The paper compares API-Bank with DATESET, APIBench, ToolAlpaca, ToolBench variants, and ToolQA, and claims API-Bank is broader because it includes multi-turn and multi-call dialogues, API-call and response evaluation, and all three abilities: Call, Retrieve, and Plan [S04].
++
++The authors fine-tune Lynx from LLaMA-7B via Alpaca-7B initialization for three epochs with batch size 256 and learning rate `2e-5` [S04].
++
++## Limitations and Counter-Evidence
++
++API-Bank focuses only on English, and the authors state that data construction and model evaluation for other languages are future work [S04].
++
++The paper only reports fine-tuning Lynx-7B on API-Bank and does not explore larger-scale open models in the reported experiments [S04].
++
++The authors state that they trained a larger commercial tool-augmented LLM internally but cannot report or analyze its results for anonymity reasons [S04].
++
++The reported evaluation uses a zero-shot API-call prompt format, and the paper attributes some false API-call-format errors to models relying only on instruction-based guidance for the required API-call format [S04].
++
++The paper's error analysis indicates that both fine-tuned and frontier models still face major tool-use failures: Lynx often hallucinates API names, while GPT-4 often fails API retrieval [S04].
++
++Synthesis: API-Bank evaluates API calling, API retrieval, and multi-step API planning over executable API tasks, while [[tau-bench-agent-consistency-benchmark|Tau-Bench]] evaluates longer tool-agent-user conversations against final database state and repeated-trial `pass^k` reliability [S04] [S05].
++
++Synthesis: ToolSandbox positions API-Bank as less stateful than ToolSandbox because API-Bank evaluates executable API-use dialogues but does not focus on implicit state dependencies between mutable tools [S04] [S06].
++
++## Links to Other Pages
++
++- [[index|Knowledge Base Index]]
++- [[react-reasoning-and-acting|ReAct Reasoning and Acting]]
++- [[toolformer-self-supervised-tool-use|Toolformer Self-Supervised Tool Use]]
++- [[tau-bench-agent-consistency-benchmark|Tau-Bench Agent Consistency Benchmark]]
++- [[toolsandbox-stateful-tool-use-benchmark|ToolSandbox Stateful Tool-Use Benchmark]]
++
++## Open Questions
++
++- How should API-Bank-style executable evaluation be extended to permissioned enterprise tools where failed calls can have business side effects source-needed?
++- How comparable are API-Bank scores to later tool-use benchmarks when API pools, retrieval mechanisms, and exact API-call formats differ source-needed?
++- Can the high `API Hallucination` rate for Lynx be reduced by constrained decoding, schema validation, or retrieval-grounded API-name generation [S04]?
+diff --git "a/wiki\\tau-bench-agent-consistency-benchmark.md" "b/wiki\\tau-bench-agent-consistency-benchmark.md"
+new file mode 100644
+index 0000000..787eb65
+--- /dev/null
++++ "b/wiki\\tau-bench-agent-consistency-benchmark.md"
+@@ -0,0 +1,75 @@
++---
++title: Tau-Bench Agent Consistency Benchmark
++page_type: concept
++status: draft
++updated: 2026-07-09
++sources: [S05, S06]
++confidence: mixed
++---
++
++# Tau-Bench Agent Consistency Benchmark
++
++## Core Definition
++
++Tau-bench is a benchmark for Tool-Agent-User interaction that evaluates whether language agents can converse with simulated users, use domain API tools, follow domain-specific policy documents, and reach the correct final database state in realistic customer-service tasks [S05].
++
++The benchmark introduces `pass^k` as a reliability metric: unlike `pass@k`, which credits at least one success among `k` independent trials, `pass^k` measures the chance that all `k` independent trials of the same task succeed, averaged across tasks [S05].
++
++## Key Claims
++
++- Tau-bench argues that many prior language-agent benchmarks provide all information upfront and do not test sustained human interaction or domain-policy adherence, both of which are important for real deployments [S05].
++- A tau-bench task is formulated as interaction with two external state sources: databases through API tools and a simulated user through natural language dialogue [S05].
++- The benchmark uses domain-specific policy documents as part of the agent context, and some policy restrictions are not enforced by the API, so the agent must reason over the policy before acting [S05].
++- The simulated user is implemented with `gpt-4-0613`; the user can see the user-agent conversation history but not the agent-tool interaction history [S05].
++- A task instance contains a hidden user instruction plus a ground-truth annotation of expected database write actions and, when relevant, required output substrings for user-facing answers [S05].
++- Episode reward is binary and equals `r_action * r_output`, where `r_action` checks whether the final database matches the unique ground-truth database outcome and `r_output` checks whether necessary information was provided to the user [S05].
++- Tau-bench's first release focuses on two customer-service domains, `tau-retail` and `tau-airline`, chosen because they support synthetic but realistic products, prices, flights, policies, and diverse user tasks [S05].
++- `tau-retail` contains 500 users, 50 products, 1,000 orders, 7 write APIs, 8 non-write APIs, and 115 tasks [S05].
++- `tau-airline` contains 500 users, 300 flights, 2,000 reservations, 6 write APIs, 7 non-write APIs, and 50 tasks [S05].
++- The paper reports main results over at least 3 trials per task, with agent language-model temperature set to `0.0`, simulated-user temperature set to `1.0`, and each task limited to at most 30 agent actions [S05].
++- In Table 2, function-calling `gpt-4o` scores 61.2 `pass^1` on retail, 35.2 on airline, and 48.2 average; `gpt-4-turbo` scores 57.7, 32.4, and 45.1; `claude-3-opus` scores 44.2, 34.7, and 39.5; and `meta-llama-3-70B` scores 14.8, 14.4, and 14.6 using text ReAct rather than function calling [S05].
++- The paper highlights consistency failure: even the best reported `gpt-4o` function-calling agent has more than 60% average retail task success at `pass^1`, but its retail `pass^8` drops below 25% [S05].
++- In tau-retail failure analysis for 115 one-trial `gpt-4o` function-calling trajectories, 40 tasks initially failed, 4 failures were attributed to user-instruction typo or ambiguity and fixed, and the remaining 36 agent issues were broken down into wrong argument or information, wrong decision-making, and partial resolution of compound requests [S05].
++- Removing the domain policy from the function-calling system prompt degrades `gpt-4o` `pass^1` from 61.2 to 56.8 on retail and from 33.2 to 10.8 on airline, which the authors interpret as showing that airline's more ad-hoc rules require policy use more strongly [S05].
++
++## Evidence and Sources
++
++S05 is a high-quality public paper/PDF in the manifest, dated 2024-06-17, with intended use for enterprise-agent consistency and `pass^k` metrics [S05].
++
++The paper describes a three-stage construction process: manual database-schema, API, and policy design; LM-assisted data generation using GPT-4-generated and human-polished code; and manual task annotation plus validation through agent runs to reduce ambiguity in user instructions [S05].
++
++The domain APIs include both read and write tools; the appendix lists retail read APIs such as `find_user_id_by_email`, `get_order_details`, and `get_user_details`, plus retail write APIs such as `cancel_pending_order`, `modify_pending_order_items`, and `return_delivered_order_items` [S05].
++
++The paper reports that a `gpt-4o` function-calling agent paired with GPT-4 user simulation on `tau-retail` costs about `$0.38` per task for the agent and `$0.23` per task for the user simulation, and says one trial per task costs around `$200` [S05].
++
++Synthesis: Tau-bench extends the benchmark picture beyond API-call correctness by evaluating longer user-agent-tool trajectories, final database state, policy following, and repeated-trial reliability, while [[api-bank-tool-augmented-llm-benchmark|API-Bank]] evaluates API calling, retrieval, and planning over tool-use dialogues and executable APIs [S04] [S05].
++
++Synthesis: Tau-bench can evaluate [[react-reasoning-and-acting|ReAct]]-style text agents as a method variant, but S05 reports that natively supported function calling consistently outperforms text-formatted ReAct and Act-only baselines for the tested state-of-the-art models [S02] [S05].
++
++Synthesis: [[toolsandbox-stateful-tool-use-benchmark|ToolSandbox]] and tau-bench both evaluate conversational tool-use agents, but S06 emphasizes state dependencies, minefields, and milestone scoring over arbitrary trajectories, while S05 emphasizes domain policies, final database-state comparison, and repeated-trial `pass^k` reliability [S05] [S06].
++
++## Limitations and Counter-Evidence
++
++The benchmark uses synthetic customer-service data and LM-simulated users; S05 states that user instructions can contain typos or ambiguity, user simulations may lack all domain knowledge, and the user-simulation LM can have reasoning, calculation, long-context, or instruction-following limits [S05].
++
++Tau-bench's first demonstration covers only retail and airline domains; the authors identify more complex domains such as medical, tax, or legal as future directions for more capable agents [S05].
++
++The authors note that the manual annotation process is difficult, requires deep understanding of both the domain and agent capabilities, and may include implicit bias because `gpt-4-turbo` function-calling runs were used to tune user prompts during curation [S05].
++
++The reward is fast and objective but imperfect: the paper notes that a correct final database state can be necessary but not sufficient for success if, for example, an agent performs a return without explicit user confirmation, violating the domain policy [S05].
++
++Contradiction: S05 describes tau-bench as comparing final database state with an expected state while allowing stochastic conversational variation, but S06 characterizes tau-bench as requiring action matching to a single predetermined sequence; this is preserved in [[contradiction-register|Contradiction Register]] [S05] [S06].
++
++## Links to Other Pages
++
++- [[index|Knowledge Base Index]]
++- [[react-reasoning-and-acting|ReAct Reasoning and Acting]]
++- [[api-bank-tool-augmented-llm-benchmark|API-Bank Tool-Augmented LLM Benchmark]]
++- [[toolsandbox-stateful-tool-use-benchmark|ToolSandbox Stateful Tool-Use Benchmark]]
++- [[contradiction-register|Contradiction Register]]
++
++## Open Questions
++
++- How should `pass^k` be interpreted for production agent launch criteria when the acceptable failure rate differs by domain, customer impact, and reversibility of database writes source-needed?
++- Can tau-bench-style final-state evaluation be extended to real enterprise tools where executing failed write actions may be unsafe or irreversible source-needed?
++- How much do S05's function-calling versus ReAct conclusions change for later models, stricter tool schemas, or agent scaffolds that were not tested in the 2024 paper [S05]?
+diff --git "a/wiki\\react-reasoning-and-acting.md" "b/wiki\\react-reasoning-and-acting.md"
+new file mode 100644
+index 0000000..888a2e4
+--- /dev/null
++++ "b/wiki\\react-reasoning-and-acting.md"
+@@ -0,0 +1,75 @@
++---
++title: ReAct Reasoning and Acting
++page_type: concept
++status: draft
++updated: 2026-07-09
++sources: [S02, S03, S04, S05, S06]
++confidence: high
++---
++
++# ReAct Reasoning and Acting
++
++## Core Definition
++
++ReAct is a prompting paradigm in which a language model generates verbal reasoning traces and task-specific actions in an interleaved trajectory, so thoughts can guide actions and observations from tools or environments can update later reasoning [S02].
++
++In Yao et al.'s ICLR 2023 paper, ReAct augments an agent's action space with free-form language thoughts that do not directly change the external environment but do update the model's context for later reasoning or acting [S02].
++
++## Key Claims
++
++- ReAct is designed to combine two previously separated capabilities: chain-of-thought style reasoning and action generation for interaction with external sources such as Wikipedia APIs, web environments, or text-game environments [S02].
++- For HotpotQA and FEVER, S02 uses a simple Wikipedia API with `search[entity]`, `lookup[string]`, and `finish[answer]` actions, and the authors explicitly state that this API is weaker than state-of-the-art lexical or neural retrievers [S02].
++- The main prompting experiments use a frozen PaLM-540B model with few-shot in-context examples; the paper reports additional GPT-3 `text-davinci-002` experiments in an appendix [S02].
++- For HotpotQA and FEVER prompts, the authors manually compose ReAct-format trajectories from 6 HotpotQA training cases and 3 FEVER training cases, and report that adding more examples did not improve performance [S02].
++- On PaLM-540B prompting, ReAct scores 27.4 exact match on HotpotQA and 60.9 accuracy on FEVER, compared with Act-only scores of 25.7 and 58.9 and chain-of-thought scores of 29.4 and 56.3 [S02].
++- Combining ReAct with chain-of-thought self-consistency gives the best reported prompting numbers in Table 1: ReAct to CoT-SC reaches 35.1 exact match on HotpotQA, while CoT-SC to ReAct reaches 64.6 accuracy on FEVER [S02].
++- In a manual HotpotQA error analysis, S02 reports that successful ReAct trajectories had a 6% false-positive rate versus 14% for chain-of-thought, while failed ReAct trajectories were attributed to 47% reasoning error, 23% search-result error, and 29% label ambiguity [S02].
++- In the same analysis, failed chain-of-thought trajectories were attributed to 56% hallucination, 16% reasoning error, and 28% label ambiguity, which the authors use to argue that ReAct is more grounded but less flexible than pure chain-of-thought [S02].
++- On ALFWorld, the best ReAct trial reaches a 71% overall success rate, compared with 45% for the best Act-only trial, 37% for BUTLER, and 53% for the best ReAct-IM ablation [S02].
++- On WebShop, ReAct reports a score of 66.6 and a 40.0% success rate, compared with Act-only at 62.3 and 30.1%, imitation learning at 59.9 and 29.1%, imitation learning plus reinforcement learning at 62.4 and 28.7%, and expert humans at 82.1 and 59.6% [S02].
++- S02 reports that ReAct outperforms imitation or reinforcement learning baselines on ALFWorld and WebShop by absolute success-rate gains of 34% and 10% while using only one or two in-context examples for those decision-making tasks [S02].
++
++## Evidence and Sources
++
++S02 is a high-quality public paper/PDF in the manifest, dated 2022-10-06 there and published as an ICLR 2023 conference paper in the PDF text [S02].
++
++The paper evaluates ReAct on four main benchmarks: HotpotQA for multi-hop question answering, FEVER for fact verification, ALFWorld for text-based household tasks, and WebShop for webpage navigation and shopping tasks [S02].
++
++S02 reports initial fine-tuning experiments on HotpotQA using 3,000 ReAct-generated correct-answer trajectories to fine-tune PaLM-8B and PaLM-62B models, and it states that fine-tuned ReAct becomes the best of Standard, CoT, Act, and ReAct among those four methods [S02].
++
++The reproducibility statement says the main experiments use PaLM, which was not openly accessible at the time of the paper, and points readers to included prompts, additional GPT-3 experiments, and associated GPT-3 ReAct prompting code [S02].
++
++## Limitations and Counter-Evidence
++
++ReAct prompting is not uniformly better than chain-of-thought: on PaLM-540B HotpotQA, ReAct at 27.4 exact match trails chain-of-thought at 29.4 and CoT-SC at 33.4 before combination with CoT-SC [S02].
++
++The paper reports that ReAct's interleaved thought-action-observation structure can reduce reasoning flexibility, with one common failure mode in which the model repeats previous thoughts and actions instead of recovering [S02].
++
++For ReAct on knowledge-intensive tasks, informative search is critical; S02 attributes 23% of sampled ReAct HotpotQA failures to search results that are empty or do not contain useful information [S02].
++
++The paper states that complex tasks with large action spaces may require more demonstrations than fit comfortably in in-context learning input limits, motivating fine-tuning and higher-quality human annotations as future work [S02].
++
++The ethics statement warns that connecting language models to external action spaces can create risks such as looking up inappropriate or private information or taking harmful actions, and the paper reduces that risk by limiting experiments to constrained Wikipedia, WebShop, and benchmark environments without dangerous actions [S02].
++
++Synthesis: ReAct and Toolformer both address tool use by language models, but ReAct uses prompted interleaving of thoughts, actions, and observations in an environment, while Toolformer fine-tunes a model on self-supervised API-call annotations so it can decide when and how to call tools during generation [S02] [S03].
++
++Synthesis: API-Bank evaluates related tool-use skills at benchmark level by separating API Call, Retrieve+Call, and Plan+Retrieve+Call abilities, whereas ReAct is a prompting paradigm for generating thought-action-observation trajectories [S02] [S04].
++
++Synthesis: Tau-bench evaluates ReAct-style text agents as one method variant in longer tool-agent-user customer-service interactions, and S05 reports that natively supported function calling consistently outperforms text-formatted ReAct and Act-only baselines for the tested state-of-the-art models [S02] [S05].
++
++Synthesis: ToolSandbox's appendix reports that adding ReAct prompting to its default interactive tool-use setup gives small or minimal score changes for four tested models, which S06 attributes to the baseline setup already providing reasoning signals through user and execution-environment interaction [S02] [S06].
++
++## Links to Other Pages
++
++- [[index|Knowledge Base Index]]
++- [[retrieval-augmented-generation|Retrieval-Augmented Generation]]
++- [[toolformer-self-supervised-tool-use|Toolformer Self-Supervised Tool Use]]
++- [[api-bank-tool-augmented-llm-benchmark|API-Bank Tool-Augmented LLM Benchmark]]
++- [[tau-bench-agent-consistency-benchmark|Tau-Bench Agent Consistency Benchmark]]
++- [[toolsandbox-stateful-tool-use-benchmark|ToolSandbox Stateful Tool-Use Benchmark]]
++
++## Open Questions
++
++- How should production agents decide when to expose ReAct-style reasoning traces to users, logs, or auditors without leaking sensitive intermediate content source-needed?
++- What tool permissioning and sandboxing controls are required before ReAct-style action loops interact with real enterprise systems rather than constrained benchmarks source-needed?
++- How well do S02's few-shot ReAct results transfer to smaller, newer, or instruction-tuned models outside PaLM-540B and GPT-3 `text-davinci-002` [S02]?
+
+# Evidence note snapshot
+
+diff --git "a/evidence\\2026-07-09_ingest_S06_toolsandbox_excerpts.md" "b/evidence\\2026-07-09_ingest_S06_toolsandbox_excerpts.md"
+new file mode 100644
+index 0000000..e173fdb
+--- /dev/null
++++ "b/evidence\\2026-07-09_ingest_S06_toolsandbox_excerpts.md"
+@@ -0,0 +1,13 @@
++# S06 ToolSandbox Extraction Notes
++
++- Source metadata checked in `raw/source_manifest.md`: S06 is `ToolSandbox - Lu et al.`, dated 2024-08-08, public, paper/PDF, high quality, with intended use for stateful, multi-turn, insufficient-information tool evaluation.
++- PDF extraction used bundled Python with `pdfplumber`; the PDF has 24 pages.
++- Core definition checked from abstract and Section 2: ToolSandbox includes stateful tool execution, implicit state dependencies, a built-in user simulator for on-policy conversational evaluation, and dynamic milestone/minefield evaluation.
++- Stateful claims checked from Section 2.1: stateful tools inspect, depend on, or manipulate world states including cellular service, Wi-Fi, location service, and low-battery mode; stateful tools cover 44% of the toolbox.
++- User simulator claims checked from Section 2.2 and Tables 2-3: Knowledge Boundary and Demonstration reduce GPT-4o user-simulator hallucination to 6.97% and instruction-following error to 0.77%; simulator error rates across GPT-4o, Claude-3-Opus, and Gemini-1.5-Pro agents are reported around 7.78%-8.07% total error.
++- Benchmark statistics checked from Table 4: ToolSandbox has 13.9 average turns, 3.80 average tool calls, 1,032 test cases, and 34 tools.
++- Scenario counts checked from Table 6: 152 Single Tool Call, 656 Multiple Tool Call, 584 Single User Turn, 224 Multiple User Turn, 192 State Dependency, 472 Canonicalization, and 224 Insufficient Information scenarios.
++- Main results checked from Table 5: GPT-4o-2024-05-13 scores 73.0 average similarity; Claude-3-Opus-20240229 scores 69.2; GPT-3.5-Turbo-0125 scores 65.6; GPT-4-0125-Preview scores 64.3; Claude-3-Sonnet-20240229 scores 63.8; Hermes-2-Pro-Mistral-7B scores 31.4.
++- ReAct appendix checked from Table 9: GPT-4o changes 73.0 to 73.6; Claude-3-Opus 69.2 to 69.3; GPT-4-0125-Preview 64.3 to 65.2; Claude-3-Sonnet 63.8 to 63.7.
++- Conflict noted: S06 says tau-bench requires action matching to a single predetermined sequence, while S05 describes final database-state comparison with room for stochastic conversational variation; this was recorded in `wiki/contradiction-register.md`.
++- Evidentiary boundary: high-quality public paper, but it is a benchmark paper from Apple authors and its comparisons to prior benchmarks are secondary with respect to those benchmark authors' own descriptions.

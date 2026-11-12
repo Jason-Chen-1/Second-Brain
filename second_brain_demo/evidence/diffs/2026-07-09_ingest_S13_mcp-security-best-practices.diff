@@ -1,0 +1,484 @@
+﻿diff --git a/logs/ingest_log.md b/logs/ingest_log.md
+new file mode 100644
+index 0000000..31aa193
+--- /dev/null
++++ b/logs/ingest_log.md
+@@ -0,0 +1,213 @@
++# Ingest Log
++
++This log records source ingestion and knowledge-base maintenance events. It is append-only: new work should add entries rather than rewriting old history.
++
++## 2026-07-09 - S01 - Retrieval-Augmented Generation
++
++- Source ID: S01.
++- Files read: `raw/source_manifest.md`, `schema/AGENTS.md`, `schema/page_template.md`, `wiki/index.md`, `raw/S01.pdf`, `logs/ingest_log.md`.
++- Relevant existing wiki pages read: `wiki/index.md`; no substantive topic pages existed in `wiki/` at ingest time.
++- Actions: created a new concept page for retrieval-augmented generation, repaired the malformed index, linked the new page from the index, and saved S01 verification notes.
++- Created files: `wiki/retrieval-augmented-generation.md`, `evidence/2026-07-09_ingest_S01_excerpts.md`.
++- Modified files: `wiki/index.md`, `logs/ingest_log.md`.
++- Verification: confirmed S01 manifest metadata and quality label; extracted S01 PDF text with `pdfplumber`; checked reported page count, architecture, benchmark numbers, parameter/index numbers, knowledge-update result, and limitations against the extracted source text; checked wikilinks and source IDs with `rg`.
++- Conflicts: none detected because no pre-existing substantive wiki page made comparable RAG claims.
++- Exceptions: `pdftotext` was unavailable, so bundled Python with `pdfplumber` was used; a direct console extraction hit a PowerShell/GBK encoding issue and was rerun with UTF-8-safe output.
++- Unresolved issues: the final open question about choosing among RAG variants and newer retrieval architectures remains `source-needed` until more sources are ingested.
++- Evidence saved: `evidence/2026-07-09_ingest_S01_excerpts.md`.
++- Diff saved: `evidence/diffs/2026-07-09_ingest_S01_rag.diff`.
++
++## 2026-07-09 - S02 - ReAct Reasoning and Acting
++
++- Source ID: S02.
++- Files read: `raw/source_manifest.md`, `schema/AGENTS.md`, `schema/page_template.md`, `wiki/index.md`, `raw/S02.pdf`, `wiki/retrieval-augmented-generation.md`, `logs/ingest_log.md`.
++- Relevant existing wiki pages read: `wiki/index.md`, `wiki/retrieval-augmented-generation.md`.
++- Actions: created a new concept page for ReAct reasoning/action loops, linked it from the index, and added a synthesis cross-link from the RAG page distinguishing S01's retrieval-augmented seq2seq architecture from S02's ReAct prompting/action-loop paradigm.
++- Created files: `wiki/react-reasoning-and-acting.md`, `evidence/2026-07-09_ingest_S02_excerpts.md`.
++- Modified files: `wiki/index.md`, `wiki/retrieval-augmented-generation.md`, `logs/ingest_log.md`.
++- Verification: confirmed S02 manifest metadata and quality label; extracted S02 PDF text with `pdfplumber`; checked reported page count, method definition, action space, benchmark results, failure-mode numbers, fine-tuning note, reproducibility note, and ethics boundary against the extracted source text; checked wikilinks and source IDs with `rg`.
++- Conflicts: none detected; S02 adds a distinct prompting/action-loop concept and does not revise S01's RAG architecture or benchmark claims.
++- Exceptions: PDF text extraction contains noisy figure glyphs on some pages, so numeric claims were checked against table text and surrounding extracted prose rather than figure rendering.
++- Unresolved issues: production exposure of reasoning traces and real-system permissioning remain `source-needed`; transfer to newer models beyond PaLM-540B and GPT-3 `text-davinci-002` remains uncertain.
++- Evidence saved: `evidence/2026-07-09_ingest_S02_excerpts.md`.
++- Diff saved: `evidence/diffs/2026-07-09_ingest_S02_react.diff`.
++
++## 2026-07-09 - S03 - Toolformer Self-Supervised Tool Use
++
++- Source ID: S03.
++- Files read: `raw/source_manifest.md`, `schema/AGENTS.md`, `schema/page_template.md`, `wiki/index.md`, `raw/S03.pdf`, `wiki/react-reasoning-and-acting.md`, `wiki/retrieval-augmented-generation.md`, `logs/ingest_log.md`.
++- Relevant existing wiki pages read: `wiki/index.md`, `wiki/react-reasoning-and-acting.md`, `wiki/retrieval-augmented-generation.md`.
++- Actions: created a new concept page for Toolformer self-supervised tool use, linked it from the index, and added a synthesis cross-link from the ReAct page distinguishing prompted interactive reasoning/action trajectories from Toolformer's self-supervised API-call fine-tuning.
++- Created files: `wiki/toolformer-self-supervised-tool-use.md`, `evidence/2026-07-09_ingest_S03_excerpts.md`.
++- Modified files: `wiki/index.md`, `wiki/react-reasoning-and-acting.md`, `logs/ingest_log.md`.
++- Verification: confirmed S03 manifest metadata and quality label; extracted S03 PDF text with `pdfplumber`; checked reported page count, method definition, tool inventory, filtering thresholds and example counts, training setup, benchmark numbers, language-modeling perplexity, scaling claim, and limitations against extracted source text; checked wikilinks and source IDs with `rg`.
++- Conflicts: none detected; S03 adds a distinct self-supervised API-call learning mechanism and does not supersede S01 RAG or S02 ReAct claims.
++- Exceptions: PDF extraction included some multi-column/table ordering noise, so benchmark and count claims were checked against separately extracted table text.
++- Unresolved issues: tool-call cost/risk pricing, combining Toolformer with ReAct-style multi-step tool refinement, and learning from sensitive enterprise tool logs remain open; the sensitive-log safeguard question remains `source-needed`.
++- Evidence saved: `evidence/2026-07-09_ingest_S03_excerpts.md`.
++- Diff saved: `evidence/diffs/2026-07-09_ingest_S03_toolformer.diff`.
++
++## 2026-07-09 - S04 - API-Bank Tool-Augmented LLM Benchmark
++
++- Source ID: S04.
++- Files read: `raw/source_manifest.md`, `schema/AGENTS.md`, `schema/page_template.md`, `wiki/index.md`, `raw/S04.pdf`, `wiki/react-reasoning-and-acting.md`, `wiki/toolformer-self-supervised-tool-use.md`, `logs/ingest_log.md`.
++- Relevant existing wiki pages read: `wiki/index.md`, `wiki/react-reasoning-and-acting.md`, `wiki/toolformer-self-supervised-tool-use.md`.
++- Actions: created a new concept page for API-Bank, linked it from the index, and added synthesis cross-links from ReAct and Toolformer distinguishing API-Bank's benchmark/evaluation role from S02's prompting method and S03's self-supervised API-call training method.
++- Created files: `wiki/api-bank-tool-augmented-llm-benchmark.md`, `evidence/2026-07-09_ingest_S04_excerpts.md`.
++- Modified files: `wiki/index.md`, `wiki/react-reasoning-and-acting.md`, `wiki/toolformer-self-supervised-tool-use.md`, `logs/ingest_log.md`.
++- Verification: confirmed S04 manifest metadata and quality label; extracted S04 PDF text with `pdfplumber`; checked page count, ability grading, evaluation-system counts, training/evaluation set statistics, main benchmark results, error distributions, limitations, and ethics/annotation boundaries against extracted source text; checked wikilinks and source IDs with `rg`.
++- Conflicts: none detected; S04 adds a benchmark and evaluation framework for tool-augmented LLMs and does not supersede S02 ReAct or S03 Toolformer claims.
++- Exceptions: PDF extraction contained multi-column ordering noise in appendix/example pages, so core numeric claims were checked against table text and nearby prose.
++- Unresolved issues: applying executable API evaluation to permissioned enterprise tools, comparing API-Bank scores with later benchmarks, and reducing API hallucination remain open; two benchmark-transfer questions remain `source-needed`.
++- Evidence saved: `evidence/2026-07-09_ingest_S04_excerpts.md`.
++- Diff saved: `evidence/diffs/2026-07-09_ingest_S04_api-bank.diff`.
++
++## 2026-07-09 - S05 - Tau-Bench Agent Consistency Benchmark
++
++- Source ID: S05.
++- Files read: `raw/source_manifest.md`, `schema/AGENTS.md`, `schema/page_template.md`, `wiki/index.md`, `raw/S05.pdf`, `wiki/api-bank-tool-augmented-llm-benchmark.md`, `wiki/react-reasoning-and-acting.md`, `logs/ingest_log.md`.
++- Relevant existing wiki pages read: `wiki/index.md`, `wiki/api-bank-tool-augmented-llm-benchmark.md`, `wiki/react-reasoning-and-acting.md`.
++- Actions: created a new concept page for tau-bench agent consistency evaluation, linked it from the index, added synthesis cross-links from API-Bank and ReAct, and saved S05 extraction notes.
++- Created files: `wiki/tau-bench-agent-consistency-benchmark.md`, `evidence/2026-07-09_ingest_S05_tau-bench_excerpts.md`.
++- Modified files: `wiki/index.md`, `wiki/api-bank-tool-augmented-llm-benchmark.md`, `wiki/react-reasoning-and-acting.md`, `logs/ingest_log.md`.
++- Verification: confirmed S05 manifest metadata and quality label; extracted S05 PDF text with `pdfplumber`; checked page count, metric definition, domain statistics, experiment settings, model benchmark results, consistency result, failure-analysis counts, policy-ablation numbers, and limitations against extracted source text; checked wikilinks and source IDs with `rg`.
++- Conflicts: none detected; S05 adds a later agent-reliability benchmark and does not supersede S02 ReAct or S04 API-Bank claims.
++- Exceptions: PDF extraction contained figure/table layout noise, so numeric claims were checked against table text and nearby prose rather than relying on visual order alone.
++- Unresolved issues: production thresholds for `pass^k`, applying final-state evaluation to real enterprise write tools, and transfer of S05's model-method conclusions to later models or agent scaffolds remain open; two production-transfer questions remain `source-needed`.
++- Evidence saved: `evidence/2026-07-09_ingest_S05_tau-bench_excerpts.md`.
++- Diff saved: `evidence/diffs/2026-07-09_ingest_S05_tau-bench.diff`.
++
++## 2026-07-09 - S06 - ToolSandbox Stateful Tool-Use Benchmark
++
++- Source ID: S06.
++- Files read: `raw/source_manifest.md`, `schema/AGENTS.md`, `schema/page_template.md`, `wiki/index.md`, `raw/S06.pdf`, `wiki/api-bank-tool-augmented-llm-benchmark.md`, `wiki/tau-bench-agent-consistency-benchmark.md`, `wiki/react-reasoning-and-acting.md`, `logs/ingest_log.md`.
++- Relevant existing wiki pages read: `wiki/index.md`, `wiki/api-bank-tool-augmented-llm-benchmark.md`, `wiki/tau-bench-agent-consistency-benchmark.md`, `wiki/react-reasoning-and-acting.md`.
++- Actions: created a new concept page for ToolSandbox, created a contradiction register because S06's tau-bench comparison conflicts with S05's own evaluation description, linked both pages from the index, added synthesis cross-links from API-Bank, tau-bench, and ReAct, and saved S06 extraction notes.
++- Created files: `wiki/toolsandbox-stateful-tool-use-benchmark.md`, `wiki/contradiction-register.md`, `evidence/2026-07-09_ingest_S06_toolsandbox_excerpts.md`.
++- Modified files: `wiki/index.md`, `wiki/api-bank-tool-augmented-llm-benchmark.md`, `wiki/tau-bench-agent-consistency-benchmark.md`, `wiki/react-reasoning-and-acting.md`, `logs/ingest_log.md`.
++- Verification: confirmed S06 manifest metadata and quality label; extracted S06 PDF text with `pdfplumber`; checked page count, stateful-tool definition, user-simulator results, benchmark statistics, scenario counts, model benchmark results, ReAct appendix results, limitations, frontmatter, source tags, and wikilinks against extracted source text and wiki state.
++- Conflicts: recorded an open contradiction between S05's final database-state evaluation description for tau-bench and S06's characterization that tau-bench requires matching a single predetermined action sequence.
++- Exceptions: PDF extraction contained table and figure ordering noise, so benchmark numbers were checked against targeted page/table extractions and nearby prose.
++- Unresolved issues: scaling Milestone/Minefield authoring, modeling confirmation/authentication boundaries, and stabilizing external-service-backed tools remain open; two enterprise-transfer questions remain `source-needed`.
++- Evidence saved: `evidence/2026-07-09_ingest_S06_toolsandbox_excerpts.md`.
++- Diff saved: `evidence/diffs/2026-07-09_ingest_S06_toolsandbox.diff`.
++
++## 2026-07-09 - S07 - AutoGen Multi-Agent Conversation Framework
++
++- Source ID: S07.
++- Files read: `raw/source_manifest.md`, `schema/AGENTS.md`, `schema/page_template.md`, `wiki/index.md`, `raw/S07.pdf`, `wiki/react-reasoning-and-acting.md`, `wiki/toolsandbox-stateful-tool-use-benchmark.md`, `wiki/toolformer-self-supervised-tool-use.md`, `wiki/retrieval-augmented-generation.md`, `wiki/contradiction-register.md`, `logs/ingest_log.md`.
++- Relevant existing wiki pages read: `wiki/index.md`, `wiki/react-reasoning-and-acting.md`, `wiki/toolsandbox-stateful-tool-use-benchmark.md`, `wiki/toolformer-self-supervised-tool-use.md`, `wiki/retrieval-augmented-generation.md`, `wiki/contradiction-register.md`.
++- Actions: created a new concept page for AutoGen multi-agent conversation programming, linked it from the index, added synthesis cross-links from ReAct, RAG, and ToolSandbox, and saved S07 extraction notes.
++- Created files: `wiki/autogen-multi-agent-conversation-framework.md`, `evidence/2026-07-09_ingest_S07_autogen_excerpts.md`.
++- Modified files: `wiki/index.md`, `wiki/react-reasoning-and-acting.md`, `wiki/retrieval-augmented-generation.md`, `wiki/toolsandbox-stateful-tool-use-benchmark.md`, `logs/ingest_log.md`.
++- Verification: confirmed S07 manifest metadata and medium quality label; extracted S07 PDF text with `pdfplumber`; checked page count, agent abstractions, conversation programming interfaces, human/tool participation, application list, MATH results, ALFWorld results, OptiGuide results, dynamic group chat results, MiniWobChat result, limitations, frontmatter, source tags, and wikilinks against extracted source text and wiki state.
++- Conflicts: none detected; S07 adds a multi-agent orchestration framework and does not supersede existing ReAct, RAG, or ToolSandbox claims.
++- Exceptions: PDF extraction contained figure/table layout noise, so numeric claims were checked against targeted page/table extractions and nearby prose.
++- Unresolved issues: enterprise reliability of AutoGen conversation patterns, choosing single-agent versus multi-agent topologies, and test harnesses for code execution or external function calls remain open; two workflow-selection questions remain `source-needed`.
++- Evidence saved: `evidence/2026-07-09_ingest_S07_autogen_excerpts.md`.
++- Diff saved: `evidence/diffs/2026-07-09_ingest_S07_autogen.diff`.
++
++## 2026-07-09 - S08 - Multiagent Debate for Factuality and Reasoning
++
++- Source ID: S08.
++- Files read: `raw/source_manifest.md`, `schema/AGENTS.md`, `schema/page_template.md`, `wiki/index.md`, `raw/S08.pdf`, `wiki/autogen-multi-agent-conversation-framework.md`, `wiki/contradiction-register.md`, `logs/ingest_log.md`.
++- Relevant existing wiki pages read: `wiki/index.md`, `wiki/autogen-multi-agent-conversation-framework.md`, `wiki/contradiction-register.md`.
++- Actions: created a new concept page for multiagent debate, linked it from the index, added a synthesis cross-link from AutoGen, and saved S08 extraction notes.
++- Created files: `wiki/multiagent-debate-for-factuality-and-reasoning.md`, `evidence/2026-07-09_ingest_S08_multiagent-debate_excerpts.md`.
++- Modified files: `wiki/index.md`, `wiki/autogen-multi-agent-conversation-framework.md`, `logs/ingest_log.md`.
++- Verification: confirmed S08 manifest metadata and medium quality label; extracted S08 PDF text with `pdfplumber`; checked page count, debate protocol, model setup, task set, Table 1 reasoning results, Table 2 factuality results, appendix dataset sizes, mixed-model result, limitations, frontmatter, source tags, and wikilinks against extracted text and wiki state.
++- Conflicts: none detected yet; S08 is positive evidence for debate and the manifest identifies S09 as a future counterpoint not yet ingested.
++- Exceptions: PDF extraction contained figure/table ordering noise, so numerical claims were checked against targeted page/table extractions and surrounding prose.
++- Unresolved issues: which failures come from shared model bias versus debate design, cost comparison with other methods, and reconciliation with S09 remain open; three debate-transfer questions remain `source-needed`.
++- Evidence saved: `evidence/2026-07-09_ingest_S08_multiagent-debate_excerpts.md`.
++- Diff saved: `evidence/diffs/2026-07-09_ingest_S08_multiagent-debate.diff`.
++
++## 2026-07-09 - S09 - Multiagent Debate Limits and Majority Pressure
++
++- Source ID: S09.
++- Files read: `raw/source_manifest.md`, `schema/AGENTS.md`, `schema/page_template.md`, `wiki/index.md`, `raw/S09.pdf`, `wiki/multiagent-debate-for-factuality-and-reasoning.md`, `wiki/autogen-multi-agent-conversation-framework.md`, `wiki/contradiction-register.md`, `logs/ingest_log.md`.
++- Relevant existing wiki pages read: `wiki/index.md`, `wiki/multiagent-debate-for-factuality-and-reasoning.md`, `wiki/autogen-multi-agent-conversation-framework.md`, `wiki/contradiction-register.md`.
++- Actions: updated the existing multiagent debate page with S09's controlled logic-puzzle evidence and limitations, updated the index source list, added a contradiction-register entry preserving S08's positive claim and S09's qualifying counterpoint, and saved S09 extraction notes.
++- Created files: `evidence/2026-07-09_ingest_S09_multiagent-debate-limits_excerpts.md`.
++- Modified files: `wiki/index.md`, `wiki/multiagent-debate-for-factuality-and-reasoning.md`, `wiki/contradiction-register.md`, `logs/ingest_log.md`.
++- Verification: confirmed S09 manifest metadata and medium quality label; extracted S09 PDF text with `pdfplumber`; checked page count, title metadata, debate protocol, controlled factors, anchor configuration, puzzle counts, Table 3 accuracy results, Table 4 regression numbers, majority-pressure examples, rational-behavior correction-rate bounds, limitations, frontmatter, source tags, and wikilinks against extracted text and wiki state.
++- Conflicts: recorded an open contradiction/qualification between S08's broad positive debate results and S09's later finding that debate gains are strongly bounded by reasoning strength, team diversity, and resistance to incorrect majority pressure.
++- Exceptions: PDF extraction contained figure/table encoding and ordering noise, so numerical claims were checked against targeted page/table extractions and surrounding prose rather than raw table extraction alone.
++- Unresolved issues: transfer from S09's Knight-Knave-Spy setting to S08's factuality, math, chess, and MMLU settings remains open; two deployment-cost and failure-cause questions remain `source-needed`.
++- Evidence saved: `evidence/2026-07-09_ingest_S09_multiagent-debate-limits_excerpts.md`.
++- Diff saved: `evidence/diffs/2026-07-09_ingest_S09_multiagent-debate-limits.diff`.
++
++## 2026-07-09 - S10 - LLM Wiki
++
++- Source ID: S10.
++- Files read: `raw/source_manifest.md`, `schema/AGENTS.md`, `schema/page_template.md`, `wiki/index.md`, `raw/S10_llm_wiki.source.md`, `wiki/retrieval-augmented-generation.md`, `logs/ingest_log.md`.
++- Relevant existing wiki pages read: `wiki/index.md`, `wiki/retrieval-augmented-generation.md`.
++- Actions: created a new concept page for LLM Wiki, linked it from the index, added a synthesis link from RAG distinguishing LLM Wiki from model-level retrieval-augmented generation, and saved S10 extraction notes.
++- Created files: `wiki/llm-wiki.md`, `evidence/2026-07-09_ingest_S10_llm-wiki_excerpts.md`.
++- Modified files: `wiki/index.md`, `wiki/retrieval-augmented-generation.md`, `logs/ingest_log.md`.
++- Verification: confirmed S10 manifest metadata and medium quality label; checked the raw source capture metadata, date, access date, shareability, project-use claims, raw/wiki/schema distinction, ingest/query/lint workflow claims, medium-sized source-set claim, evidentiary boundary, frontmatter, source tags, index entry, and wikilinks against the captured source and wiki state.
++- Conflicts: none detected; S10 defines an LLM Wiki design pattern and does not supersede RAG or other existing pages.
++- Exceptions: S10 is a sparse source capture of an original design proposal rather than a controlled empirical evaluation, so the new page treats it as architecture vocabulary and not as reliability evidence.
++- Unresolved issues: lint criteria, raw-source retrieval strategy, and scaling beyond a medium-sized source set remain open; three LLM Wiki operations questions remain `source-needed`.
++- Evidence saved: `evidence/2026-07-09_ingest_S10_llm-wiki_excerpts.md`.
++- Diff saved: `evidence/diffs/2026-07-09_ingest_S10_llm-wiki.diff`.
++
++## 2026-07-09 - S11 - MCP Architecture Overview
++
++- Source ID: S11.
++- Files read: `raw/source_manifest.md`, `schema/AGENTS.md`, `schema/page_template.md`, `wiki/index.md`, `raw/S11_mcp_architecture.source.md`, `wiki/react-reasoning-and-acting.md`, `wiki/toolformer-self-supervised-tool-use.md`, `wiki/api-bank-tool-augmented-llm-benchmark.md`, `logs/ingest_log.md`.
++- Relevant existing wiki pages read: `wiki/index.md`, `wiki/react-reasoning-and-acting.md`, `wiki/toolformer-self-supervised-tool-use.md`, `wiki/api-bank-tool-augmented-llm-benchmark.md`.
++- Actions: created a new MCP architecture concept page, linked it from the index, added a ReAct synthesis distinguishing model action loops from the MCP tool/context exchange layer, and saved S11 extraction notes.
++- Created files: `wiki/model-context-protocol-architecture.md`, `evidence/2026-07-09_ingest_S11_mcp-architecture_excerpts.md`.
++- Modified files: `wiki/index.md`, `wiki/react-reasoning-and-acting.md`, `logs/ingest_log.md`.
++- Verification: confirmed S11 manifest metadata and high quality label; checked the raw source capture metadata, continuous-update status, access date, shareability, host/client/server architecture claim, tools/resources/prompts primitives, capability negotiation claim, authorization/security boundary, frontmatter, source tags, index entry, and wikilinks against the captured source and wiki state.
++- Conflicts: none detected; S11 defines the MCP architecture baseline and explicitly defers production authorization and security claims to S12 and S13.
++- Exceptions: S11 is a compact official documentation capture, so the page records the architecture vocabulary and boundaries present in the capture without adding protocol details not present in the source.
++- Unresolved issues: capability-negotiation detail placement, least-privilege exposure, and host/client/server audit events remain open; three MCP operations questions remain `source-needed`.
++- Evidence saved: `evidence/2026-07-09_ingest_S11_mcp-architecture_excerpts.md`.
++- Diff saved: `evidence/diffs/2026-07-09_ingest_S11_mcp-architecture.diff`.
++
++## 2026-07-09 - S14 - Introducing the Model Context Protocol
++
++- Source ID: S14.
++- Files read: `raw/source_manifest.md`, `schema/AGENTS.md`, `schema/page_template.md`, `wiki/index.md`, `raw/S14_introducing_mcp.source.md`, `wiki/model-context-protocol-architecture.md`, `wiki/react-reasoning-and-acting.md`, `wiki/contradiction-register.md`, `logs/ingest_log.md`.
++- Relevant existing wiki pages read: `wiki/index.md`, `wiki/model-context-protocol-architecture.md`, `wiki/react-reasoning-and-acting.md`, `wiki/contradiction-register.md`.
++- Actions: updated the existing MCP architecture page with S14's historical positioning of MCP as an open standard for connecting AI assistants to tools, content repositories, and development environments; updated the index source list and summary; saved S14 extraction notes.
++- Created files: `evidence/2026-07-09_ingest_S14_mcp-positioning_excerpts.md`.
++- Modified files: `wiki/index.md`, `wiki/model-context-protocol-architecture.md`, `logs/ingest_log.md`.
++- Verification: confirmed S14 manifest metadata and medium quality label; checked the raw source capture metadata, date, access date, shareability, original-positioning claim, open-standard connection claim, update-pair boundary with S12/S13, production-authorization caution, frontmatter, source tags, index entry, and wikilinks against the captured source and wiki state.
++- Conflicts: none detected; S14 supplies historical positioning and does not supersede S11's architecture overview.
++- Exceptions: S14 is an official launch article and medium-quality announcement capture, so it was used for history and positioning rather than current production authorization or security requirements.
++- Unresolved issues: production authorization and security guidance remain deferred to later S12 and S13 ingests; MCP capability negotiation, least-privilege exposure, and boundary audit questions remain `source-needed`.
++- Evidence saved: `evidence/2026-07-09_ingest_S14_mcp-positioning_excerpts.md`.
++- Diff saved: `evidence/diffs/2026-07-09_ingest_S14_mcp-positioning.diff`.
++
++## 2026-07-09 - S12 - MCP Authorization
++
++- Source ID: S12.
++- Files read: `raw/source_manifest.md`, `schema/AGENTS.md`, `schema/page_template.md`, `wiki/index.md`, `raw/S12_mcp_authorization.source.md`, `wiki/model-context-protocol-architecture.md`, `wiki/react-reasoning-and-acting.md`, `wiki/contradiction-register.md`, `logs/ingest_log.md`.
++- Relevant existing wiki pages read: `wiki/index.md`, `wiki/model-context-protocol-architecture.md`, `wiki/react-reasoning-and-acting.md`, `wiki/contradiction-register.md`.
++- Actions: created a new MCP authorization concept page, linked it from the index and MCP architecture page, updated MCP architecture with S12's authorization supersession over S14 for production authorization claims, and saved S12 extraction notes.
++- Created files: `wiki/model-context-protocol-authorization.md`, `evidence/2026-07-09_ingest_S12_mcp-authorization_excerpts.md`.
++- Modified files: `wiki/index.md`, `wiki/model-context-protocol-architecture.md`, `logs/ingest_log.md`.
++- Verification: confirmed S12 manifest metadata and high quality label; checked the raw source capture metadata, stable spec date 2025-11-25, access date, shareability, OAuth 2.1, PKCE, audience binding, token handling, normative authorization boundary claim, MCP-connection-not-automatically-authorized claim, update-pair relationship with S14/S13, frontmatter, source tags, index entry, and wikilinks against the captured source and wiki state.
++- Conflicts: none detected; S12 supersedes S14 only for production authorization claims while preserving S14 as historical MCP positioning.
++- Exceptions: S12 is a compact official specification capture, so implementation-security checklist details remain deferred to S13.
++- Unresolved issues: which OAuth 2.1 requirements to expand, how clients enforce audience binding and token handling across servers, and what S13 security controls are needed for write-capable MCP tools remain open; three authorization operations questions remain `source-needed`.
++- Evidence saved: `evidence/2026-07-09_ingest_S12_mcp-authorization_excerpts.md`.
++- Diff saved: `evidence/diffs/2026-07-09_ingest_S12_mcp-authorization.diff`.
++
++## 2026-07-09 - S13 - MCP Security Best Practices
++
++- Source ID: S13.
++- Files read: `raw/source_manifest.md`, `schema/AGENTS.md`, `schema/page_template.md`, `wiki/index.md`, `raw/S13_mcp_security_best_practices.source.md`, `wiki/model-context-protocol-authorization.md`, `wiki/model-context-protocol-architecture.md`, `wiki/react-reasoning-and-acting.md`, `logs/ingest_log.md`.
++- Relevant existing wiki pages read: `wiki/index.md`, `wiki/model-context-protocol-authorization.md`, `wiki/model-context-protocol-architecture.md`, `wiki/react-reasoning-and-acting.md`.
++- Actions: created a new MCP security best practices concept page, linked it from the index and MCP architecture/authorization pages, updated MCP authorization with S13's practical security complement to S12, and saved S13 extraction notes.
++- Created files: `wiki/model-context-protocol-security-best-practices.md`, `evidence/2026-07-09_ingest_S13_mcp-security-best-practices_excerpts.md`.
++- Modified files: `wiki/index.md`, `wiki/model-context-protocol-architecture.md`, `wiki/model-context-protocol-authorization.md`, `logs/ingest_log.md`.
++- Verification: confirmed S13 manifest metadata and high quality label; checked the raw source capture metadata, continuous-update status, access date, shareability, session security, least privilege, sandboxing, token passthrough, enterprise security-boundary use, guardrail/audit use, complement relationship with S12, frontmatter, source tags, index entry, and wikilinks against the captured source and wiki state.
++- Conflicts: none detected; S13 complements S12 and does not supersede the stable MCP authorization specification.
++- Exceptions: S13 is a concise continuously updated security-docs capture, so detailed implementation checklists remain `source-needed` pending fuller source capture or recheck.
++- Unresolved issues: exact session-security controls, least-privilege policy representation, and audit events for token passthrough or sandbox escape attempts remain open; three security operations questions remain `source-needed`.
++- Evidence saved: `evidence/2026-07-09_ingest_S13_mcp-security-best-practices_excerpts.md`.
++- Diff saved: `evidence/diffs/2026-07-09_ingest_S13_mcp-security-best-practices.diff`.
+diff --git a/wiki/index.md b/wiki/index.md
+new file mode 100644
+index 0000000..9c1d8f6
+--- /dev/null
++++ b/wiki/index.md
+@@ -0,0 +1,37 @@
++---
++title: Knowledge Base Index
++page_type: overview
++status: draft
++updated: 2026-07-09
++sources: [S01, S02, S03, S04, S05, S06, S07, S08, S09, S10, S11, S12, S13, S14]
++confidence: high
++---
++
++# Knowledge Base Index
++
++This index lists derived wiki pages. It currently includes coverage of retrieval-augmented generation, LLM Wiki knowledge-base maintenance, Model Context Protocol architecture, initial positioning, authorization, and security practices, reasoning-action prompting, self-supervised tool-use learning, API-planning evaluation, repeated-trial agent reliability, stateful interactive tool-use benchmarks, multi-agent orchestration frameworks, and multiagent debate benefits and limits for knowledge-intensive and tool-using language-model systems [S01] [S02] [S03] [S04] [S05] [S06] [S07] [S08] [S09] [S10] [S11] [S12] [S13] [S14].
++
++## Retrieval and Knowledge Updating
++
++- [[retrieval-augmented-generation|Retrieval-Augmented Generation]]
++- [[llm-wiki|LLM Wiki]]
++
++## Agent Reasoning and Tool Use
++
++- [[react-reasoning-and-acting|ReAct Reasoning and Acting]]
++- [[toolformer-self-supervised-tool-use|Toolformer Self-Supervised Tool Use]]
++- [[api-bank-tool-augmented-llm-benchmark|API-Bank Tool-Augmented LLM Benchmark]]
++- [[tau-bench-agent-consistency-benchmark|Tau-Bench Agent Consistency Benchmark]]
++- [[toolsandbox-stateful-tool-use-benchmark|ToolSandbox Stateful Tool-Use Benchmark]]
++- [[autogen-multi-agent-conversation-framework|AutoGen Multi-Agent Conversation Framework]]
++- [[multiagent-debate-for-factuality-and-reasoning|Multiagent Debate for Factuality and Reasoning]]
++
++## Model Context Protocol
++
++- [[model-context-protocol-architecture|Model Context Protocol Architecture]]
++- [[model-context-protocol-authorization|Model Context Protocol Authorization]]
++- [[model-context-protocol-security-best-practices|Model Context Protocol Security Best Practices]]
++
++## Registers
++
++- [[contradiction-register|Contradiction Register]]
+
+# MCP security best practices page snapshot
+
+diff --git "a/wiki\\model-context-protocol-security-best-practices.md" "b/wiki\\model-context-protocol-security-best-practices.md"
+new file mode 100644
+index 0000000..3cabedc
+--- /dev/null
++++ "b/wiki\\model-context-protocol-security-best-practices.md"
+@@ -0,0 +1,52 @@
++---
++title: Model Context Protocol Security Best Practices
++page_type: concept
++status: draft
++updated: 2026-07-09
++sources: [S12, S13]
++confidence: high
++---
++
++# Model Context Protocol Security Best Practices
++
++## Core Definition
++
++MCP Security Best Practices are current implementation-risk and mitigation guidance for MCP deployments, captured from official Model Context Protocol security documentation accessed on 2026-07-06 [S13].
++
++S13 complements the stable MCP authorization specification in S12 with practical implementation guidance for production security boundaries [S12] [S13].
++
++## Key Claims
++
++- S13 is an official security documentation capture, public, high quality, continuously updated, and accessed on 2026-07-06 [S13].
++- S13 covers implementation risks and mitigations for MCP deployments, including session security, least privilege, sandboxing, and token passthrough [S13].
++- S13 supports security boundary requirements in enterprise agent design [S13].
++- S13 is used in guardrail and audit discussions for MCP-connected systems [S13].
++- S13 complements S12's authorization specification with practical implementation guidance [S12] [S13].
++
++## Evidence and Sources
++
++The captured S13 source says the official security guide provides current implementation risks and mitigations for MCP deployments, including session security, least privilege, sandboxing, and token passthrough [S13].
++
++The captured S13 source says it supports security boundary requirements in enterprise agent design and is used in guardrail and audit discussions [S13].
++
++Synthesis: [[model-context-protocol-authorization|MCP Authorization]] defines authorization boundaries, while MCP Security Best Practices covers implementation risks and mitigations that must accompany those authorization rules in production systems [S12] [S13].
++
++## Limitations and Counter-Evidence
++
++S13 is continuously updated, so production advice derived from this page should be tied to the captured access date of 2026-07-06 and rechecked before deployment [S13].
++
++S13 should supplement rather than replace S12, because S12 remains the stable authorization specification for OAuth 2.1, PKCE, audience binding, and token handling [S12] [S13].
++
++The S13 capture is concise, so detailed implementation checklists for each risk category remain `source-needed` until a fuller source capture or direct documentation extraction is ingested [S13].
++
++## Links to Other Pages
++
++- [[index|Knowledge Base Index]]
++- [[model-context-protocol-architecture|Model Context Protocol Architecture]]
++- [[model-context-protocol-authorization|Model Context Protocol Authorization]]
++
++## Open Questions
++
++- Which session-security controls from the full S13 documentation are mandatory for MCP servers source-needed?
++- How should least privilege be represented in MCP host/client/server policy configuration source-needed?
++- What audit events are required to detect token passthrough or sandbox escape attempts source-needed?
+
+# MCP authorization page snapshot with S13 update
+
+diff --git "a/wiki\\model-context-protocol-authorization.md" "b/wiki\\model-context-protocol-authorization.md"
+new file mode 100644
+index 0000000..60b5763
+--- /dev/null
++++ "b/wiki\\model-context-protocol-authorization.md"
+@@ -0,0 +1,54 @@
++---
++title: Model Context Protocol Authorization
++page_type: concept
++status: draft
++updated: 2026-07-09
++sources: [S12, S13, S14]
++confidence: high
++---
++
++# Model Context Protocol Authorization
++
++## Core Definition
++
++MCP Authorization is the authorization boundary for MCP deployments, with S12 captured as the stable Model Context Protocol authorization specification dated 2025-11-25 [S12].
++
++S12 is the normative source in this knowledge base for MCP authorization boundaries, including OAuth 2.1, PKCE, audience binding, and token handling [S12].
++
++## Key Claims
++
++- S12 is an official MCP specification capture, public, high quality, accessed on 2026-07-06, and dated 2025-11-25 [S12].
++- S12 is the stable MCP authorization specification used to discuss OAuth 2.1, PKCE, audience binding, and token handling [S12].
++- S12 supports the claim that an MCP connection does not automatically imply safe or authorized tool use [S12].
++- S12 should be used for production authorization claims rather than Anthropic's S14 launch article [S12] [S14].
++- S12 should be paired with current MCP security best practices in S13 for production security guidance, including session security, least privilege, sandboxing, and token passthrough [S12] [S13].
++
++## Evidence and Sources
++
++The captured S12 source says it is the stable MCP authorization specification and the normative source for authorization boundaries [S12].
++
++The captured S12 source says it is used in update-pair reasoning with S14 and S13 [S12].
++
++Synthesis: S14 provides historical positioning for MCP as an open connection standard, while S12 supersedes S14 for production authorization requirements [S12] [S14].
++
++Synthesis: [[model-context-protocol-architecture|MCP Architecture]] describes the host/client/server and tool/context exchange layer, while MCP Authorization describes whether and how MCP-connected tool use is authorized [S11] [S12].
++
++## Limitations and Counter-Evidence
++
++S12 should not be treated as a complete implementation-security checklist by itself, because the captured source says to pair it with current security best practices in S13 [S12].
++
++S13 supplies current implementation-risk and mitigation coverage for MCP deployments, including session security, least privilege, sandboxing, and token passthrough [S13].
++
++S14 remains useful for MCP history and positioning, but it is superseded by S12 for current production authorization requirements [S12] [S14].
++
++## Links to Other Pages
++
++- [[index|Knowledge Base Index]]
++- [[model-context-protocol-architecture|Model Context Protocol Architecture]]
++- [[model-context-protocol-security-best-practices|Model Context Protocol Security Best Practices]]
++
++## Open Questions
++
++- Which OAuth 2.1 requirements from the full S12 specification should be expanded into implementation checklists source-needed?
++- How should MCP clients enforce audience binding and token handling across multiple servers source-needed?
++- Which S13 security controls should be mandatory before authorizing write-capable MCP tools source-needed?
+
+# MCP architecture page snapshot with S13 update
+
+diff --git "a/wiki\\model-context-protocol-architecture.md" "b/wiki\\model-context-protocol-architecture.md"
+new file mode 100644
+index 0000000..1c7455f
+--- /dev/null
++++ "b/wiki\\model-context-protocol-architecture.md"
+@@ -0,0 +1,71 @@
++---
++title: Model Context Protocol Architecture
++page_type: concept
++status: draft
++updated: 2026-07-09
++sources: [S11, S12, S13, S14]
++confidence: high
++---
++
++# Model Context Protocol Architecture
++
++## Core Definition
++
++The Model Context Protocol architecture overview is official technical documentation that defines MCP's basic architecture for host, client, server, tools, resources, prompts, and capability negotiation [S11].
++
++S11 is used in this project as the baseline for what MCP provides at the tool/context exchange layer [S11].
++
++Anthropic's 2024-11-25 launch article positions MCP historically as an open standard for connecting AI assistants to tools, content repositories, and development environments [S14].
++
++## Key Claims
++
++- S11 defines the MCP architecture roles of host, client, and server [S11].
++- S11 defines MCP primitives for tools, resources, and prompts [S11].
++- S11 includes capability negotiation as part of the MCP architecture overview [S11].
++- S11 supports distinguishing the MCP architecture layer from production authorization and security details covered by later sources S12 and S13 [S11].
++- S11 is an official technical documentation capture, public, high quality, accessed on 2026-07-06, and listed in the manifest as continuously updated [S11].
++- S14 is a public, medium-quality official release webpage by Anthropic, dated 2024-11-25, and is used for MCP's original positioning as a connection standard rather than for current production authorization requirements [S14].
++- S14 frames MCP as background for why an open connection standard exists for AI assistants and external systems [S14].
++- S12 is the stable MCP authorization specification dated 2025-11-25, and it supersedes S14 for production authorization claims while preserving S14 as historical positioning [S12] [S14].
++- S13 is the current MCP security best-practices capture used for implementation risks and mitigations, including session security, least privilege, sandboxing, and token passthrough [S13].
++
++## Evidence and Sources
++
++The captured S11 source says the official MCP architecture overview defines the basic architecture used throughout the project, including host, client, server, tools, resources, prompts, and capability negotiation [S11].
++
++The captured S11 source says its project use is defining what MCP provides at the tool/context exchange layer and distinguishing architecture from authorization and security details [S11].
++
++The captured S14 source says it provides historical positioning for MCP as an open standard for connecting AI assistants to tools, content repositories, and development environments [S14].
++
++Synthesis: MCP architecture is a protocol and integration boundary for exposing context and capabilities, while [[react-reasoning-and-acting|ReAct]] is a prompting pattern for how a model chooses and reasons through actions in an environment [S02] [S11].
++
++Synthesis: S14 explains MCP's initial product and ecosystem motivation, while S11 supplies the later architecture vocabulary used by this knowledge base; neither S14 nor S11 should be treated as the current production authorization or security source by itself [S11] [S14].
++
++Synthesis: [[model-context-protocol-authorization|MCP Authorization]] covers OAuth 2.1, PKCE, audience binding, and token handling, while this page covers the host/client/server and capability architecture layer [S11] [S12].
++
++Synthesis: [[model-context-protocol-security-best-practices|MCP Security Best Practices]] complements MCP architecture and authorization by covering implementation risks and mitigations for MCP deployments [S11] [S12] [S13].
++
++## Limitations and Counter-Evidence
++
++S11 should not be used alone for production authorization or security claims, because its capture explicitly says to pair the architecture overview with S12 and S13 for those topics [S11].
++
++S11 is continuously updated official documentation, so concrete architecture claims should be tied to the captured access date of 2026-07-06 unless later ingests update the page [S11].
++
++S11 is an overview source rather than a full security or authorization specification, so normative deployment claims should wait for the dedicated authorization and security sources [S11].
++
++S14 is a launch article and should be used for history and positioning, not for current production authorization requirements [S14].
++
++S14 is the earlier item in an update pair with later authorization and security sources; S12 supersedes S14 for production authorization requirements, and S13 supplies current security best-practice guidance [S12] [S13] [S14].
++
++## Links to Other Pages
++
++- [[index|Knowledge Base Index]]
++- [[react-reasoning-and-acting|ReAct Reasoning and Acting]]
++- [[model-context-protocol-authorization|Model Context Protocol Authorization]]
++- [[model-context-protocol-security-best-practices|Model Context Protocol Security Best Practices]]
++
++## Open Questions
++
++- Which MCP capability-negotiation details belong on this architecture page versus a later protocol-version page source-needed?
++- How should MCP hosts expose tool, resource, and prompt capabilities to agents while preserving least privilege source-needed?
++- What audit events should be recorded at host, client, and server boundaries when MCP tools are invoked source-needed?
+
+# Evidence note snapshot
+
+diff --git "a/evidence\\2026-07-09_ingest_S13_mcp-security-best-practices_excerpts.md" "b/evidence\\2026-07-09_ingest_S13_mcp-security-best-practices_excerpts.md"
+new file mode 100644
+index 0000000..38c1214
+--- /dev/null
++++ "b/evidence\\2026-07-09_ingest_S13_mcp-security-best-practices_excerpts.md"
+@@ -0,0 +1,9 @@
++# S13 MCP Security Best Practices Extraction Notes
++
++- Source metadata checked in `raw/source_manifest.md`: S13 is `MCP Security Best Practices - Model Context Protocol`, continuously updated, public, official security docs capture, high quality, with intended use for session hijacking, least privilege, sandboxing, and token passthrough.
++- Raw capture checked in `raw/S13_mcp_security_best_practices.source.md`: source ID S13, type `official-security-documentation`, accessed 2026-07-06, shareability public, quality high.
++- Core security claims checked: S13 provides current implementation risks and mitigations for MCP deployments, including session security, least privilege, sandboxing, and token passthrough.
++- Project-use claims checked: S13 supports security boundary requirements in enterprise Agent design and is used in guardrail and audit discussions.
++- Relationship checked: S13 complements S12's authorization specification with practical implementation guidance.
++- Caution checked: S13 is continuously updated, so access date must be recorded and older notes should not be treated as final production advice without rechecking.
++- Page decision: created `wiki/model-context-protocol-security-best-practices.md` because security implementation guidance is a stable concept distinct from MCP architecture and authorization.

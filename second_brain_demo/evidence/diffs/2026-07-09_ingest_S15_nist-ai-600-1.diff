@@ -1,0 +1,388 @@
+﻿diff --git a/logs/ingest_log.md b/logs/ingest_log.md
+new file mode 100644
+index 0000000..09a7ace
+--- /dev/null
++++ b/logs/ingest_log.md
+@@ -0,0 +1,228 @@
++# Ingest Log
++
++This log records source ingestion and knowledge-base maintenance events. It is append-only: new work should add entries rather than rewriting old history.
++
++## 2026-07-09 - S01 - Retrieval-Augmented Generation
++
++- Source ID: S01.
++- Files read: `raw/source_manifest.md`, `schema/AGENTS.md`, `schema/page_template.md`, `wiki/index.md`, `raw/S01.pdf`, `logs/ingest_log.md`.
++- Relevant existing wiki pages read: `wiki/index.md`; no substantive topic pages existed in `wiki/` at ingest time.
++- Actions: created a new concept page for retrieval-augmented generation, repaired the malformed index, linked the new page from the index, and saved S01 verification notes.
++- Created files: `wiki/retrieval-augmented-generation.md`, `evidence/2026-07-09_ingest_S01_excerpts.md`.
++- Modified files: `wiki/index.md`, `logs/ingest_log.md`.
++- Verification: confirmed S01 manifest metadata and quality label; extracted S01 PDF text with `pdfplumber`; checked reported page count, architecture, benchmark numbers, parameter/index numbers, knowledge-update result, and limitations against the extracted source text; checked wikilinks and source IDs with `rg`.
++- Conflicts: none detected because no pre-existing substantive wiki page made comparable RAG claims.
++- Exceptions: `pdftotext` was unavailable, so bundled Python with `pdfplumber` was used; a direct console extraction hit a PowerShell/GBK encoding issue and was rerun with UTF-8-safe output.
++- Unresolved issues: the final open question about choosing among RAG variants and newer retrieval architectures remains `source-needed` until more sources are ingested.
++- Evidence saved: `evidence/2026-07-09_ingest_S01_excerpts.md`.
++- Diff saved: `evidence/diffs/2026-07-09_ingest_S01_rag.diff`.
++
++## 2026-07-09 - S02 - ReAct Reasoning and Acting
++
++- Source ID: S02.
++- Files read: `raw/source_manifest.md`, `schema/AGENTS.md`, `schema/page_template.md`, `wiki/index.md`, `raw/S02.pdf`, `wiki/retrieval-augmented-generation.md`, `logs/ingest_log.md`.
++- Relevant existing wiki pages read: `wiki/index.md`, `wiki/retrieval-augmented-generation.md`.
++- Actions: created a new concept page for ReAct reasoning/action loops, linked it from the index, and added a synthesis cross-link from the RAG page distinguishing S01's retrieval-augmented seq2seq architecture from S02's ReAct prompting/action-loop paradigm.
++- Created files: `wiki/react-reasoning-and-acting.md`, `evidence/2026-07-09_ingest_S02_excerpts.md`.
++- Modified files: `wiki/index.md`, `wiki/retrieval-augmented-generation.md`, `logs/ingest_log.md`.
++- Verification: confirmed S02 manifest metadata and quality label; extracted S02 PDF text with `pdfplumber`; checked reported page count, method definition, action space, benchmark results, failure-mode numbers, fine-tuning note, reproducibility note, and ethics boundary against the extracted source text; checked wikilinks and source IDs with `rg`.
++- Conflicts: none detected; S02 adds a distinct prompting/action-loop concept and does not revise S01's RAG architecture or benchmark claims.
++- Exceptions: PDF text extraction contains noisy figure glyphs on some pages, so numeric claims were checked against table text and surrounding extracted prose rather than figure rendering.
++- Unresolved issues: production exposure of reasoning traces and real-system permissioning remain `source-needed`; transfer to newer models beyond PaLM-540B and GPT-3 `text-davinci-002` remains uncertain.
++- Evidence saved: `evidence/2026-07-09_ingest_S02_excerpts.md`.
++- Diff saved: `evidence/diffs/2026-07-09_ingest_S02_react.diff`.
++
++## 2026-07-09 - S03 - Toolformer Self-Supervised Tool Use
++
++- Source ID: S03.
++- Files read: `raw/source_manifest.md`, `schema/AGENTS.md`, `schema/page_template.md`, `wiki/index.md`, `raw/S03.pdf`, `wiki/react-reasoning-and-acting.md`, `wiki/retrieval-augmented-generation.md`, `logs/ingest_log.md`.
++- Relevant existing wiki pages read: `wiki/index.md`, `wiki/react-reasoning-and-acting.md`, `wiki/retrieval-augmented-generation.md`.
++- Actions: created a new concept page for Toolformer self-supervised tool use, linked it from the index, and added a synthesis cross-link from the ReAct page distinguishing prompted interactive reasoning/action trajectories from Toolformer's self-supervised API-call fine-tuning.
++- Created files: `wiki/toolformer-self-supervised-tool-use.md`, `evidence/2026-07-09_ingest_S03_excerpts.md`.
++- Modified files: `wiki/index.md`, `wiki/react-reasoning-and-acting.md`, `logs/ingest_log.md`.
++- Verification: confirmed S03 manifest metadata and quality label; extracted S03 PDF text with `pdfplumber`; checked reported page count, method definition, tool inventory, filtering thresholds and example counts, training setup, benchmark numbers, language-modeling perplexity, scaling claim, and limitations against extracted source text; checked wikilinks and source IDs with `rg`.
++- Conflicts: none detected; S03 adds a distinct self-supervised API-call learning mechanism and does not supersede S01 RAG or S02 ReAct claims.
++- Exceptions: PDF extraction included some multi-column/table ordering noise, so benchmark and count claims were checked against separately extracted table text.
++- Unresolved issues: tool-call cost/risk pricing, combining Toolformer with ReAct-style multi-step tool refinement, and learning from sensitive enterprise tool logs remain open; the sensitive-log safeguard question remains `source-needed`.
++- Evidence saved: `evidence/2026-07-09_ingest_S03_excerpts.md`.
++- Diff saved: `evidence/diffs/2026-07-09_ingest_S03_toolformer.diff`.
++
++## 2026-07-09 - S04 - API-Bank Tool-Augmented LLM Benchmark
++
++- Source ID: S04.
++- Files read: `raw/source_manifest.md`, `schema/AGENTS.md`, `schema/page_template.md`, `wiki/index.md`, `raw/S04.pdf`, `wiki/react-reasoning-and-acting.md`, `wiki/toolformer-self-supervised-tool-use.md`, `logs/ingest_log.md`.
++- Relevant existing wiki pages read: `wiki/index.md`, `wiki/react-reasoning-and-acting.md`, `wiki/toolformer-self-supervised-tool-use.md`.
++- Actions: created a new concept page for API-Bank, linked it from the index, and added synthesis cross-links from ReAct and Toolformer distinguishing API-Bank's benchmark/evaluation role from S02's prompting method and S03's self-supervised API-call training method.
++- Created files: `wiki/api-bank-tool-augmented-llm-benchmark.md`, `evidence/2026-07-09_ingest_S04_excerpts.md`.
++- Modified files: `wiki/index.md`, `wiki/react-reasoning-and-acting.md`, `wiki/toolformer-self-supervised-tool-use.md`, `logs/ingest_log.md`.
++- Verification: confirmed S04 manifest metadata and quality label; extracted S04 PDF text with `pdfplumber`; checked page count, ability grading, evaluation-system counts, training/evaluation set statistics, main benchmark results, error distributions, limitations, and ethics/annotation boundaries against extracted source text; checked wikilinks and source IDs with `rg`.
++- Conflicts: none detected; S04 adds a benchmark and evaluation framework for tool-augmented LLMs and does not supersede S02 ReAct or S03 Toolformer claims.
++- Exceptions: PDF extraction contained multi-column ordering noise in appendix/example pages, so core numeric claims were checked against table text and nearby prose.
++- Unresolved issues: applying executable API evaluation to permissioned enterprise tools, comparing API-Bank scores with later benchmarks, and reducing API hallucination remain open; two benchmark-transfer questions remain `source-needed`.
++- Evidence saved: `evidence/2026-07-09_ingest_S04_excerpts.md`.
++- Diff saved: `evidence/diffs/2026-07-09_ingest_S04_api-bank.diff`.
++
++## 2026-07-09 - S05 - Tau-Bench Agent Consistency Benchmark
++
++- Source ID: S05.
++- Files read: `raw/source_manifest.md`, `schema/AGENTS.md`, `schema/page_template.md`, `wiki/index.md`, `raw/S05.pdf`, `wiki/api-bank-tool-augmented-llm-benchmark.md`, `wiki/react-reasoning-and-acting.md`, `logs/ingest_log.md`.
++- Relevant existing wiki pages read: `wiki/index.md`, `wiki/api-bank-tool-augmented-llm-benchmark.md`, `wiki/react-reasoning-and-acting.md`.
++- Actions: created a new concept page for tau-bench agent consistency evaluation, linked it from the index, added synthesis cross-links from API-Bank and ReAct, and saved S05 extraction notes.
++- Created files: `wiki/tau-bench-agent-consistency-benchmark.md`, `evidence/2026-07-09_ingest_S05_tau-bench_excerpts.md`.
++- Modified files: `wiki/index.md`, `wiki/api-bank-tool-augmented-llm-benchmark.md`, `wiki/react-reasoning-and-acting.md`, `logs/ingest_log.md`.
++- Verification: confirmed S05 manifest metadata and quality label; extracted S05 PDF text with `pdfplumber`; checked page count, metric definition, domain statistics, experiment settings, model benchmark results, consistency result, failure-analysis counts, policy-ablation numbers, and limitations against extracted source text; checked wikilinks and source IDs with `rg`.
++- Conflicts: none detected; S05 adds a later agent-reliability benchmark and does not supersede S02 ReAct or S04 API-Bank claims.
++- Exceptions: PDF extraction contained figure/table layout noise, so numeric claims were checked against table text and nearby prose rather than relying on visual order alone.
++- Unresolved issues: production thresholds for `pass^k`, applying final-state evaluation to real enterprise write tools, and transfer of S05's model-method conclusions to later models or agent scaffolds remain open; two production-transfer questions remain `source-needed`.
++- Evidence saved: `evidence/2026-07-09_ingest_S05_tau-bench_excerpts.md`.
++- Diff saved: `evidence/diffs/2026-07-09_ingest_S05_tau-bench.diff`.
++
++## 2026-07-09 - S06 - ToolSandbox Stateful Tool-Use Benchmark
++
++- Source ID: S06.
++- Files read: `raw/source_manifest.md`, `schema/AGENTS.md`, `schema/page_template.md`, `wiki/index.md`, `raw/S06.pdf`, `wiki/api-bank-tool-augmented-llm-benchmark.md`, `wiki/tau-bench-agent-consistency-benchmark.md`, `wiki/react-reasoning-and-acting.md`, `logs/ingest_log.md`.
++- Relevant existing wiki pages read: `wiki/index.md`, `wiki/api-bank-tool-augmented-llm-benchmark.md`, `wiki/tau-bench-agent-consistency-benchmark.md`, `wiki/react-reasoning-and-acting.md`.
++- Actions: created a new concept page for ToolSandbox, created a contradiction register because S06's tau-bench comparison conflicts with S05's own evaluation description, linked both pages from the index, added synthesis cross-links from API-Bank, tau-bench, and ReAct, and saved S06 extraction notes.
++- Created files: `wiki/toolsandbox-stateful-tool-use-benchmark.md`, `wiki/contradiction-register.md`, `evidence/2026-07-09_ingest_S06_toolsandbox_excerpts.md`.
++- Modified files: `wiki/index.md`, `wiki/api-bank-tool-augmented-llm-benchmark.md`, `wiki/tau-bench-agent-consistency-benchmark.md`, `wiki/react-reasoning-and-acting.md`, `logs/ingest_log.md`.
++- Verification: confirmed S06 manifest metadata and quality label; extracted S06 PDF text with `pdfplumber`; checked page count, stateful-tool definition, user-simulator results, benchmark statistics, scenario counts, model benchmark results, ReAct appendix results, limitations, frontmatter, source tags, and wikilinks against extracted source text and wiki state.
++- Conflicts: recorded an open contradiction between S05's final database-state evaluation description for tau-bench and S06's characterization that tau-bench requires matching a single predetermined action sequence.
++- Exceptions: PDF extraction contained table and figure ordering noise, so benchmark numbers were checked against targeted page/table extractions and nearby prose.
++- Unresolved issues: scaling Milestone/Minefield authoring, modeling confirmation/authentication boundaries, and stabilizing external-service-backed tools remain open; two enterprise-transfer questions remain `source-needed`.
++- Evidence saved: `evidence/2026-07-09_ingest_S06_toolsandbox_excerpts.md`.
++- Diff saved: `evidence/diffs/2026-07-09_ingest_S06_toolsandbox.diff`.
++
++## 2026-07-09 - S07 - AutoGen Multi-Agent Conversation Framework
++
++- Source ID: S07.
++- Files read: `raw/source_manifest.md`, `schema/AGENTS.md`, `schema/page_template.md`, `wiki/index.md`, `raw/S07.pdf`, `wiki/react-reasoning-and-acting.md`, `wiki/toolsandbox-stateful-tool-use-benchmark.md`, `wiki/toolformer-self-supervised-tool-use.md`, `wiki/retrieval-augmented-generation.md`, `wiki/contradiction-register.md`, `logs/ingest_log.md`.
++- Relevant existing wiki pages read: `wiki/index.md`, `wiki/react-reasoning-and-acting.md`, `wiki/toolsandbox-stateful-tool-use-benchmark.md`, `wiki/toolformer-self-supervised-tool-use.md`, `wiki/retrieval-augmented-generation.md`, `wiki/contradiction-register.md`.
++- Actions: created a new concept page for AutoGen multi-agent conversation programming, linked it from the index, added synthesis cross-links from ReAct, RAG, and ToolSandbox, and saved S07 extraction notes.
++- Created files: `wiki/autogen-multi-agent-conversation-framework.md`, `evidence/2026-07-09_ingest_S07_autogen_excerpts.md`.
++- Modified files: `wiki/index.md`, `wiki/react-reasoning-and-acting.md`, `wiki/retrieval-augmented-generation.md`, `wiki/toolsandbox-stateful-tool-use-benchmark.md`, `logs/ingest_log.md`.
++- Verification: confirmed S07 manifest metadata and medium quality label; extracted S07 PDF text with `pdfplumber`; checked page count, agent abstractions, conversation programming interfaces, human/tool participation, application list, MATH results, ALFWorld results, OptiGuide results, dynamic group chat results, MiniWobChat result, limitations, frontmatter, source tags, and wikilinks against extracted source text and wiki state.
++- Conflicts: none detected; S07 adds a multi-agent orchestration framework and does not supersede existing ReAct, RAG, or ToolSandbox claims.
++- Exceptions: PDF extraction contained figure/table layout noise, so numeric claims were checked against targeted page/table extractions and nearby prose.
++- Unresolved issues: enterprise reliability of AutoGen conversation patterns, choosing single-agent versus multi-agent topologies, and test harnesses for code execution or external function calls remain open; two workflow-selection questions remain `source-needed`.
++- Evidence saved: `evidence/2026-07-09_ingest_S07_autogen_excerpts.md`.
++- Diff saved: `evidence/diffs/2026-07-09_ingest_S07_autogen.diff`.
++
++## 2026-07-09 - S08 - Multiagent Debate for Factuality and Reasoning
++
++- Source ID: S08.
++- Files read: `raw/source_manifest.md`, `schema/AGENTS.md`, `schema/page_template.md`, `wiki/index.md`, `raw/S08.pdf`, `wiki/autogen-multi-agent-conversation-framework.md`, `wiki/contradiction-register.md`, `logs/ingest_log.md`.
++- Relevant existing wiki pages read: `wiki/index.md`, `wiki/autogen-multi-agent-conversation-framework.md`, `wiki/contradiction-register.md`.
++- Actions: created a new concept page for multiagent debate, linked it from the index, added a synthesis cross-link from AutoGen, and saved S08 extraction notes.
++- Created files: `wiki/multiagent-debate-for-factuality-and-reasoning.md`, `evidence/2026-07-09_ingest_S08_multiagent-debate_excerpts.md`.
++- Modified files: `wiki/index.md`, `wiki/autogen-multi-agent-conversation-framework.md`, `logs/ingest_log.md`.
++- Verification: confirmed S08 manifest metadata and medium quality label; extracted S08 PDF text with `pdfplumber`; checked page count, debate protocol, model setup, task set, Table 1 reasoning results, Table 2 factuality results, appendix dataset sizes, mixed-model result, limitations, frontmatter, source tags, and wikilinks against extracted text and wiki state.
++- Conflicts: none detected yet; S08 is positive evidence for debate and the manifest identifies S09 as a future counterpoint not yet ingested.
++- Exceptions: PDF extraction contained figure/table ordering noise, so numerical claims were checked against targeted page/table extractions and surrounding prose.
++- Unresolved issues: which failures come from shared model bias versus debate design, cost comparison with other methods, and reconciliation with S09 remain open; three debate-transfer questions remain `source-needed`.
++- Evidence saved: `evidence/2026-07-09_ingest_S08_multiagent-debate_excerpts.md`.
++- Diff saved: `evidence/diffs/2026-07-09_ingest_S08_multiagent-debate.diff`.
++
++## 2026-07-09 - S09 - Multiagent Debate Limits and Majority Pressure
++
++- Source ID: S09.
++- Files read: `raw/source_manifest.md`, `schema/AGENTS.md`, `schema/page_template.md`, `wiki/index.md`, `raw/S09.pdf`, `wiki/multiagent-debate-for-factuality-and-reasoning.md`, `wiki/autogen-multi-agent-conversation-framework.md`, `wiki/contradiction-register.md`, `logs/ingest_log.md`.
++- Relevant existing wiki pages read: `wiki/index.md`, `wiki/multiagent-debate-for-factuality-and-reasoning.md`, `wiki/autogen-multi-agent-conversation-framework.md`, `wiki/contradiction-register.md`.
++- Actions: updated the existing multiagent debate page with S09's controlled logic-puzzle evidence and limitations, updated the index source list, added a contradiction-register entry preserving S08's positive claim and S09's qualifying counterpoint, and saved S09 extraction notes.
++- Created files: `evidence/2026-07-09_ingest_S09_multiagent-debate-limits_excerpts.md`.
++- Modified files: `wiki/index.md`, `wiki/multiagent-debate-for-factuality-and-reasoning.md`, `wiki/contradiction-register.md`, `logs/ingest_log.md`.
++- Verification: confirmed S09 manifest metadata and medium quality label; extracted S09 PDF text with `pdfplumber`; checked page count, title metadata, debate protocol, controlled factors, anchor configuration, puzzle counts, Table 3 accuracy results, Table 4 regression numbers, majority-pressure examples, rational-behavior correction-rate bounds, limitations, frontmatter, source tags, and wikilinks against extracted text and wiki state.
++- Conflicts: recorded an open contradiction/qualification between S08's broad positive debate results and S09's later finding that debate gains are strongly bounded by reasoning strength, team diversity, and resistance to incorrect majority pressure.
++- Exceptions: PDF extraction contained figure/table encoding and ordering noise, so numerical claims were checked against targeted page/table extractions and surrounding prose rather than raw table extraction alone.
++- Unresolved issues: transfer from S09's Knight-Knave-Spy setting to S08's factuality, math, chess, and MMLU settings remains open; two deployment-cost and failure-cause questions remain `source-needed`.
++- Evidence saved: `evidence/2026-07-09_ingest_S09_multiagent-debate-limits_excerpts.md`.
++- Diff saved: `evidence/diffs/2026-07-09_ingest_S09_multiagent-debate-limits.diff`.
++
++## 2026-07-09 - S10 - LLM Wiki
++
++- Source ID: S10.
++- Files read: `raw/source_manifest.md`, `schema/AGENTS.md`, `schema/page_template.md`, `wiki/index.md`, `raw/S10_llm_wiki.source.md`, `wiki/retrieval-augmented-generation.md`, `logs/ingest_log.md`.
++- Relevant existing wiki pages read: `wiki/index.md`, `wiki/retrieval-augmented-generation.md`.
++- Actions: created a new concept page for LLM Wiki, linked it from the index, added a synthesis link from RAG distinguishing LLM Wiki from model-level retrieval-augmented generation, and saved S10 extraction notes.
++- Created files: `wiki/llm-wiki.md`, `evidence/2026-07-09_ingest_S10_llm-wiki_excerpts.md`.
++- Modified files: `wiki/index.md`, `wiki/retrieval-augmented-generation.md`, `logs/ingest_log.md`.
++- Verification: confirmed S10 manifest metadata and medium quality label; checked the raw source capture metadata, date, access date, shareability, project-use claims, raw/wiki/schema distinction, ingest/query/lint workflow claims, medium-sized source-set claim, evidentiary boundary, frontmatter, source tags, index entry, and wikilinks against the captured source and wiki state.
++- Conflicts: none detected; S10 defines an LLM Wiki design pattern and does not supersede RAG or other existing pages.
++- Exceptions: S10 is a sparse source capture of an original design proposal rather than a controlled empirical evaluation, so the new page treats it as architecture vocabulary and not as reliability evidence.
++- Unresolved issues: lint criteria, raw-source retrieval strategy, and scaling beyond a medium-sized source set remain open; three LLM Wiki operations questions remain `source-needed`.
++- Evidence saved: `evidence/2026-07-09_ingest_S10_llm-wiki_excerpts.md`.
++- Diff saved: `evidence/diffs/2026-07-09_ingest_S10_llm-wiki.diff`.
++
++## 2026-07-09 - S11 - MCP Architecture Overview
++
++- Source ID: S11.
++- Files read: `raw/source_manifest.md`, `schema/AGENTS.md`, `schema/page_template.md`, `wiki/index.md`, `raw/S11_mcp_architecture.source.md`, `wiki/react-reasoning-and-acting.md`, `wiki/toolformer-self-supervised-tool-use.md`, `wiki/api-bank-tool-augmented-llm-benchmark.md`, `logs/ingest_log.md`.
++- Relevant existing wiki pages read: `wiki/index.md`, `wiki/react-reasoning-and-acting.md`, `wiki/toolformer-self-supervised-tool-use.md`, `wiki/api-bank-tool-augmented-llm-benchmark.md`.
++- Actions: created a new MCP architecture concept page, linked it from the index, added a ReAct synthesis distinguishing model action loops from the MCP tool/context exchange layer, and saved S11 extraction notes.
++- Created files: `wiki/model-context-protocol-architecture.md`, `evidence/2026-07-09_ingest_S11_mcp-architecture_excerpts.md`.
++- Modified files: `wiki/index.md`, `wiki/react-reasoning-and-acting.md`, `logs/ingest_log.md`.
++- Verification: confirmed S11 manifest metadata and high quality label; checked the raw source capture metadata, continuous-update status, access date, shareability, host/client/server architecture claim, tools/resources/prompts primitives, capability negotiation claim, authorization/security boundary, frontmatter, source tags, index entry, and wikilinks against the captured source and wiki state.
++- Conflicts: none detected; S11 defines the MCP architecture baseline and explicitly defers production authorization and security claims to S12 and S13.
++- Exceptions: S11 is a compact official documentation capture, so the page records the architecture vocabulary and boundaries present in the capture without adding protocol details not present in the source.
++- Unresolved issues: capability-negotiation detail placement, least-privilege exposure, and host/client/server audit events remain open; three MCP operations questions remain `source-needed`.
++- Evidence saved: `evidence/2026-07-09_ingest_S11_mcp-architecture_excerpts.md`.
++- Diff saved: `evidence/diffs/2026-07-09_ingest_S11_mcp-architecture.diff`.
++
++## 2026-07-09 - S14 - Introducing the Model Context Protocol
++
++- Source ID: S14.
++- Files read: `raw/source_manifest.md`, `schema/AGENTS.md`, `schema/page_template.md`, `wiki/index.md`, `raw/S14_introducing_mcp.source.md`, `wiki/model-context-protocol-architecture.md`, `wiki/react-reasoning-and-acting.md`, `wiki/contradiction-register.md`, `logs/ingest_log.md`.
++- Relevant existing wiki pages read: `wiki/index.md`, `wiki/model-context-protocol-architecture.md`, `wiki/react-reasoning-and-acting.md`, `wiki/contradiction-register.md`.
++- Actions: updated the existing MCP architecture page with S14's historical positioning of MCP as an open standard for connecting AI assistants to tools, content repositories, and development environments; updated the index source list and summary; saved S14 extraction notes.
++- Created files: `evidence/2026-07-09_ingest_S14_mcp-positioning_excerpts.md`.
++- Modified files: `wiki/index.md`, `wiki/model-context-protocol-architecture.md`, `logs/ingest_log.md`.
++- Verification: confirmed S14 manifest metadata and medium quality label; checked the raw source capture metadata, date, access date, shareability, original-positioning claim, open-standard connection claim, update-pair boundary with S12/S13, production-authorization caution, frontmatter, source tags, index entry, and wikilinks against the captured source and wiki state.
++- Conflicts: none detected; S14 supplies historical positioning and does not supersede S11's architecture overview.
++- Exceptions: S14 is an official launch article and medium-quality announcement capture, so it was used for history and positioning rather than current production authorization or security requirements.
++- Unresolved issues: production authorization and security guidance remain deferred to later S12 and S13 ingests; MCP capability negotiation, least-privilege exposure, and boundary audit questions remain `source-needed`.
++- Evidence saved: `evidence/2026-07-09_ingest_S14_mcp-positioning_excerpts.md`.
++- Diff saved: `evidence/diffs/2026-07-09_ingest_S14_mcp-positioning.diff`.
++
++## 2026-07-09 - S12 - MCP Authorization
++
++- Source ID: S12.
++- Files read: `raw/source_manifest.md`, `schema/AGENTS.md`, `schema/page_template.md`, `wiki/index.md`, `raw/S12_mcp_authorization.source.md`, `wiki/model-context-protocol-architecture.md`, `wiki/react-reasoning-and-acting.md`, `wiki/contradiction-register.md`, `logs/ingest_log.md`.
++- Relevant existing wiki pages read: `wiki/index.md`, `wiki/model-context-protocol-architecture.md`, `wiki/react-reasoning-and-acting.md`, `wiki/contradiction-register.md`.
++- Actions: created a new MCP authorization concept page, linked it from the index and MCP architecture page, updated MCP architecture with S12's authorization supersession over S14 for production authorization claims, and saved S12 extraction notes.
++- Created files: `wiki/model-context-protocol-authorization.md`, `evidence/2026-07-09_ingest_S12_mcp-authorization_excerpts.md`.
++- Modified files: `wiki/index.md`, `wiki/model-context-protocol-architecture.md`, `logs/ingest_log.md`.
++- Verification: confirmed S12 manifest metadata and high quality label; checked the raw source capture metadata, stable spec date 2025-11-25, access date, shareability, OAuth 2.1, PKCE, audience binding, token handling, normative authorization boundary claim, MCP-connection-not-automatically-authorized claim, update-pair relationship with S14/S13, frontmatter, source tags, index entry, and wikilinks against the captured source and wiki state.
++- Conflicts: none detected; S12 supersedes S14 only for production authorization claims while preserving S14 as historical MCP positioning.
++- Exceptions: S12 is a compact official specification capture, so implementation-security checklist details remain deferred to S13.
++- Unresolved issues: which OAuth 2.1 requirements to expand, how clients enforce audience binding and token handling across servers, and what S13 security controls are needed for write-capable MCP tools remain open; three authorization operations questions remain `source-needed`.
++- Evidence saved: `evidence/2026-07-09_ingest_S12_mcp-authorization_excerpts.md`.
++- Diff saved: `evidence/diffs/2026-07-09_ingest_S12_mcp-authorization.diff`.
++
++## 2026-07-09 - S13 - MCP Security Best Practices
++
++- Source ID: S13.
++- Files read: `raw/source_manifest.md`, `schema/AGENTS.md`, `schema/page_template.md`, `wiki/index.md`, `raw/S13_mcp_security_best_practices.source.md`, `wiki/model-context-protocol-authorization.md`, `wiki/model-context-protocol-architecture.md`, `wiki/react-reasoning-and-acting.md`, `logs/ingest_log.md`.
++- Relevant existing wiki pages read: `wiki/index.md`, `wiki/model-context-protocol-authorization.md`, `wiki/model-context-protocol-architecture.md`, `wiki/react-reasoning-and-acting.md`.
++- Actions: created a new MCP security best practices concept page, linked it from the index and MCP architecture/authorization pages, updated MCP authorization with S13's practical security complement to S12, and saved S13 extraction notes.
++- Created files: `wiki/model-context-protocol-security-best-practices.md`, `evidence/2026-07-09_ingest_S13_mcp-security-best-practices_excerpts.md`.
++- Modified files: `wiki/index.md`, `wiki/model-context-protocol-architecture.md`, `wiki/model-context-protocol-authorization.md`, `logs/ingest_log.md`.
++- Verification: confirmed S13 manifest metadata and high quality label; checked the raw source capture metadata, continuous-update status, access date, shareability, session security, least privilege, sandboxing, token passthrough, enterprise security-boundary use, guardrail/audit use, complement relationship with S12, frontmatter, source tags, index entry, and wikilinks against the captured source and wiki state.
++- Conflicts: none detected; S13 complements S12 and does not supersede the stable MCP authorization specification.
++- Exceptions: S13 is a concise continuously updated security-docs capture, so detailed implementation checklists remain `source-needed` pending fuller source capture or recheck.
++- Unresolved issues: exact session-security controls, least-privilege policy representation, and audit events for token passthrough or sandbox escape attempts remain open; three security operations questions remain `source-needed`.
++- Evidence saved: `evidence/2026-07-09_ingest_S13_mcp-security-best-practices_excerpts.md`.
++- Diff saved: `evidence/diffs/2026-07-09_ingest_S13_mcp-security-best-practices.diff`.
++
++## 2026-07-09 - S15 - NIST AI 600-1 Generative AI Profile
++
++- Source ID: S15.
++- Files read: `raw/source_manifest.md`, `schema/AGENTS.md`, `schema/page_template.md`, `wiki/index.md`, `raw/S15_nist_ai_600_1.source.md`, `raw/S15.pdf`, `wiki/model-context-protocol-security-best-practices.md`, `wiki/model-context-protocol-architecture.md`, `logs/ingest_log.md`.
++- Relevant existing wiki pages read: `wiki/index.md`, `wiki/model-context-protocol-security-best-practices.md`, `wiki/model-context-protocol-architecture.md`.
++- Actions: created a new concept page for generative AI risk governance, linked it from the index and MCP security page, updated MCP security with S15's organization-level governance complement to MCP-specific security guidance, and saved S15 extraction notes.
++- Created files: `wiki/generative-ai-risk-governance.md`, `evidence/2026-07-09_ingest_S15_nist-ai-600-1_excerpts.md`.
++- Modified files: `wiki/index.md`, `wiki/model-context-protocol-security-best-practices.md`, `logs/ingest_log.md`.
++- Verification: confirmed S15 manifest metadata and high quality label; read the local source capture; extracted S15 PDF text with `pdfplumber`; checked 64-page PDF count, title, July 2024 publication line, 2024-07-25 NIST Editorial Review Board approval line, 2024-07-26 manifest date, AI RMF 1.0 cross-sectoral profile claim, January 2023 AI RMF release claim, four primary GAI Public Working Group considerations, 12 listed GAI risk categories, `GV`/`MP`/`MS`/`MG` function tags, selected governance and measurement action IDs, evidentiary boundary, frontmatter, source tags, index entry, and wikilinks against extracted source text and wiki state.
++- Conflicts: none detected; S15 adds an organization-level generative AI governance frame and does not supersede MCP-specific authorization or security sources S12 and S13.
++- Exceptions: PDF extraction contained table layout wrapping, so action-ID claims were checked against targeted page extracts and surrounding table text rather than broad raw extraction alone.
++- Unresolved issues: translating S15 suggested actions into concrete enterprise-agent audit events, combining qualitative unmeasured-risk documentation with benchmark metrics, and deciding which governance artifacts should gate write-capable agents remain open; three governance implementation questions remain `source-needed`.
++- Evidence saved: `evidence/2026-07-09_ingest_S15_nist-ai-600-1_excerpts.md`.
++- Diff saved: `evidence/diffs/2026-07-09_ingest_S15_nist-ai-600-1.diff`.
+diff --git a/wiki/index.md b/wiki/index.md
+new file mode 100644
+index 0000000..797dfde
+--- /dev/null
++++ b/wiki/index.md
+@@ -0,0 +1,41 @@
++---
++title: Knowledge Base Index
++page_type: overview
++status: draft
++updated: 2026-07-09
++sources: [S01, S02, S03, S04, S05, S06, S07, S08, S09, S10, S11, S12, S13, S14, S15]
++confidence: high
++---
++
++# Knowledge Base Index
++
++This index lists derived wiki pages. It currently includes coverage of retrieval-augmented generation, LLM Wiki knowledge-base maintenance, Model Context Protocol architecture, initial positioning, authorization, security practices, generative AI risk governance, reasoning-action prompting, self-supervised tool-use learning, API-planning evaluation, repeated-trial agent reliability, stateful interactive tool-use benchmarks, multi-agent orchestration frameworks, and multiagent debate benefits and limits for knowledge-intensive and tool-using language-model systems [S01] [S02] [S03] [S04] [S05] [S06] [S07] [S08] [S09] [S10] [S11] [S12] [S13] [S14] [S15].
++
++## Retrieval and Knowledge Updating
++
++- [[retrieval-augmented-generation|Retrieval-Augmented Generation]]
++- [[llm-wiki|LLM Wiki]]
++
++## Agent Reasoning and Tool Use
++
++- [[react-reasoning-and-acting|ReAct Reasoning and Acting]]
++- [[toolformer-self-supervised-tool-use|Toolformer Self-Supervised Tool Use]]
++- [[api-bank-tool-augmented-llm-benchmark|API-Bank Tool-Augmented LLM Benchmark]]
++- [[tau-bench-agent-consistency-benchmark|Tau-Bench Agent Consistency Benchmark]]
++- [[toolsandbox-stateful-tool-use-benchmark|ToolSandbox Stateful Tool-Use Benchmark]]
++- [[autogen-multi-agent-conversation-framework|AutoGen Multi-Agent Conversation Framework]]
++- [[multiagent-debate-for-factuality-and-reasoning|Multiagent Debate for Factuality and Reasoning]]
++
++## Model Context Protocol
++
++- [[model-context-protocol-architecture|Model Context Protocol Architecture]]
++- [[model-context-protocol-authorization|Model Context Protocol Authorization]]
++- [[model-context-protocol-security-best-practices|Model Context Protocol Security Best Practices]]
++
++## Governance and Risk
++
++- [[generative-ai-risk-governance|Generative AI Risk Governance]]
++
++## Registers
++
++- [[contradiction-register|Contradiction Register]]
+
+# New page snapshot: wiki/generative-ai-risk-governance.md
+
+diff --git "a/wiki\\generative-ai-risk-governance.md" "b/wiki\\generative-ai-risk-governance.md"
+new file mode 100644
+index 0000000..90e3dea
+--- /dev/null
++++ "b/wiki\\generative-ai-risk-governance.md"
+@@ -0,0 +1,65 @@
++---
++title: Generative AI Risk Governance
++page_type: concept
++status: draft
++updated: 2026-07-09
++sources: [S04, S05, S06, S13, S15]
++confidence: high
++---
++
++# Generative AI Risk Governance
++
++## Core Definition
++
++Generative AI risk governance is the organizational practice of using NIST AI 600-1, a July 2024 cross-sectoral profile and companion resource to AI RMF 1.0, to identify and manage risks that are novel to or exacerbated by generative AI systems [S15].
++
++S15 treats the AI RMF profile as an implementation of AI RMF functions, categories, and subcategories for the generative AI technology setting, based on the framework user's requirements, risk tolerance, and resources [S15].
++
++## Key Claims
++
++- NIST AI 600-1 is titled "Artificial Intelligence Risk Management Framework: Generative Artificial Intelligence Profile," was approved by the NIST Editorial Review Board on 2024-07-25, and is listed in the manifest as a high-quality official report with publication date 2024-07-26 [S15].
++- S15 says AI RMF 1.0 was released in January 2023 and is intended for voluntary use to help organizations incorporate trustworthiness considerations into AI design, development, use, and evaluation [S15].
++- S15 defines the document as a cross-sectoral AI RMF profile for generative AI, including common activities or business processes such as large language models, cloud-based services, and acquisition [S15].
++- S15 states that suggested actions are organized under AI RMF functions tagged as `GV` for Govern, `MP` for Map, `MS` for Measure, and `MG` for Manage [S15].
++- S15 lists 12 risk categories for generative AI: CBRN information or capabilities, confabulation, dangerous/violent/hateful content, data privacy, environmental impacts, harmful bias or homogenization, human-AI configuration, information integrity, information security, intellectual property, obscene/degrading/abusive content, and value chain and component integration [S15].
++- S15 says the Generative AI Public Working Group focused on four primary considerations: governance, content provenance, pre-deployment testing, and incident disclosure [S15].
++- S15 says the suggested actions primarily address those four considerations and that future revisions will include additional AI RMF subcategories, risks, and suggested actions as the space evolves and empirical evidence indicates additional risks [S15].
++- S15 says not every AI RMF subcategory is included and not every suggested action applies to every AI actor or AI actor task [S15].
++
++## Evidence and Sources
++
++S15 describes risk in the AI RMF context as a composite of likelihood and consequence, and it notes that some risks are empirically demonstrated in similar contexts while others may be unlikely, speculative, or uncertain in a given context [S15].
++
++S15 says generative AI risks vary by lifecycle stage, scope, source of risk, and time scale, including design, development, deployment, operation, and decommissioning stages; individual-system, application, and ecosystem scopes; model, input, output, and human-behavior sources; and abrupt or extended materialization timelines [S15].
++
++S15 recommends organizational responsibilities for periodic review of content provenance and incident monitoring, after-action reviews for generative AI incident response and disclosure, and document-retention policies for TEVV and digital-content transparency history [S15].
++
++S15 recommends inventorying organizational generative AI systems and considering provenance, known issues, oversight roles, intellectual-property and sensitive-data considerations, foundation models, model versions, and access modes in inventory entries [S15].
++
++S15 recommends documenting downstream impacts such as third-party plugins, establishing incident-reporting criteria, tracing digital-content origin and modification, using metrics for provenance and misinformation patterns, documenting risks that cannot be measured quantitatively, and evaluating model-capability claims with empirically validated methods [S15].
++
++Synthesis: [[model-context-protocol-security-best-practices|MCP Security Best Practices]] addresses protocol-adjacent implementation controls such as session security, least privilege, sandboxing, and token passthrough, while S15 supplies the broader organizational risk-governance frame for generative AI systems that use such tools [S13] [S15].
++
++## Limitations and Counter-Evidence
++
++S15 is a governance profile and companion resource, not an agent implementation guide or benchmark, so it should be paired with technical evaluation sources such as API-Bank, tau-bench, and ToolSandbox when making claims about agent task performance [S04] [S05] [S06] [S15].
++
++S15 explicitly says suggested-action implementation varies by risk type, generative AI system characteristics, lifecycle stage, and relevant AI actors, so its actions should not be copied into a deployment as universal requirements without context analysis [S15].
++
++S15 includes future-revision uncertainty because additional AI RMF subcategories, risks, and suggested actions may be added as generative AI evolves and more empirical evidence appears [S15].
++
++The CBRN section reports that recent research found LLM outputs about biological threat creation and attack planning provided minimal assistance beyond traditional search-engine queries at the time of those studies, so CBRN risk claims should distinguish future capability monitoring from demonstrated operational increase [S15].
++
++## Links to Other Pages
++
++- [[index|Knowledge Base Index]]
++- [[model-context-protocol-security-best-practices|Model Context Protocol Security Best Practices]]
++- [[api-bank-tool-augmented-llm-benchmark|API-Bank Tool-Augmented LLM Benchmark]]
++- [[tau-bench-agent-consistency-benchmark|Tau-Bench Agent Consistency Benchmark]]
++- [[toolsandbox-stateful-tool-use-benchmark|ToolSandbox Stateful Tool-Use Benchmark]]
++
++## Open Questions
++
++- Which S15 suggested actions should become concrete audit events for enterprise agent systems source-needed?
++- How should S15's qualitative unmeasured-risk documentation be combined with benchmark metrics such as `pass^k` source-needed?
++- Which governance artifacts are required before a tool-connected generative AI agent should be allowed to perform write actions source-needed?
+
+# Evidence snapshot: evidence/2026-07-09_ingest_S15_nist-ai-600-1_excerpts.md
+
+diff --git "a/evidence\\2026-07-09_ingest_S15_nist-ai-600-1_excerpts.md" "b/evidence\\2026-07-09_ingest_S15_nist-ai-600-1_excerpts.md"
+new file mode 100644
+index 0000000..f1fb23b
+--- /dev/null
++++ "b/evidence\\2026-07-09_ingest_S15_nist-ai-600-1_excerpts.md"
+@@ -0,0 +1,24 @@
++# S15 Ingest Evidence - NIST AI 600-1
++
++Source: `raw/S15.pdf` and `raw/S15_nist_ai_600_1.source.md`.
++
++Access boundary: S15 is a public, high-quality official NIST report/PDF plus local source capture, accessed 2026-07-06 per the source capture and manifest [S15].
++
++Checked PDF facts:
++
++- PDF title metadata: "Artificial Intelligence Risk Management Framework: Generative Artificial Intelligence Profile" [S15].
++- PDF page count from `pdfplumber`: 64 pages [S15].
++- Publication line in PDF: July 2024; approval line: approved by the NIST Editorial Review Board on 2024-07-25 [S15].
++- Manifest date: 2024-07-26; DOI: `https://doi.org/10.6028/NIST.AI.600-1` [S15].
++- Introduction says the document is a cross-sectoral profile of and companion resource for AI RMF 1.0 for Generative AI, pursuant to EO 14110 [S15].
++- Introduction says AI RMF 1.0 was released in January 2023 and is intended for voluntary use [S15].
++- The Generative AI Public Working Group focus was limited to four primary considerations: Governance, Content Provenance, Pre-deployment Testing, and Incident Disclosure [S15].
++- Risk overview lists 12 GAI risks: CBRN Information or Capabilities; Confabulation; Dangerous, Violent, or Hateful Content; Data Privacy; Environmental Impacts; Harmful Bias or Homogenization; Human-AI Configuration; Information Integrity; Information Security; Intellectual Property; Obscene, Degrading, and/or Abusive Content; Value Chain and Component Integration [S15].
++- Suggested-action tables use AI RMF function tags `GV`, `MP`, `MS`, and `MG` for Govern, Map, Measure, and Manage [S15].
++- Suggested-action section states not every AI RMF subcategory is included and not every suggested action applies to every AI actor or AI actor task [S15].
++- Checked examples include GV-1.5 incident monitoring and TEVV retention, GV-1.6 GAI inventory, GV-4.2 downstream third-party plugin impact documentation, GV-4.3 incident-reporting criteria, MS-1.1 provenance and unmeasured-risk tracking, MS-2.3 empirical capability validation, and MS-3.2 emergent-risk identification [S15].
++
++Evidentiary boundary:
++
++- S15 is governance guidance, not an agent implementation guide or benchmark; task-performance claims should continue to cite S04, S05, or S06 as appropriate [S04] [S05] [S06] [S15].
++- S15 includes uncertainty and future-revision language; the page preserves this as a limitation rather than turning suggested actions into universal requirements [S15].

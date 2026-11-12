@@ -1,0 +1,72 @@
+diff --git a/wiki/llm-wiki.md b/wiki/llm-wiki.md
+--- a/wiki/llm-wiki.md
++++ b/wiki/llm-wiki.md
+@@
+-sources: [S10, S18, S19, S20, S21]
++sources: [S10, S18, S19, S20, S21, S24]
+@@
++S24 is a synthetic screenshot source that visibly shows this project folder containing `.obsidian`, `evidence`, `logs`, `raw`, `schema`, and `wiki` folders, but it does not prove folder contents, completeness, or workflow correctness beyond what is visible in the screenshot [S24].
+@@
++- S24 visibly supports that this local project has the expected top-level audit and wiki folders `evidence`, `logs`, `raw`, `schema`, and `wiki`, plus an `.obsidian` folder [S24].
+@@
++Synthesis: S24 provides a screenshot-level check that the project folder layout resembles the raw/wiki/schema/logs/evidence maintenance pattern described by S10 and S21, but the screenshot itself should remain lower-confidence evidence than source files or logs [S10] [S21] [S24].
+@@
++S24 is a synthetic screenshot and only supports visible UI-level folder names; it should not be used to infer file contents, source counts, successful ingestion, or whether the repository is complete or reproducible [S24].
+diff --git a/wiki/project-scope-and-research-hypotheses.md b/wiki/project-scope-and-research-hypotheses.md
+--- a/wiki/project-scope-and-research-hypotheses.md
++++ b/wiki/project-scope-and-research-hypotheses.md
+@@
+-sources: [S01, S05, S06, S07, S10, S11, S12, S15, S21]
+-confidence: medium
++sources: [S01, S05, S06, S07, S10, S11, S12, S15, S21, S24]
++confidence: mixed
+@@
++S24 is a 2026-07-08 project-folder screenshot that visibly shows `.obsidian`, `evidence`, `logs`, `raw`, `schema`, and `wiki` as top-level folders, but it is synthetic screenshot evidence and should not be treated as proof of file contents or workflow execution [S24].
+@@
++- S24 visibly shows the local project folder has `evidence`, `logs`, `raw`, `schema`, and `wiki` folders, aligning at the folder-name level with the project evidence workflow described by S21 [S21] [S24].
+@@
++Synthesis: S24 provides a visual folder-structure checkpoint for the project evidence workflow, while S21 remains the source for the intended reliability framing and evidence requirements [S21] [S24].
+@@
++S24 is limited to visible screenshot information; it does not establish whether `raw`, `wiki`, `schema`, `logs`, or `evidence` contain complete or correct artifacts [S24].
+diff --git a/wiki/index.md b/wiki/index.md
+--- a/wiki/index.md
++++ b/wiki/index.md
+@@
+-sources: [S01, S02, S03, S04, S05, S06, S07, S08, S09, S10, S11, S12, S13, S14, S15, S16, S17, S18, S19, S20, S21, S22, S23]
++sources: [S01, S02, S03, S04, S05, S06, S07, S08, S09, S10, S11, S12, S13, S14, S15, S16, S17, S18, S19, S20, S21, S22, S23, S24]
+@@
++This index summary now includes local project folder-structure evidence and cites S24 alongside prior sources.
+diff --git a/evidence/2026-07-09_ingest_S24_project-folder-screenshot_notes.md b/evidence/2026-07-09_ingest_S24_project-folder-screenshot_notes.md
+new file mode 100644
+--- /dev/null
++++ b/evidence/2026-07-09_ingest_S24_project-folder-screenshot_notes.md
+@@
++# S24 Evidence Notes - Project Folder Structure Screenshot
++
++Source ID: S24
++
++Manifest metadata checked: `Project folder structure screenshot`, dated 2026-07-08, file `raw/S24.png`, type `screenshot`, shareability `project screenshot/shareable`, quality `synthetic`, project use `screenshot ingestion and visible-vs-inferred information`.
++
++Image inspection:
++
++- `raw/S24.png` exists.
++- The visible top-level folders are `.obsidian`, `evidence`, `logs`, `raw`, `schema`, and `wiki`.
++
++Visible-vs-inferred boundary:
++
++- Visible: the folder names listed above appear in the screenshot.
++- Not established by the screenshot: folder contents, source counts, ingestion completeness, whether files are valid, whether logs are complete, or whether the project workflow has been correctly executed.
+diff --git a/logs/ingest_log.md b/logs/ingest_log.md
+--- a/logs/ingest_log.md
++++ b/logs/ingest_log.md
+@@
++## 2026-07-09 - S24 - Project Folder Structure Screenshot
++
++- Source ID: S24.
++- Files read: `raw/source_manifest.md`, `schema/AGENTS.md`, `schema/page_template.md`, `wiki/index.md`, `raw/S24.png`, `wiki/project-scope-and-research-hypotheses.md`, `wiki/llm-wiki.md`, `wiki/second-brain-implementation-patterns.md`, `logs/ingest_log.md`.
++- Actions: updated existing LLM Wiki, project scope, and index pages with S24's screenshot-level visible folder-structure evidence and evidentiary boundary; saved S24 screenshot notes.
++- Created files: `evidence/2026-07-09_ingest_S24_project-folder-screenshot_notes.md`.
++- Modified files: `wiki/index.md`, `wiki/llm-wiki.md`, `wiki/project-scope-and-research-hypotheses.md`, `logs/ingest_log.md`.
++- Conflicts: none detected; S24 visually supplements the project-structure evidence boundary and does not supersede source files, logs, or manifest records.
++- Evidence saved: `evidence/2026-07-09_ingest_S24_project-folder-screenshot_notes.md`.
++- Diff saved: `evidence/diffs/2026-07-09_ingest_S24_project-folder-screenshot.diff`.

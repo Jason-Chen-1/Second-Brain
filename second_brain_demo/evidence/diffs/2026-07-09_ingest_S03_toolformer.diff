@@ -1,0 +1,186 @@
+﻿diff --git a/logs/ingest_log.md b/logs/ingest_log.md
+new file mode 100644
+index 0000000..8220eb0
+--- /dev/null
++++ b/logs/ingest_log.md
+@@ -0,0 +1,48 @@
++# Ingest Log
++
++This log records source ingestion and knowledge-base maintenance events. It is append-only: new work should add entries rather than rewriting old history.
++
++## 2026-07-09 - S01 - Retrieval-Augmented Generation
++
++- Source ID: S01.
++- Files read: `raw/source_manifest.md`, `schema/AGENTS.md`, `schema/page_template.md`, `wiki/index.md`, `raw/S01.pdf`, `logs/ingest_log.md`.
++- Relevant existing wiki pages read: `wiki/index.md`; no substantive topic pages existed in `wiki/` at ingest time.
++- Actions: created a new concept page for retrieval-augmented generation, repaired the malformed index, linked the new page from the index, and saved S01 verification notes.
++- Created files: `wiki/retrieval-augmented-generation.md`, `evidence/2026-07-09_ingest_S01_excerpts.md`.
++- Modified files: `wiki/index.md`, `logs/ingest_log.md`.
++- Verification: confirmed S01 manifest metadata and quality label; extracted S01 PDF text with `pdfplumber`; checked reported page count, architecture, benchmark numbers, parameter/index numbers, knowledge-update result, and limitations against the extracted source text; checked wikilinks and source IDs with `rg`.
++- Conflicts: none detected because no pre-existing substantive wiki page made comparable RAG claims.
++- Exceptions: `pdftotext` was unavailable, so bundled Python with `pdfplumber` was used; a direct console extraction hit a PowerShell/GBK encoding issue and was rerun with UTF-8-safe output.
++- Unresolved issues: the final open question about choosing among RAG variants and newer retrieval architectures remains `source-needed` until more sources are ingested.
++- Evidence saved: `evidence/2026-07-09_ingest_S01_excerpts.md`.
++- Diff saved: `evidence/diffs/2026-07-09_ingest_S01_rag.diff`.
++
++## 2026-07-09 - S02 - ReAct Reasoning and Acting
++
++- Source ID: S02.
++- Files read: `raw/source_manifest.md`, `schema/AGENTS.md`, `schema/page_template.md`, `wiki/index.md`, `raw/S02.pdf`, `wiki/retrieval-augmented-generation.md`, `logs/ingest_log.md`.
++- Relevant existing wiki pages read: `wiki/index.md`, `wiki/retrieval-augmented-generation.md`.
++- Actions: created a new concept page for ReAct reasoning/action loops, linked it from the index, and added a synthesis cross-link from the RAG page distinguishing S01's retrieval-augmented seq2seq architecture from S02's ReAct prompting/action-loop paradigm.
++- Created files: `wiki/react-reasoning-and-acting.md`, `evidence/2026-07-09_ingest_S02_excerpts.md`.
++- Modified files: `wiki/index.md`, `wiki/retrieval-augmented-generation.md`, `logs/ingest_log.md`.
++- Verification: confirmed S02 manifest metadata and quality label; extracted S02 PDF text with `pdfplumber`; checked reported page count, method definition, action space, benchmark results, failure-mode numbers, fine-tuning note, reproducibility note, and ethics boundary against the extracted source text; checked wikilinks and source IDs with `rg`.
++- Conflicts: none detected; S02 adds a distinct prompting/action-loop concept and does not revise S01's RAG architecture or benchmark claims.
++- Exceptions: PDF text extraction contains noisy figure glyphs on some pages, so numeric claims were checked against table text and surrounding extracted prose rather than figure rendering.
++- Unresolved issues: production exposure of reasoning traces and real-system permissioning remain `source-needed`; transfer to newer models beyond PaLM-540B and GPT-3 `text-davinci-002` remains uncertain.
++- Evidence saved: `evidence/2026-07-09_ingest_S02_excerpts.md`.
++- Diff saved: `evidence/diffs/2026-07-09_ingest_S02_react.diff`.
++
++## 2026-07-09 - S03 - Toolformer Self-Supervised Tool Use
++
++- Source ID: S03.
++- Files read: `raw/source_manifest.md`, `schema/AGENTS.md`, `schema/page_template.md`, `wiki/index.md`, `raw/S03.pdf`, `wiki/react-reasoning-and-acting.md`, `wiki/retrieval-augmented-generation.md`, `logs/ingest_log.md`.
++- Relevant existing wiki pages read: `wiki/index.md`, `wiki/react-reasoning-and-acting.md`, `wiki/retrieval-augmented-generation.md`.
++- Actions: created a new concept page for Toolformer self-supervised tool use, linked it from the index, and added a synthesis cross-link from the ReAct page distinguishing prompted interactive reasoning/action trajectories from Toolformer's self-supervised API-call fine-tuning.
++- Created files: `wiki/toolformer-self-supervised-tool-use.md`, `evidence/2026-07-09_ingest_S03_excerpts.md`.
++- Modified files: `wiki/index.md`, `wiki/react-reasoning-and-acting.md`, `logs/ingest_log.md`.
++- Verification: confirmed S03 manifest metadata and quality label; extracted S03 PDF text with `pdfplumber`; checked reported page count, method definition, tool inventory, filtering thresholds and example counts, training setup, benchmark numbers, language-modeling perplexity, scaling claim, and limitations against extracted source text; checked wikilinks and source IDs with `rg`.
++- Conflicts: none detected; S03 adds a distinct self-supervised API-call learning mechanism and does not supersede S01 RAG or S02 ReAct claims.
++- Exceptions: PDF extraction included some multi-column/table ordering noise, so benchmark and count claims were checked against separately extracted table text.
++- Unresolved issues: tool-call cost/risk pricing, combining Toolformer with ReAct-style multi-step tool refinement, and learning from sensitive enterprise tool logs remain open; the sensitive-log safeguard question remains `source-needed`.
++- Evidence saved: `evidence/2026-07-09_ingest_S03_excerpts.md`.
++- Diff saved: `evidence/diffs/2026-07-09_ingest_S03_toolformer.diff`.
+diff --git a/wiki/index.md b/wiki/index.md
+new file mode 100644
+index 0000000..a08f7f2
+--- /dev/null
++++ b/wiki/index.md
+@@ -0,0 +1,25 @@
++---
++title: Knowledge Base Index
++page_type: overview
++status: draft
++updated: 2026-07-09
++sources: [S01, S02, S03]
++confidence: high
++---
++
++# Knowledge Base Index
++
++This index lists derived wiki pages. It currently includes coverage of retrieval-augmented generation, reasoning-action prompting, and self-supervised tool-use learning for knowledge-intensive and tool-using language-model systems [S01] [S02] [S03].
++
++## Retrieval and Knowledge Updating
++
++- [[retrieval-augmented-generation|Retrieval-Augmented Generation]]
++
++## Agent Reasoning and Tool Use
++
++- [[react-reasoning-and-acting|ReAct Reasoning and Acting]]
++- [[toolformer-self-supervised-tool-use|Toolformer Self-Supervised Tool Use]]
++
++## Registers
++
++- Contradictions: source-needed
+
+# Untracked wiki page diff
+
+diff --git "a/wiki\\toolformer-self-supervised-tool-use.md" "b/wiki\\toolformer-self-supervised-tool-use.md"
+new file mode 100644
+index 0000000..7142e33
+--- /dev/null
++++ "b/wiki\\toolformer-self-supervised-tool-use.md"
+@@ -0,0 +1,66 @@
++---
++title: Toolformer Self-Supervised Tool Use
++page_type: concept
++status: draft
++updated: 2026-07-09
++sources: [S03]
++confidence: high
++---
++
++# Toolformer Self-Supervised Tool Use
++
++## Core Definition
++
++Toolformer is a language-model training approach that teaches a model to decide which external APIs to call, when to call them, what arguments to pass, and how to incorporate returned results into later token prediction [S03].
++
++Schick et al.'s Toolformer method samples candidate API calls into ordinary text, executes those calls, keeps calls only when the API result reduces the model's future-token loss by at least a filtering threshold, and fine-tunes the model on the surviving API-augmented text [S03].
++
++## Key Claims
++
++- Toolformer is designed to address language-model weaknesses in factual lookup, arithmetic, low-resource-language understanding, and temporal awareness by giving the model access to tools such as search engines, calculators, translation systems, calendars, and question-answering systems [S03].
++- The paper uses five tools: a question-answering system based on Atlas, a BM25 Wikipedia search engine over the KILT Wikipedia dump, a calculator supporting the four basic arithmetic operations with outputs rounded to two decimal places, a 600M-parameter NLLB machine-translation system for translation into English, and a calendar API that returns the current date [S03].
++- Toolformer represents API calls as text sequences with special delimiters and, in practice, uses existing token sequences such as `[` and `]` rather than modifying the underlying language model vocabulary [S03].
++- The training setup uses GPT-J with 6.7B parameters as the base language model and a subset of CCNet as the language-modeling dataset [S03].
++- For API-call filtering, the method compares loss with the call and result against the minimum of no call and call-without-result, retaining calls only when the loss reduction is at least the tool's filtering threshold [S03].
++- With filtering threshold `tau_f = 1.0`, the augmented dataset contains 18,526 question-answering examples, 60,974 Wikipedia-search examples, 994 calculator examples, 20,587 calendar examples, and 1,034 machine-translation examples [S03].
++- Toolformer fine-tuning uses batch size 128, learning rate `1e-5`, linear warmup for the first 10% of training, up to 25,000 examples per API, maximum sequence length 1,024, and DeepSpeed ZeRO-3 on 8 NVIDIA A100 40GB GPUs with BF16 [S03].
++- In zero-shot LAMA subsets, Toolformer reports 33.8 on SQuAD, 11.5 on Google-RE, and 53.5 on T-REx, outperforming GPT-J, GPT-J fine-tuned on CCNet, Toolformer with API calls disabled, OPT 66B, and GPT-3 175B on those reported rows [S03].
++- On math benchmarks, Toolformer reports 40.4 on ASDiv, 29.4 on SVAMP, and 44.0 on MAWPS, while GPT-3 175B reports 14.0, 10.0, and 19.8 respectively [S03].
++- On question answering, Toolformer reports 26.3 on WebQuestions, 17.7 on Natural Questions, and 48.8 on TriviaQA, outperforming same-size GPT-J baselines but falling short of GPT-3 175B at 29.0, 22.6, and 65.9 [S03].
++- On temporal tasks, Toolformer reports 16.3 on TEMPLAMA and 27.3 on DATESET, but the paper notes that TEMPLAMA improvement does not come from the calendar tool because the calendar API is used for only 0.2% of TEMPLAMA examples [S03].
++- Toolformer does not degrade ordinary language-modeling perplexity when API calls are disabled: the paper reports Toolformer-disabled perplexity of 10.3 on WikiText and 10.5 on CCNet, matching GPT-J+CC on both datasets [S03].
++- The paper's scaling analysis finds that useful tool leverage emerges around 775M parameters for the tested GPT-2/GPT-J family, while smaller models perform similarly with and without tools [S03].
++
++## Evidence and Sources
++
++S03 is a high-quality public paper/PDF in the manifest, dated 2023-02-09, and is the primary source for this page's method, tool inventory, benchmark, and limitation claims [S03].
++
++The downstream experiments use prompted zero-shot evaluation, meaning models are instructed in natural language but are not given task-specific in-context examples of how to use tools for the benchmark being solved [S03].
++
++Toolformer is evaluated against GPT-J, GPT-J+CC, Toolformer with API calls disabled, OPT 66B, and GPT-3 175B across reported benchmark tables [S03].
++
++## Limitations and Counter-Evidence
++
++Toolformer cannot use tools in a chain in the reported setup, because API calls for each tool are generated independently and the fine-tuning data contains no examples of using one tool's output as another tool's input [S03].
++
++The reported approach does not allow interactive tool use, so a model cannot browse multiple search results or refine a query when a search engine returns poor results [S03].
++
++The paper reports sensitivity to exact input wording when deciding whether to call an API, consistent with known prompt sensitivity in zero-shot and few-shot language-model settings [S03].
++
++Toolformer can be sample-inefficient for some tools; the authors note that processing more than a million documents yields only a few thousand useful calculator-call examples [S03].
++
++The reported method does not account for tool-dependent computational cost when deciding whether to make an API call [S03].
++
++Toolformer trails GPT-3 175B on the reported WebQuestions, Natural Questions, and TriviaQA rows, which the authors attribute partly to the simplicity of the search engine and lack of interactive query refinement [S03].
++
++## Links to Other Pages
++
++- [[index|Knowledge Base Index]]
++- [[react-reasoning-and-acting|ReAct Reasoning and Acting]]
++- [[retrieval-augmented-generation|Retrieval-Augmented Generation]]
++
++## Open Questions
++
++- How should enterprise agents price tool calls when the Toolformer objective does not include tool-specific latency, money, or risk costs [S03]?
++- Can self-supervised API-call filtering be combined with ReAct-style interactive planning so a model can both learn tool affordances and refine failed tool calls over multiple steps [S02] [S03]?
++- What safeguards are needed before a self-supervised tool-use model can learn from logs that include sensitive or permissioned enterprise tool outputs source-needed?
+
+# Untracked evidence file diff
+
+diff --git "a/evidence\\2026-07-09_ingest_S03_excerpts.md" "b/evidence\\2026-07-09_ingest_S03_excerpts.md"
+new file mode 100644
+index 0000000..537e814
+--- /dev/null
++++ "b/evidence\\2026-07-09_ingest_S03_excerpts.md"
+@@ -0,0 +1,17 @@
++# S03 Ingest Evidence Notes
++
++Source: S03, `raw/S03.pdf`, "Toolformer: Language Models Can Teach Themselves to Use Tools" by Schick et al., manifest date 2023-02-09.
++
++Verification notes:
++
++- PDF extraction reported 17 pages.
++- Manifest labels S03 as a public, high-quality paper/PDF intended for when and how models choose tools.
++- Method checked: sample candidate API calls, execute calls, filter by future-token loss reduction, and fine-tune GPT-J on API-augmented CCNet text.
++- Tool inventory checked: question answering with Atlas, BM25 Wikipedia search over KILT Wikipedia, calculator with four arithmetic operations and two-decimal rounding, NLLB 600M machine translation into English, and calendar returning current date.
++- Dataset/counts checked from Table 2 for `tau_f = 1.0`: QA 18,526; Wikipedia Search 60,974; Calculator 994; Calendar 20,587; Machine Translation 1,034.
++- Training details checked from main text and Appendix B: GPT-J 6.7B base, batch size 128, learning rate `1e-5`, 10% warmup, up to 25,000 examples per API, max sequence length 1,024, DeepSpeed ZeRO-3, 8 NVIDIA A100 40GB GPUs, BF16.
++- Benchmark numbers checked from Tables 3-8: LAMA, math, QA, MLQA, temporal datasets, and language-modeling perplexity.
++- Limitations checked from Section 7: no chained tool use, no interactive search/query refinement, input-wording sensitivity, sample inefficiency, and no tool-cost awareness.
++- Relationship checked against existing S02 ReAct page: Toolformer and ReAct both concern tool use, but S03 uses self-supervised fine-tuning for API insertion while S02 uses prompted thought/action/observation trajectories.
++
++No contradiction with existing S01 or S02 pages was detected; S03 adds a distinct self-supervised tool-use learning mechanism.
